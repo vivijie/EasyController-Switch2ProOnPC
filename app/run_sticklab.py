@@ -22,50 +22,6 @@ import webbrowser
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
-class _Tee:
-    """同时写控制台和日志文件"""
-
-    def __init__(self, *streams):
-        self.streams = streams
-
-    def write(self, data):
-        for stream in self.streams:
-            try:
-                stream.write(data)
-                stream.flush()
-            except Exception:
-                pass
-
-    def flush(self):
-        for stream in self.streams:
-            try:
-                stream.flush()
-            except Exception:
-                pass
-
-    def isatty(self):
-        return False
-
-
-def _setup_log():
-    """把 stdout/stderr 接到 logs/sticklab.log"""
-    log_dir = os.path.join(BASE, 'logs')
-    try:
-        os.makedirs(log_dir, exist_ok=True)
-    except Exception:
-        return None
-    path = os.path.join(log_dir, 'sticklab.log')
-    try:
-        handle = open(path, 'a', encoding='utf-8', buffering=1)
-    except Exception:
-        return None
-    handle.write('\n' + '=' * 60 + '\n')
-    handle.write('启动 %s\n' % time.strftime('%Y-%m-%d %H:%M:%S'))
-    handle.write('=' * 60 + '\n')
-    sys.stdout = _Tee(sys.__stdout__, handle)
-    sys.stderr = _Tee(sys.__stderr__, handle)
-    return path
-
 sys.path.insert(0, BASE)
 
 
@@ -140,7 +96,6 @@ def check_environment():
 
 
 def main():
-    _setup_log()
 
     # 由服务自重启时设置：先等旧进程释放端口
     _delay = float(os.environ.get("STICKLAB_START_DELAY", "0") or 0)

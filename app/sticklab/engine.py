@@ -71,8 +71,8 @@ SQUARE_DEADZONE_SWITCH = {
 
 # 方形映射强度（0=纯圆 1=纯方）
 SQUARE_MAPPING_STRENGTH = {
-    'left_stick': 0.3,
-    'right_stick': 0.3,
+    'left_stick': 0.0,
+    'right_stick': 0.0,
 }
 
 # 虚拟手柄更新率
@@ -83,8 +83,9 @@ UPDATE_RATE = 1000
 # 默认两点 (0,0) (1,1) = 完全线性。
 # 作用方式：对每个轴单独映射 —— v_out = sign(v) * curve(|v|)
 CURVE_POINTS = {
+    # 左摇杆默认线性；右摇杆默认 Sacred（瞄准用的渐进加速）
     'left': [[0.0, 0.0], [1.0, 1.0]],
-    'right': [[0.0, 0.0], [1.0, 1.0]],
+    'right': [[0.0, 0.0], [0.25, 0.24], [0.5, 0.564], [0.75, 0.779], [1.0, 1.0]],
 }
 
 
