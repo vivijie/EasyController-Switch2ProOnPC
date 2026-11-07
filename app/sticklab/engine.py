@@ -481,7 +481,7 @@ def apply_square_mapping(x, y, strength):
 # 'none'   —— 完全关闭方圆算法：逐轴独立处理，不做径向归一
 # 'circle' —— 圆形：按径向归一，对角输出 0.707
 # 'square' —— 方形：逐轴保持，对角 1.0
-SHAPE_ALGORITHM = 'none'
+SHAPE_ALGORITHM = 'circle'
 # 强制方形混合强度（0~1）；None 表示由 SHAPE_ALGORITHM 决定
 SHAPE_MAPPING_STRENGTH_OVERRIDE = None
 
