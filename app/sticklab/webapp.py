@@ -954,7 +954,7 @@ class LabState(object):
 
 
 def _log(message):
-    """带时间戳的日志（同时进控制台和 logs/sticklab.log）"""
+    """带时间戳的控制台输出（不写文件）"""
     stamp = time.strftime('%H:%M:%S')
     try:
         print('[%s] %s' % (stamp, message), flush=True)
