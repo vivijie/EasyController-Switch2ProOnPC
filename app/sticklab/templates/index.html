@@ -1151,24 +1151,38 @@ const DEFAULT_BUTTON_MAP = {
   20: {xinput: 'None', keys: []}
 };
 
-/* 这颗键是否保持出厂映射 */
-function isDefaultMapping(index, entry){
-  const def = DEFAULT_BUTTON_MAP[index];
-  if(!def) return true;
-  const keys = (entry.keys || []).filter(Boolean);
-  const defKeys = def.keys || [];
-  return entry.xinput === def.xinput &&
-         keys.length === defKeys.length &&
-         keys.every((k, i)=> k === defKeys[i]);
-}
 
-/* XInput 目标 → 手柄图上的短标签 */
-const XINPUT_LABELS = {
-  'A': 'A', 'B': 'B', 'X': 'X', 'Y': 'Y',
-  'LB': 'L', 'RB': 'R', 'LT': 'ZL', 'RT': 'ZR',
-  'START': '+', 'BACK': '−', 'LS': 'L3', 'RS': 'R3',
-  'DPAD_UP': '↑', 'DPAD_DOWN': '↓', 'DPAD_LEFT': '←', 'DPAD_RIGHT': '→'
+/* ================================================================
+   按键显示总表
+   表头是英文 id（虚拟手柄键），每行是该键在三种手柄方案下显示的文字。
+   手柄 UI、改键面板、下拉菜单，全部从这里取字。
+   ================================================================ */
+const TARGET_TEXT = {
+  //  id             Switch   Xbox    PS5
+  'A':           {switch:'B',  xbox:'A',  ps:'✕'},
+  'B':           {switch:'A',  xbox:'B',  ps:'○'},
+  'X':           {switch:'Y',  xbox:'X',  ps:'□'},
+  'Y':           {switch:'X',  xbox:'Y',  ps:'△'},
+  'LB':          {switch:'L',  xbox:'LB', ps:'L1'},
+  'RB':          {switch:'R',  xbox:'RB', ps:'R1'},
+  'LT':          {switch:'ZL', xbox:'LT', ps:'L2'},
+  'RT':          {switch:'ZR', xbox:'RT', ps:'R2'},
+  'START':       {switch:'+',  xbox:'☰',  ps:'Options'},
+  'BACK':        {switch:'−',  xbox:'⧉',  ps:'Share'},
+  'LS':          {switch:'L3', xbox:'L3', ps:'L3'},
+  'RS':          {switch:'R3', xbox:'R3', ps:'R3'},
+  'DPAD_UP':     {switch:'↑',  xbox:'↑',  ps:'↑'},
+  'DPAD_DOWN':   {switch:'↓',  xbox:'↓',  ps:'↓'},
+  'DPAD_LEFT':   {switch:'←',  xbox:'←',  ps:'←'},
+  'DPAD_RIGHT':  {switch:'→',  xbox:'→',  ps:'→'},
+  'None':        {switch:'—',  xbox:'—',  ps:'—'}
 };
+
+/* 取某个虚拟手柄键在当前方案下的显示文字 */
+function targetText(target){
+  const row = TARGET_TEXT[target] || TARGET_TEXT['None'];
+  return row[SCHEME] || row.switch || target;
+}
 
 function applyLabels(){
   const table = SCHEME_LABELS[SCHEME] || SCHEME_LABELS.switch;
@@ -1185,15 +1199,10 @@ function applyLabels(){
     const xinput = entry.xinput || 'None';
 
     let label = null;
-    if(isDefaultMapping(index, entry)){
-      // 没改过：按「手柄按键显示文字」的方案显示（Switch / Xbox / PS5）
-      label = table[index];
-    }else if(keys.length){
-      label = keys.join('+');                // 键盘映射：完整组合键 alt+f10
-    }else if(xinput && xinput !== 'None'){
-      label = XINPUT_LABELS[xinput] || xinput;   // 改过的手柄键：显示实际输出
+    if(keys.length){
+      label = keys.join('+');                // 键盘映射：直接显示键盘文字
     }else{
-      label = '—';                           // 改成了 None
+      label = targetText(xinput);            // 手柄映射：按当前方案显示
     }
     if(label === undefined || label === null) return;
 
@@ -1225,11 +1234,14 @@ function renderKeyPanel(){
 
   const isKb = (entry.keys || []).length > 0 || entry.xinput === 'None';
   const padValue = (!isKb && entry.xinput && entry.xinput !== 'None')
-    ? entry.xinput : '—';
+    ? targetText(entry.xinput) : '—';
   const keyValue = isKb ? entry.keys.join('+') : '—';
-  const options = XTARGETS.map(t=>
-    '<option value="' + t + '"' + (t === entry.xinput ? ' selected' : '') +
-    '>' + t + '</option>').join('');
+  const options = XTARGETS.map(t=>{
+    const text = (t === 'None') ? '无（不输出）' : targetText(t);
+    return '<option value="' + t + '"' +
+           (t === entry.xinput ? ' selected' : '') +
+           '>' + text + '</option>';
+  }).join('');
   const isKeyboard = (entry.keys || []).length > 0;
   body.innerHTML =
     '<div class="kv-pair">' +
@@ -1272,7 +1284,7 @@ function renderKeyPanel(){
 
     const padEl = body.querySelector('.kv-pad');
     const keyEl = body.querySelector('.kv-key');
-    if(padEl) padEl.textContent = keyboard ? '—' : $('mapTarget').value;
+    if(padEl) padEl.textContent = keyboard ? '—' : targetText($('mapTarget').value);
     if(keyEl) keyEl.textContent = keyboard ? (keys.join('+') || '—') : '—';
 
     applyLabels();
@@ -2731,6 +2743,7 @@ $('labelScheme').onchange = (e)=>{
     localStorage.setItem('sticklab.labels', SCHEME);
   }catch(err){}
   applyLabels();
+  renderKeyPanel();      // 同步刷新改键面板（下拉 / 键值 / 标题）
 };
 
 let CURRENT_TAB = 'connect';

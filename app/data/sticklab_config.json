@@ -1,32 +1,32 @@
 {
   "version": 4,
-  "saved_at": "2026-11-08 07:24:19",
+  "saved_at": "2026-11-08 07:35:34",
   "calibration": {
     "limits": {
       "left": {
-        "min_x": -0.77387,
-        "max_x": 0.84997,
-        "min_y": -0.77157,
-        "max_y": 0.75019
+        "min_x": -0.76858,
+        "max_x": 0.87091,
+        "min_y": -0.79001,
+        "max_y": 0.75717
       },
       "right": {
-        "min_x": -0.77448,
-        "max_x": 0.70523,
-        "min_y": -0.77249,
-        "max_y": 0.78247
+        "min_x": -0.78605,
+        "max_x": 0.70293,
+        "min_y": -0.77277,
+        "max_y": 0.81103
       }
     },
     "offsets": {
       "left": {
-        "x": -0.00689,
-        "y": 0.06161
+        "x": -0.01218,
+        "y": 0.07468
       },
       "right": {
-        "x": 0.0401,
-        "y": 0.01517
+        "x": 0.0424,
+        "y": 0.02033
       }
     },
-    "saved_at": "2026-11-07 22:43:06",
+    "saved_at": "2026-11-08 07:35:13",
     "joystick_name": ""
   },
   "curve_points": {
@@ -82,12 +82,12 @@
     },
     "deadzone_config": {
       "left": {
-        "deadzone": -0.025,
-        "outer_threshold": 0.78,
+        "deadzone": -0.05,
+        "outer_threshold": 0.9,
         "response_curve": 1.0
       },
       "right": {
-        "deadzone": -0.01,
+        "deadzone": 0.0,
         "outer_threshold": 1.0,
         "response_curve": 1.0
       }
@@ -187,7 +187,7 @@
       ]
     },
     "18": {
-      "xinput": "B",
+      "xinput": "X",
       "keys": []
     },
     "19": {
@@ -196,10 +196,7 @@
     },
     "20": {
       "xinput": "None",
-      "keys": [
-        "shift",
-        "tab"
-      ]
+      "keys": []
     }
   }
 }

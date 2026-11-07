@@ -175,6 +175,20 @@ def apply_axis_curve(value, points):
     return result if value > 0 else -result
 
 
+
+def apply_radial_curve(x, y, points):
+    """把曲线作用在半径上，保持方向不变（圆形输出不会被撑歪）"""
+    radius = (x * x + y * y) ** 0.5
+    if radius < 1e-9:
+        return x, y
+
+    capped = min(1.0, radius)
+    mapped = apply_axis_curve(capped, points)
+
+    scale = mapped / radius
+    return x * scale, y * scale
+
+
 def set_curve_points(stick, points):
     """设置某个摇杆的曲线（自动整理）"""
     if stick not in ('left', 'right'):
@@ -619,11 +633,9 @@ class Engine(object):
         left_curve = CURVE_POINTS['left']
         right_curve = CURVE_POINTS['right']
         if not is_identity_curve(left_curve):
-            left_x = apply_axis_curve(left_x, left_curve)
-            left_y = apply_axis_curve(left_y, left_curve)
+            left_x, left_y = apply_radial_curve(left_x, left_y, left_curve)
         if not is_identity_curve(right_curve):
-            right_x = apply_axis_curve(right_x, right_curve)
-            right_y = apply_axis_curve(right_y, right_curve)
+            right_x, right_y = apply_radial_curve(right_x, right_y, right_curve)
         after_curve = {'left': (left_x, left_y), 'right': (right_x, right_y)}
 
         # ===== 第 4 步：方圆区域映射 =====
