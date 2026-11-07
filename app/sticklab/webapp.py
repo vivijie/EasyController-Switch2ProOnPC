@@ -110,18 +110,30 @@ class LabState(object):
 
     def __init__(self):
         self.lock = threading.Lock()
-        calibration = load_legacy_calibration()
-        if calibration:
-            print('[校准] 已载入原程序校准数据: '
-                  f"{calibration.get('saved_at') or '未知时间'}")
-        else:
-            print('[校准] 未找到原程序校准文件，使用默认值（建议先跑一次校准）')
-            calibration = E.default_calibration()
+
+        # 先读应用自己的配置（网页里校准的结果存在这里）
+        saved_settings = load_saved_settings()
+        calibration = None
+        if isinstance(saved_settings, dict):
+            saved_cal = saved_settings.get('calibration')
+            if isinstance(saved_cal, dict) and saved_cal.get('limits'):
+                calibration = saved_cal
+                print('[校准] 已载入上次校准数据: '
+                      + str(saved_cal.get('saved_at') or '未知时间'))
+
+        # 没有保存过才退回原程序的校准文件，再没有才用默认值
+        if calibration is None:
+            calibration = load_legacy_calibration()
+            if calibration:
+                print('[校准] 已载入原程序校准数据: '
+                      f"{calibration.get('saved_at') or '未知时间'}")
+            else:
+                print('[校准] 未找到校准数据，使用默认值（建议先跑一次校准）')
+                calibration = E.default_calibration()
+
         self.calibration = E.normalize_calibration(calibration)
         self.engine = E.Engine(self.calibration)
 
-        # 载入保存过的曲线点（没有就用线性）
-        saved_settings = load_saved_settings()
         if saved_settings:
             saved_curves = saved_settings.get('curve_points')
             if isinstance(saved_curves, dict):

@@ -1,32 +1,32 @@
 {
   "version": 4,
-  "saved_at": "2026-11-07 20:48:39",
+  "saved_at": "2026-11-07 22:43:06",
   "calibration": {
     "limits": {
       "left": {
-        "min_x": -0.7699,
-        "max_x": 0.88424,
-        "min_y": -0.79033,
-        "max_y": 0.74168
+        "min_x": -0.77387,
+        "max_x": 0.84997,
+        "min_y": -0.77157,
+        "max_y": 0.75019
       },
       "right": {
-        "min_x": -0.76436,
-        "max_x": 0.71879,
-        "min_y": -0.84932,
-        "max_y": 0.76033
+        "min_x": -0.77448,
+        "max_x": 0.70523,
+        "min_y": -0.77249,
+        "max_y": 0.78247
       }
     },
     "offsets": {
       "left": {
-        "x": -0.01379,
-        "y": 0.06816
+        "x": -0.00689,
+        "y": 0.06161
       },
       "right": {
-        "x": 0.03438,
-        "y": 0.02705
+        "x": 0.0401,
+        "y": 0.01517
       }
     },
-    "saved_at": "2026-11-07 20:48:39",
+    "saved_at": "2026-11-07 22:43:06",
     "joystick_name": ""
   },
   "curve_points": {
@@ -82,8 +82,8 @@
     },
     "deadzone_config": {
       "left": {
-        "deadzone": -0.05,
-        "outer_threshold": 0.9,
+        "deadzone": -0.025,
+        "outer_threshold": 0.78,
         "response_curve": 1.0
       },
       "right": {
@@ -101,7 +101,7 @@
       "right_stick": 0
     },
     "square_mapping_strength": {
-      "left_stick": 0.3,
+      "left_stick": 0.55,
       "right_stick": 0.0
     },
     "amplifier_mode": "radial",
@@ -187,11 +187,11 @@
       ]
     },
     "18": {
-      "xinput": "X",
+      "xinput": "B",
       "keys": []
     },
     "19": {
-      "xinput": "A",
+      "xinput": "X",
       "keys": []
     },
     "20": {
