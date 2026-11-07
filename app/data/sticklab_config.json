@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "saved_at": "2026-11-07 22:50:15",
+  "saved_at": "2026-11-08 04:46:29",
   "calibration": {
     "limits": {
       "left": {
@@ -101,7 +101,7 @@
       "right_stick": 0
     },
     "square_mapping_strength": {
-      "left_stick": 0.55,
+      "left_stick": 0.0,
       "right_stick": 0.0
     },
     "amplifier_mode": "radial",

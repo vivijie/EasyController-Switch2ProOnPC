@@ -2,3 +2,4 @@
 *.log
 app/data/sticklab_config.json
 /app/logs
+/app/logs

@@ -20,7 +20,8 @@
   header h1 .logo{font-size:1.2em;line-height:1;display:inline-block}
   nav{flex:1;margin-left:8px;display:flex;align-items:center;gap:4px}
   nav .tab-right{margin-left:auto;margin-right:0;padding-right:6px}
-  .tab.tab-right{margin-left:auto;margin-right:6px}
+  .tab.tab-right{margin-left:auto}
+  .tab.tab-right + .tab{margin-left:2px;margin-right:6px}
   .tab{padding:8px 20px;border-radius:8px;cursor:pointer;color:var(--dim);
        border:1px solid transparent;font-size:13px}
   .tab.active{background:rgba(76,154,255,.14);border-color:var(--accent);
@@ -29,6 +30,10 @@
   .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;
          padding:16px;margin-bottom:14px}
   .panel h2{font-size:13px;margin:0 0 12px;color:var(--accent);font-weight:600}
+  .nav-ext{color:var(--dim);text-decoration:none;display:flex;align-items:center;
+           gap:4px;white-space:nowrap}
+  .nav-ext:hover{color:var(--accent);border-color:var(--line);
+                 background:rgba(76,154,255,.08)}
   #keyTitle{font-size:19px;margin-bottom:14px}
   .panel h2 .hint{font-weight:400;color:var(--dim);font-size:11px;margin-left:8px}
   .row{display:flex;align-items:center;gap:10px;margin:9px 0;flex-wrap:wrap}
@@ -253,7 +258,9 @@
     <div class="tab active" data-tab="connect">连接手柄</div>
     <div class="tab" data-tab="keys">键位设置</div>
     <div class="tab" data-tab="stick">摇杆设置</div>
-    <div class="tab tab-right" data-tab="about">关于</div>
+    <a class="tab tab-right nav-ext" href="https://hardwaretester.com/gamepad"
+       target="_blank" rel="noopener noreferrer">手柄测试网站 ↗</a>
+    <div class="tab" data-tab="about">关于</div>
   </nav>
 </header>
 

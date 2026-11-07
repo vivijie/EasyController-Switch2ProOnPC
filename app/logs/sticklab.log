@@ -7369,3 +7369,1568 @@ Hello from the pygame community. https://www.pygame.org/contribute.html
 127.0.0.1 - - [07/Nov/2026 23:00:14] "GET /api/status HTTP/1.1" 200 -
 127.0.0.1 - - [07/Nov/2026 23:00:15] "GET /api/status HTTP/1.1" 200 -
 127.0.0.1 - - [07/Nov/2026 23:00:15] "GET /api/status HTTP/1.1" 200 -
+
+============================================================
+启动 2026-11-07 23:01:39
+============================================================
+==================================================================
+StickLab 启动器
+==================================================================
+  Python: C:\Users\Admin\AppData\Local\Programs\Python\Python311\python.exe
+  版本:   3.11.4
+  目录:   C:\Users\Admin\Desktop\EasyController\EasyController\app
+
+[1/4] 检查依赖库
+      ✅ flask 已安装
+[2/4] 检查文件
+      ✅ 文件完整
+[3/4] 检查模块导入
+[校准] 已载入上次校准数据: 2026-11-07 22:43:06
+      ✅ 模块导入正常
+[4/4] 检查引擎
+      ✅ 引擎正常（右输出 0.500, -0.375）
+
+------------------------------------------------------------------
+✅ 自检通过
+
+🚀 正在启动服务: http://127.0.0.1:8899
+   服务运行期间请保持本窗口打开，关闭即停止。
+   按 Ctrl+C 可退出
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8899
+Press CTRL+C to quit
+[手柄] 正在自动检测 Switch2 Pro…
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+127.0.0.1 - - [07/Nov/2026 23:01:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:40] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:40] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [07/Nov/2026 23:01:40] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [07/Nov/2026 23:01:40] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:40] "GET /favicon.ico HTTP/1.1" 404 -
+[输出] 虚拟 XInput 手柄已启动
+[输出] ✅ 虚拟 XInput 手柄已启动
+127.0.0.1 - - [07/Nov/2026 23:01:41] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:41] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:42] "GET /api/status HTTP/1.1" 200 -
+[23:01:42] 重新检测：开始（force=True）
+127.0.0.1 - - [07/Nov/2026 23:01:42] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:42] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:43] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:43] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:44] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:45] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:45] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:46] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:46] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:47] "GET /api/output HTTP/1.1" 200 -
+[23:01:47] 重新检测：结果 ok=True msg=已连接：If_Hid（pygame 读取） activation=已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Program[手柄] ✅ 已连接：If_Hid（pygame 读取）
+
+[手柄] 已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\libusb_package\libusb-1.0.dll）
+[23:01:47] 重新检测：设备存在=True 冷却允许=True
+127.0.0.1 - - [07/Nov/2026 23:01:47] "POST /api/device/scan HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:50] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:53] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:55] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:01:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:00] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:01] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:01] "GET /api/stream HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:01] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 23:02:03] "GET /api/status HTTP/1.1" 200 -
+
+============================================================
+启动 2026-11-08 04:38:43
+============================================================
+==================================================================
+StickLab 启动器
+==================================================================
+  Python: C:\Users\Admin\AppData\Local\Programs\Python\Python311\python.exe
+  版本:   3.11.4
+  目录:   C:\Users\Admin\Desktop\EasyController\EasyController\app
+
+[1/4] 检查依赖库
+      ✅ flask 已安装
+[2/4] 检查文件
+      ✅ 文件完整
+[3/4] 检查模块导入
+[校准] 已载入上次校准数据: 2026-11-07 22:43:06
+      ✅ 模块导入正常
+[4/4] 检查引擎
+      ✅ 引擎正常（右输出 0.500, -0.375）
+
+------------------------------------------------------------------
+✅ 自检通过
+
+🚀 正在启动服务: http://127.0.0.1:8899
+   服务运行期间请保持本窗口打开，关闭即停止。
+   按 Ctrl+C 可退出
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8899
+Press CTRL+C to quit
+[手柄] 正在自动检测 Switch2 Pro…
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+127.0.0.1 - - [08/Nov/2026 04:38:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:44] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:45] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+[输出] 虚拟 XInput 手柄已启动127.0.0.1 - - [08/Nov/2026 04:38:45] "
+GET /static/game-apex.webp HTTP/1.1[输出] ✅ 虚拟 XInput 手柄已启动" 304 -
+
+127.0.0.1 - - [08/Nov/2026 04:38:45] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [08/Nov/2026 04:38:45] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:45] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:46] "GET /api/status HTTP/1.1" 200 -
+[04:38:46] 重新检测：开始（force=True）127.0.0.1 - - [08/Nov/2026 04:38:46] "GET /api/device/status HTTP/1.1" 200 -
+
+127.0.0.1 - - [08/Nov/2026 04:38:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:48] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:48] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:48] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:48] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:49] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:49] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:51] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:51] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:51] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:51] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:52] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:52] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:53] "GET /api/device/status HTTP/1.1" 200 -
+[04:38:53] 重新检测：结果 ok=True msg=已连接：If_Hid（pygame 读取） activation=已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Program[手柄] ✅ 已连接：If_Hid（pygame 读取）
+
+[手柄] 已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\libusb_package\libusb-1.0.dll）
+[04:38:53] 重新检测：设备存在=True 冷却允许=True
+127.0.0.1 - - [08/Nov/2026 04:38:53] "POST /api/device/scan HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:54] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:54] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:54] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:54] "GET /api/stream HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:56] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:38:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:01] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:04] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:04] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:07] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:07] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:10] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:10] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:13] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:13] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:18] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:18] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:21] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:21] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:24] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:24] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:27] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:27] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:30] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:30] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:30] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:33] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:33] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:36] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:36] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:44] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:45] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:52] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:53] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:58] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:39:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:03] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:08] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:17] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:18] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:23] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:28] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:33] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:38] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:43] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:48] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:58] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:40:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:03] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:08] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:13] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:18] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:23] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:28] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:32] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:35] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:35] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:38] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:38] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:41] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:41] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:44] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:47] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:47] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:50] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:53] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:56] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:56] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:59] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:59] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:41:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:02] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:02] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:02] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:05] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:05] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:08] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:08] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:11] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:11] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:14] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:14] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:17] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:17] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:17] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:20] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:20] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:23] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:23] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:24] "GET /api/status HTTP/1.1" 200 -
+
+============================================================
+启动 2026-11-08 04:42:30
+============================================================
+==================================================================
+StickLab 启动器
+==================================================================
+  Python: C:\Users\Admin\AppData\Local\Programs\Python\Python311\python.exe
+  版本:   3.11.4
+  目录:   C:\Users\Admin\Desktop\EasyController\EasyController\app
+
+[1/4] 检查依赖库
+      ✅ flask 已安装
+[2/4] 检查文件
+      ✅ 文件完整
+[3/4] 检查模块导入
+[校准] 已载入上次校准数据: 2026-11-07 22:43:06
+      ✅ 模块导入正常
+[4/4] 检查引擎
+      ✅ 引擎正常（右输出 0.500, -0.375）
+
+------------------------------------------------------------------
+✅ 自检通过
+
+🚀 正在启动服务: http://127.0.0.1:8899
+   服务运行期间请保持本窗口打开，关闭即停止。
+   按 Ctrl+C 可退出
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8899
+Press CTRL+C to quit
+127.0.0.1 - - [08/Nov/2026 04:42:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET /api/status HTTP/1.1" 200 -
+[手柄] 正在自动检测 Switch2 Pro…
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:42:31] "GET /api/output HTTP/1.1" 200 -
+[输出] 虚拟 XInput 手柄已启动
+[输出] ✅ 虚拟 XInput 手柄已启动
+127.0.0.1 - - [08/Nov/2026 04:42:32] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:32] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:33] "GET /api/status HTTP/1.1" 200 -
+[04:42:34] 重新检测：开始（force=True）127.0.0.1 - - [08/Nov/2026 04:42:34] "GET /api/device/status HTTP/1.1" 200 -
+
+127.0.0.1 - - [08/Nov/2026 04:42:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:34] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:35] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:35] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:35] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:35] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:36] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:36] "GET /api/status HTTP/1.1" 200 -
+[手柄] ✅ 已连接：If_Hid（pygame 读取）
+[手柄] 已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\libusb_package\libusb-1.0.dll）
+127.0.0.1 - - [08/Nov/2026 04:42:36] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:36] "GET /api/status HTTP/1.1" 200 -
+[04:42:36] 重新检测：结果 ok=True msg=已连接：If_Hid（pygame 读取） activation=已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Program
+[04:42:36] 重新检测：设备存在=True 冷却允许=True
+127.0.0.1 - - [08/Nov/2026 04:42:36] "POST /api/device/scan HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:36] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:38] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:38] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:41] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:41] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:45] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:45] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:48] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:48] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:51] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:51] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:54] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:54] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:57] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:57] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:57] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:42:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:00] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:00] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:06] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:06] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:09] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:09] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:15] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:15] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:15] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:16] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:19] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:19] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:22] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:22] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:25] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:25] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:28] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:28] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:31] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:31] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:31] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:33] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:38] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:38] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:41] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:46] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:51] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:51] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:54] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:56] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:43:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:01] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:04] "GET /api/status HTTP/1.1" 200 -
+
+============================================================
+启动 2026-11-08 04:44:38
+============================================================
+==================================================================
+StickLab 启动器
+==================================================================
+  Python: C:\Users\Admin\AppData\Local\Programs\Python\Python311\python.exe
+  版本:   3.11.4
+  目录:   C:\Users\Admin\Desktop\EasyController\EasyController\app
+
+[1/4] 检查依赖库
+      ✅ flask 已安装
+[2/4] 检查文件
+      ✅ 文件完整
+[3/4] 检查模块导入
+[校准] 已载入上次校准数据: 2026-11-07 22:43:06
+      ✅ 模块导入正常
+[4/4] 检查引擎
+      ✅ 引擎正常（右输出 0.500, -0.375）
+
+------------------------------------------------------------------
+✅ 自检通过
+
+🚀 正在启动服务: http://127.0.0.1:8899
+   服务运行期间请保持本窗口打开，关闭即停止。
+   按 Ctrl+C 可退出
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8899
+Press CTRL+C to quit
+[手柄] 正在自动检测 Switch2 Pro…
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET /api/output HTTP/1.1" 200 -
+[输出] 虚拟 XInput 手柄已启动
+[输出] ✅ 虚拟 XInput 手柄已启动
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:40] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:41] "GET /api/status HTTP/1.1" 200 -
+[04:44:41] 重新检测：开始（force=True）
+127.0.0.1 - - [08/Nov/2026 04:44:41] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:42] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:42] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:43] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:43] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:43] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:43] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:45] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:45] "GET /api/device/status HTTP/1.1" 200 -
+[手柄] ✅ 已连接：If_Hid（pygame 读取）[04:44:46] 重新检测：结果 ok=True msg=已连接：If_Hid（pygame 读取） activation=已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Program
+
+[手柄] 已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\libusb_package\libusb-1.0.dll）
+[04:44:46] 重新检测：设备存在=True 冷却允许=True
+127.0.0.1 - - [08/Nov/2026 04:44:46] "POST /api/device/scan HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:46] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:46] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:46] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:48] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:58] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:44:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:03] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:08] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:15] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:15] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:18] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:18] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:19] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:19] "GET /api/stream HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:20] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:22] "GET /api/status HTTP/1.1" 200 -
+
+============================================================
+启动 2026-11-08 04:45:26
+============================================================
+==================================================================
+StickLab 启动器
+==================================================================
+  Python: C:\Users\Admin\AppData\Local\Programs\Python\Python311\python.exe
+  版本:   3.11.4
+  目录:   C:\Users\Admin\Desktop\EasyController\EasyController\app
+
+[1/4] 检查依赖库
+      ✅ flask 已安装
+[2/4] 检查文件
+      ✅ 文件完整
+[3/4] 检查模块导入
+[校准] 已载入上次校准数据: 2026-11-07 22:43:06
+      ✅ 模块导入正常
+[4/4] 检查引擎
+      ✅ 引擎正常（右输出 0.500, -0.375）
+
+------------------------------------------------------------------
+✅ 自检通过
+
+🚀 正在启动服务: http://127.0.0.1:8899
+   服务运行期间请保持本窗口打开，关闭即停止。
+   按 Ctrl+C 可退出
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8899
+Press CTRL+C to quit
+127.0.0.1 - - [08/Nov/2026 04:45:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:27] "GET /api/status HTTP/1.1" 200 -
+[手柄] 正在自动检测 Switch2 Pro…
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:28] "GET /api/status HTTP/1.1" 200 -
+[输出] 虚拟 XInput 手柄已启动
+[输出] ✅ 虚拟 XInput 手柄已启动
+127.0.0.1 - - [08/Nov/2026 04:45:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:30] "GET /api/status HTTP/1.1" 200 -
+[04:45:30] 重新检测：开始（force=True）
+127.0.0.1 - - [08/Nov/2026 04:45:30] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:31] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:31] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:31] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:31] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:32] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:32] "GET /api/device/status HTTP/1.1" 200 -
+[手柄] ✅ 已连接：If_Hid（pygame 读取）127.0.0.1 - - [08/Nov/2026 04:45:32] "GET /api/status HTTP/1.1" 200 -
+
+[手柄] 已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\libusb_package\libusb-1.0.dll）
+127.0.0.1 - - [08/Nov/2026 04:45:33] "GET /api/device/status HTTP/1.1" 200 -
+[04:45:33] 重新检测：结果 ok=True msg=已连接：If_Hid（pygame 读取） activation=已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Program
+[04:45:33] 重新检测：设备存在=True 冷却允许=True
+127.0.0.1 - - [08/Nov/2026 04:45:33] "POST /api/device/scan HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:33] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:34] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:34] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:38] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:38] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:41] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:41] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:44] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:47] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:50] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:50] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:53] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:56] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:56] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:59] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:59] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:45:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:03] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:03] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:05] "GET /api/status HTTP/1.1" 200 -
+
+============================================================
+启动 2026-11-08 04:46:11
+============================================================
+==================================================================
+StickLab 启动器
+==================================================================
+  Python: C:\Users\Admin\AppData\Local\Programs\Python\Python311\python.exe
+  版本:   3.11.4
+  目录:   C:\Users\Admin\Desktop\EasyController\EasyController\app
+
+[1/4] 检查依赖库
+      ✅ flask 已安装
+[2/4] 检查文件
+      ✅ 文件完整
+[3/4] 检查模块导入
+[校准] 已载入上次校准数据: 2026-11-07 22:43:06
+      ✅ 模块导入正常
+[4/4] 检查引擎
+      ✅ 引擎正常（右输出 0.500, -0.375）
+
+------------------------------------------------------------------
+✅ 自检通过
+
+🚀 正在启动服务: http://127.0.0.1:8899
+   服务运行期间请保持本窗口打开，关闭即停止。
+   按 Ctrl+C 可退出
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8899
+Press CTRL+C to quit
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /api/status HTTP/1.1" 200 -
+[手柄] 正在自动检测 Switch2 Pro…
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /api/status HTTP/1.1" 200 -
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.4)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:46:12] "GET /api/output HTTP/1.1" 200 -
+[输出] 虚拟 XInput 手柄已启动
+[输出] ✅ 虚拟 XInput 手柄已启动
+127.0.0.1 - - [08/Nov/2026 04:46:13] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:13] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:15] "GET /api/status HTTP/1.1" 200 -
+[手柄] ✅ 已连接：If_Hid（pygame 读取）
+[手柄] 已发送 17/17 条激活命令（libusb: C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\libusb_package\libusb-1.0.dll）
+127.0.0.1 - - [08/Nov/2026 04:46:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:16] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:16] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:19] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:19] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:20] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:23] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:23] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:28] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:29] "POST /api/curves HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:29] "POST /api/params HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:29] "POST /api/buttonmap HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /static/game-yg84.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /static/game-apex.webp HTTP/1.1" 304 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /api/system/devices HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:47] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:47] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:50] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:50] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:53] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:53] "GET /api/output HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:55] "POST /api/monitor HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:46:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:00] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:05] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:10] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:15] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:20] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:25] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:30] "GET /api/device/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2026 04:47:33] "GET /api/status HTTP/1.1" 200 -
