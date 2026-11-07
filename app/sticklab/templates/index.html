@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EasyController</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#171c24; --panel2:#1e2530; --line:#2a3340;
+    --text:#e6edf3; --dim:#8b98a8; --accent:#4c9aff; --accent2:#46d39a;
+    --warn:#f0b429; --danger:#f2555a; --pink:#ff4fa3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+       font-family:'Segoe UI','Microsoft YaHei UI',system-ui,sans-serif;font-size:13px}
+  header{display:flex;align-items:center;gap:22px;padding:0 24px;height:56px;
+         background:#151a22;border-bottom:1px solid var(--line)}
+  header h1{font-size:15px;margin:0;font-weight:600;white-space:nowrap;
+            display:flex;align-items:center;gap:6px}
+  header h1 .logo{font-size:1.2em;line-height:1;display:inline-block}
+  nav{flex:1;margin-left:8px;display:flex;align-items:center;gap:4px}
+  nav .tab-right{margin-left:auto;margin-right:0;padding-right:6px}
+  .tab.tab-right{margin-left:auto;margin-right:6px}
+  .tab{padding:8px 20px;border-radius:8px;cursor:pointer;color:var(--dim);
+       border:1px solid transparent;font-size:13px}
+  .tab.active{background:rgba(76,154,255,.14);border-color:var(--accent);
+              color:var(--accent);font-weight:600}
+  main{max-width:1400px;margin:0 auto;padding:20px 24px 60px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+         padding:16px;margin-bottom:14px}
+  .panel h2{font-size:13px;margin:0 0 12px;color:var(--accent);font-weight:600}
+  #keyTitle{font-size:19px;margin-bottom:14px}
+  .panel h2 .hint{font-weight:400;color:var(--dim);font-size:11px;margin-left:8px}
+  .row{display:flex;align-items:center;gap:10px;margin:9px 0;flex-wrap:wrap}
+  .row label{min-width:96px;color:var(--dim);font-size:12px}
+  .kv{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+  .kv span:last-child{font-family:Consolas,monospace;color:var(--text)}
+  .kv span.rate{color:#2f6fbf;font-weight:600}
+  .note{color:var(--dim);font-size:11px;line-height:1.7}
+  .mono{font-family:Consolas,monospace}
+  button{background:var(--accent);color:#07101c;border:none;padding:8px 16px;
+         border-radius:7px;font-weight:600;cursor:pointer;font-size:12px}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+  button.big{padding:13px 34px;font-size:13px}
+  input[type=range]{flex:1;min-width:140px;height:4px;border-radius:2px;
+                    background:var(--line);appearance:none;outline:none}
+  input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;
+      border-radius:50%;background:var(--accent);cursor:pointer}
+  select,input[type=text],input[type=number]{background:var(--panel2);
+      border:1px solid var(--line);color:var(--text);padding:6px 9px;
+      border-radius:6px;font-size:12px;outline:none}
+  .val{min-width:56px;text-align:right;font-family:Consolas,monospace;color:var(--accent)}
+  .center{text-align:center;padding:70px 20px}
+  .hidden{display:none!important}
+  .save-badge{position:fixed;right:20px;bottom:20px;z-index:95;display:none;
+              background:var(--panel2);border:1px solid var(--warn);
+              border-radius:10px;padding:10px 16px;font-size:12.5px;
+              color:var(--warn);font-weight:600;
+              box-shadow:0 10px 26px #0008}
+  .save-badge.show{display:block}
+  .toast{position:fixed;right:20px;bottom:74px;background:var(--panel2);
+         border:1px solid var(--accent);padding:10px 16px;border-radius:8px;
+         opacity:0;transition:.3s;pointer-events:none;font-size:12px;z-index:99}
+  .toast.show{opacity:1}
+  .warnbox{border:1px solid var(--warn);background:rgba(240,180,41,.08);
+           border-radius:8px;padding:10px;font-size:11px;line-height:1.7;margin-top:10px}
+
+  .pad-panel{padding:24px 26px}
+  .pad-panel .remap{margin:0}
+  .key-slot{width:46px;text-align:center;cursor:pointer;padding:5px 4px;
+            font-size:12px}
+  .key-slot:focus{border-color:var(--accent2)}
+  .kv-pair{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;
+           margin:0 0 14px;padding:10px 12px;background:#0e131a;
+           border:1px solid var(--line);border-radius:8px;font-size:12px}
+  .kv-pair span:nth-child(odd){color:var(--dim)}
+  .kv-pad{color:var(--accent);font-weight:600}
+  .kv-key{color:var(--accent2);font-weight:600}
+  .remap-side{background:var(--panel2);border:1px solid var(--line);
+              border-radius:10px;padding:24px 26px}
+  .remap{display:grid;grid-template-columns:auto 330px;gap:100px;
+       align-items:center;justify-content:start}
+  @media(max-width:1000px){.remap{grid-template-columns:1fr}}
+  .pad-stage{width:auto;background:transparent;display:flex;
+             justify-content:flex-start}
+  .pad-stage svg{width:528px;max-width:528px;height:auto;display:block;
+                 overflow:visible;touch-action:manipulation}
+  /* 手柄线稿（配色适配深色主题，几何完全沿用设计稿） */
+  .pad-line{fill:#151b26;stroke:#2b3947;stroke-width:6.5;
+            stroke-linecap:round;stroke-linejoin:round}
+  .pad-key{fill:#242e3d;stroke:#38475c;stroke-width:5.5;
+           transition:fill .1s ease,stroke .1s ease}
+  .pad-key.solid{fill:#2f3b4f}                        /* 扳机 */
+  .pad-key.shoulder{fill:#3b4a61}                     /* 肩键 */
+  .pad-line.open{fill:none}
+  .pad-key.back{fill:rgba(40,52,68,.55);stroke:#4d5f78;
+                stroke-dasharray:10 9}
+  .pad-interactive.pressed .pad-key.back{stroke-dasharray:none}
+  .pad-label{font-family:Consolas,monospace;font-size:48px;fill:#c9d4e0;
+             text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  .pad-label.small{font-size:35px}
+  .pad-label.tiny{font-size:24px}
+  .pad-label.dyn{font-size:26px;fill:#c9d6e4;font-weight:600;pointer-events:none}
+  .pad-label.back-caption{font-size:26px;fill:#8b98a8;letter-spacing:1px;
+                          pointer-events:none}
+  .pad-symbol{fill:#8fa0b5;pointer-events:none}
+  .pad-interactive{cursor:pointer;outline:none;transform-box:fill-box;
+                   transform-origin:center;transition:transform .12s ease}
+  .pad-interactive:hover .pad-key{fill:#2f3d52}
+  .pad-interactive:focus-visible .pad-key{stroke:#4c9aff;stroke-width:8}
+  .pad-interactive.pressed{transform:scale(.94)}
+  .pad-interactive.pressed .pad-key{fill:#46d39a;stroke:#2ea87a}
+  .pad-interactive.pressed .pad-label{fill:#082018}
+  .pad-interactive.selected .pad-key{fill:rgba(255,79,163,.18);stroke:#ff4fa3;
+                                     stroke-width:6}
+  .dir-hit{fill:transparent;cursor:pointer}
+  .dir-hit:hover{fill:rgba(76,154,255,.18)}
+  .dir-hit.pressed{fill:rgba(70,211,154,.45)}
+  .dir-hit.selected{fill:rgba(255,79,163,.22);stroke:#ff4fa3;stroke-width:5}
+  .stick-knob{pointer-events:none}
+
+
+  .divider{height:1px;background:var(--line);margin:12px 0}
+  .important{color:var(--warn);font-size:12.5px;line-height:1.9;font-weight:600}
+
+  .curve-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .curve-legend{display:flex;gap:18px;margin:0 0 10px 2px;font-size:11.5px}
+  .lg{display:inline-flex;align-items:center;gap:6px;color:var(--dim)}
+  .lg::before{content:'';width:16px;height:3px;border-radius:2px}
+  .lg-current::before{background:var(--accent2)}
+  .lg-selected::before{background:repeating-linear-gradient(
+      to right, var(--warn) 0 5px, transparent 5px 9px)}
+  .curve-box{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+  canvas.curve{width:400px;height:400px;max-width:100%;background:#0b0f14;
+               border:1px solid var(--line);border-radius:8px;cursor:crosshair;
+               touch-action:none}
+  .curve-points{width:100%;min-width:0}
+  .curve-title{font-weight:600;margin-bottom:6px}
+  .curve-title.left{color:var(--accent2)}
+  .curve-title.right{color:var(--accent)}
+
+  .small{padding:6px 12px;font-size:11px}
+  .curve-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .curve-chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;
+        border-radius:999px;border:1px solid var(--line);background:var(--panel2);
+        color:var(--text);font-size:12px;cursor:pointer;user-select:none}
+  .chip:hover{border-color:var(--accent)}
+  .chip.active{background:rgba(76,154,255,.18);border-color:var(--accent);
+               color:var(--accent);font-weight:600}
+  .chip.plain.active{background:var(--panel2);border-color:var(--line);
+                     color:var(--text);font-weight:400}
+  .using-hint{color:var(--accent2);font-size:11.5px;margin:0 0 6px 2px}
+  .gap-4{display:inline-block;width:32px}
+  .chip .more{color:var(--dim);font-size:12px;padding:0 2px;cursor:pointer}
+  .chip .more:hover{color:var(--accent)}
+  .chip-menu{position:absolute;z-index:60;min-width:120px;background:var(--panel2);
+             border:1px solid var(--line);border-radius:9px;padding:5px;
+             box-shadow:0 12px 30px #0007}
+  .chip-menu-item{padding:7px 12px;border-radius:6px;font-size:12px;cursor:pointer}
+  .chip-menu-item:hover{background:rgba(76,154,255,.16)}
+  .chip-menu-item.disabled{color:var(--dim);opacity:.5;cursor:not-allowed}
+  .chip-menu-item.disabled:hover{background:transparent}
+  .chip .del{color:var(--dim);font-size:13px;line-height:1}
+  .chip .del:hover{color:var(--danger)}
+  .chip input{width:88px;background:#0b0f14;border:1px solid var(--accent);
+              color:var(--text);border-radius:6px;padding:3px 6px;font-size:12px}
+  .curve-menu{position:relative}
+  .curve-menu > button{min-width:132px;text-align:left}
+  .curve-menu-list{position:absolute;z-index:30;top:calc(100% + 6px);left:0;
+                   min-width:190px;background:var(--panel2);border:1px solid var(--line);
+                   border-radius:10px;padding:6px;box-shadow:0 12px 30px #0006}
+  .curve-menu-list .item{display:flex;align-items:center;justify-content:space-between;
+                         gap:8px;padding:7px 10px;border-radius:7px;cursor:pointer;
+                         font-size:12px;color:var(--text)}
+  .curve-menu-list .item:hover{background:rgba(76,154,255,.16)}
+  .curve-menu-list .item.active{color:var(--accent);font-weight:600}
+  .curve-menu-list .item .del{color:var(--dim);font-size:14px;padding:0 2px}
+  .curve-menu-list .item .del:hover{color:var(--danger)}
+  .curve-menu-list .sep{height:1px;background:var(--line);margin:6px 4px}
+  .curve-menu-list .add{color:var(--accent2);font-weight:600}
+  .curve-menu-list input{width:100%;background:#0b0f14;border:1px solid var(--accent);
+                         color:var(--text);border-radius:6px;padding:4px 6px;font-size:12px}
+  .about-title{font-size:26px;margin:0 0 18px;letter-spacing:1px}
+  .about-author{margin:0 0 14px;font-size:14px;color:var(--text);line-height:1.6}
+  .author-name{color:var(--accent2);font-weight:600;font-size:14px;
+               text-decoration:none;border-bottom:1px dashed var(--accent2)}
+  .author-name:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .about-sub{font-size:12px;color:var(--dim);margin:0 0 12px}
+  .game-list{display:flex;gap:18px;flex-wrap:wrap}
+  .game-card{width:132px;background:var(--panel2);border:1px solid var(--line);
+             border-radius:12px;overflow:hidden;transition:border-color .15s}
+  .game-card:hover{border-color:var(--accent)}
+  .game-card img{width:100%;height:150px;object-fit:cover;display:block}
+  .game-name{padding:9px 10px;font-size:12.5px;text-align:center;color:var(--text)}
+  .keys-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .keys-toolbar select{width:120px}
+  .warn-btn{background:transparent;border-color:var(--warn);color:var(--warn)}
+  .warn-btn:hover{background:rgba(240,180,41,.14);border-color:var(--warn)}
+  .keys-savebar{display:flex;justify-content:flex-start;align-items:center;
+                 gap:18px;margin:38px 0 60px}
+  .keys-savebar button{min-width:180px}
+  .save-bar{display:flex;align-items:center;gap:14px;margin:8px 0 40px}
+  .save-bar button{min-width:180px}
+  .calib-step{margin-bottom:18px}
+  .step-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+  .step-hint{font-size:13px;color:var(--accent2);min-height:20px;line-height:1.6}
+  .step-hint.done{color:var(--accent2)}
+  .step-meta{font-family:Consolas,monospace;font-size:11.5px;color:var(--dim);
+             line-height:1.7;white-space:pre;margin-top:6px}
+  .calib-step.active .step-title{color:var(--accent)}
+  .calib-step.waiting{opacity:.45}
+  .calib-viz{width:100%;max-width:620px;height:auto;display:block;
+             background:#0a0e13;border:1px solid var(--line);border-radius:10px;
+             margin:0 0 12px}
+  .hint-yellow{color:var(--warn);font-weight:600}
+  .calib-console{background:#0a0e13;border:1px solid var(--line);border-radius:10px;
+                 padding:12px 18px;margin:0;color:#9fe6c4;
+                 font-family:Consolas,'Courier New',monospace;font-size:12.5px;
+                 line-height:1.65;white-space:pre-wrap;word-break:break-all;
+                 height:126px;box-sizing:border-box;overflow-y:auto}
+  .calib-wrap{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+  .calib-side{flex:1;min-width:260px}
+  .calib-count{font-size:42px;font-weight:700;color:var(--accent);
+               font-family:Consolas,monospace;line-height:1.1;margin-bottom:2px}
+  .calib-center{font-family:Consolas,monospace;font-size:26px;line-height:1.45;
+                color:var(--accent2);margin:4px 0 6px;white-space:pre}
+  .calib-phase{font-size:15px;color:var(--text);line-height:1.8}
+  .calib-bar{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;
+             margin:14px 0 12px}
+  .calib-bar>div{height:100%;width:0;border-radius:3px;
+                 background:linear-gradient(90deg,#4c9aff,#46d39a);transition:width .12s}
+  .pad-hint{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);
+            font-size:14px;line-height:1.9;color:var(--dim)}
+  .radio-label{display:flex;align-items:center;gap:6px;min-width:118px;
+               cursor:pointer}
+  .viz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .viz-box{display:flex;gap:14px;align-items:center}
+  canvas.viz{width:190px;height:190px;flex:0 0 190px;background:#0b0f14;
+             border:1px solid var(--line);border-radius:10px}
+  .viz-controls{flex:1;min-width:0}
+  .pt-row{display:flex;align-items:center;gap:4px;margin:2px 0;font-size:11px}
+  .pt-row input{width:58px;padding:2px 4px;font-size:11px}
+  .order-item{padding:3px 0;font-size:12px;font-family:Consolas,monospace}
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="logo">🎮</span> EasyController</h1>
+  <nav>
+    <div class="tab active" data-tab="connect">连接手柄</div>
+    <div class="tab" data-tab="keys">键位设置</div>
+    <div class="tab" data-tab="stick">摇杆设置</div>
+    <div class="tab tab-right" data-tab="about">关于</div>
+  </nav>
+</header>
+
+<main>
+  <section id="tab-connect">
+    <div id="connectEmpty" class="panel center">
+      <button id="btnRescan" class="big">重新连接</button>
+      <div id="scanMsg" class="note" style="margin-top:14px">正在检测手柄…</div>
+    </div>
+
+    <div id="connectInfo" class="hidden">
+      <div class="panel">
+        <h2>连接详情</h2>
+        <div class="kv"><span>手柄状态</span><span id="devState">已连接</span></div>
+        <div class="kv"><span>读取速率</span><span id="devRate" class="rate">-</span></div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <label style="min-width:auto">
+            <input type="checkbox" id="outputToggle" checked> 启用虚拟手柄输出
+          </label>
+        </div>
+        <div class="note">开启后，处理后的摇杆/按键/扳机会通过虚拟手柄发给游戏。</div>
+        <div class="kv" style="margin-top:8px"><span>输出状态</span><span id="outState">-</span></div>
+        <div class="kv"><span>输出速率</span><span id="outRate" class="rate">-</span></div>
+        <div class="row" style="margin-top:12px">
+          <button class="ghost" data-goto="keys">键位设置</button>
+          <button class="ghost" data-goto="stick">摇杆设置</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>修改 PC 手柄顺序</h2>
+          <div class="important">
+            （重要）在 Windows 手柄设置中，将虚拟手柄设置为默认设备，
+            避免每次进游戏启用原设备。
+          </div>
+        <div class="row" style="margin-top:12px">
+          <button id="btnJoyCpl">打开「游戏控制器」面板</button>
+        </div>
+        <div class="note" style="margin-top:8px">
+          选中虚拟手柄 → 属性 → 高级 → 设为首选设备
+        </div>
+        <div id="deviceOrder" style="margin-top:12px"></div>
+        <div id="steamHint" class="note" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-keys" class="hidden">
+    <div class="keys-toolbar">
+      <span class="note">手柄按键显示文字</span>
+      <select id="labelScheme">
+        <option value="switch">Switch</option>
+        <option value="xbox">Xbox</option>
+        <option value="ps">PS5</option>
+      </select>
+    </div>
+    <div class="panel pad-panel">
+      <div class="remap">
+        <div>
+        <div class="pad-stage">
+          <svg id="padSvg" xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 1296 1152" role="img" aria-label="Switch2 Pro 手柄">
+
+            <!-- ===== Layer 0：顶部扳机 / 肩键 ===== -->
+            <!-- ===== Layer 1：机身外框 ===== -->
+            
+
+            <g id="controller-frame">
+
+              <path class="pad-line" d="
+                M166 322
+                C216 277 322 255 432 255
+                L864 255
+                C974 255 1080 277 1130 322
+                C1160 349 1173 401 1187 458
+                L1271 887
+                C1284 951 1275 1011 1232 1052
+                C1195 1088 1147 1097 1106 1074
+                C1069 1053 1046 1006 1022 956
+                L980 866
+                C963 829 940 807 899 807
+                L397 807
+                C356 807 333 829 316 866
+                L274 956
+                C250 1006 227 1053 190 1074
+                C149 1097 101 1088 64 1052
+                C21 1011 12 951 25 887
+                L109 458
+                C123 401 136 349 166 322 Z"/>
+            </g>
+
+            <g id="rear-controls">
+              <g id="left-trigger" class="pad-interactive" data-index="13"
+                 data-key="ZL" role="button" tabindex="0" aria-label="Left Trigger">
+                <path class="pad-key solid" d="M 415.6 162.6 L 405.5 150.2 Q 415.6 162.6 419.0 170.3 L 419.0 170.3 Q 422.5 178.0 415.7 184.2 L 415.7 184.2 Q 408.9 190.3 393.2 193.6 L 226.6 227.9 Q 211.0 231.1 201.0 228.2 L 201.0 228.2 Q 191.0 225.3 194.6 209.7 L 198.8 191.1 Q 202.3 175.5 210.7 161.8 L 214.6 155.4 Q 223.0 141.8 237.2 134.4 L 280.5 111.8 Q 294.7 104.4 310.4 101.4 L 342.5 95.1 Q 358.2 92.0 368.3 104.4 Z"/>
+                <text class="pad-label small" x="300" y="158">ZL</text>
+              </g>
+
+              <g id="right-trigger" class="pad-interactive" data-index="5"
+                 data-key="ZR" role="button" tabindex="0" aria-label="Right Trigger">
+                <path class="pad-key solid" d="M 937.8 92.0 L 927.7 104.4 Q 937.8 92.0 953.5 95.1 L 985.6 101.4 Q 1001.3 104.4 1015.5 111.8 L 1058.8 134.4 Q 1073.0 141.8 1081.4 155.4 L 1085.3 161.8 Q 1093.7 175.5 1097.2 191.1 L 1101.4 209.7 Q 1105.0 225.3 1095.0 228.2 L 1095.0 228.2 Q 1085.0 231.1 1069.4 227.9 L 902.8 193.6 Q 887.1 190.3 880.3 184.2 L 880.3 184.2 Q 873.5 178.0 877.0 170.3 L 877.0 170.3 Q 880.4 162.6 890.5 150.2 Z"/>
+                <text class="pad-label small" x="996" y="158">ZR</text>
+              </g>
+
+              <g id="left-shoulder" class="pad-interactive" data-index="12"
+                 data-key="L" role="button" tabindex="0" aria-label="Left Shoulder">
+                <path class="pad-key shoulder" d="M 390.0 250.1 L 405.9 251.6 Q 390.0 250.1 374.2 252.6 L 313.6 262.3 Q 297.8 264.8 282.8 270.3 L 208.4 297.3 Q 193.4 302.8 203.6 290.5 L 216.7 274.9 Q 226.9 262.6 241.3 255.6 L 252.7 249.9 Q 267.1 242.9 282.8 239.6 L 333.3 229.0 Q 349.0 225.7 365.0 225.3 L 409.4 224.0 Q 425.4 223.6 438.5 232.8 L 460.9 248.8 Q 474.0 258.0 458.1 256.5 Z"/>
+                <text class="pad-label small" x="330" y="252">L</text>
+              </g>
+
+              <g id="right-shoulder" class="pad-interactive" data-index="4"
+                 data-key="R" role="button" tabindex="0" aria-label="Right Shoulder">
+                <path class="pad-key shoulder" d="M 822.0 258.0 L 837.9 256.5 Q 822.0 258.0 835.1 248.8 L 857.5 232.8 Q 870.6 223.6 886.6 224.0 L 931.0 225.3 Q 947.0 225.7 962.7 229.0 L 1013.2 239.6 Q 1028.9 242.9 1043.3 249.9 L 1054.7 255.6 Q 1069.1 262.6 1079.3 274.9 L 1092.4 290.5 Q 1102.6 302.8 1087.6 297.3 L 1013.2 270.3 Q 998.2 264.8 982.4 262.3 L 921.8 252.6 Q 906.0 250.1 890.1 251.6 Z"/>
+                <text class="pad-label small" x="966" y="252">R</text>
+              </g>
+            </g>
+
+            
+
+            <!-- ===== Layer 2：正面按键 ===== -->
+            <g id="controller-buttons">
+              <g id="left-stick" class="pad-interactive" data-index="15"
+                 data-key="LStick" role="button" tabindex="0">
+                <circle class="pad-key" cx="325" cy="465" r="114"/>
+                <g class="stick-knob" data-knob="left" transform="translate(0,0)">
+                  <circle cx="325" cy="465" r="72" fill="#1b2432"
+                          stroke="#3a4a5e" stroke-width="7"/>
+                </g>
+                <text class="pad-label dyn" data-fixed="1" x="325" y="562">LS</text>
+              </g>
+
+              <g id="right-stick" class="pad-interactive" data-index="7"
+                 data-key="RStick" role="button" tabindex="0">
+                <circle class="pad-key" cx="805" cy="652" r="114"/>
+                <g class="stick-knob" data-knob="right" transform="translate(0,0)">
+                  <circle cx="805" cy="652" r="72" fill="#1b2432"
+                          stroke="#3a4a5e" stroke-width="7"/>
+                </g>
+                <text class="pad-label dyn" data-fixed="1" x="805" y="748">RS</text>
+              </g>
+
+              <g id="minus-button" class="pad-interactive" data-index="14"
+                 data-key="Min" role="button" tabindex="0">
+                <circle class="pad-key" cx="519" cy="385" r="32"/>
+                <path d="M505 385 H533" stroke="#8fa0b5" stroke-width="5"
+                      stroke-linecap="round" pointer-events="none"/>
+                <text class="pad-label dyn" data-fixed="1" x="519" y="396">−</text>
+              </g>
+
+              <g id="plus-button" class="pad-interactive" data-index="6"
+                 data-key="Plus" role="button" tabindex="0">
+                <circle class="pad-key" cx="779" cy="385" r="32"/>
+                <path d="M765 385 H793 M779 371 V399" stroke="#8fa0b5"
+                      stroke-width="5" stroke-linecap="round" pointer-events="none"/>
+                <text class="pad-label dyn" data-fixed="1" x="779" y="396">+</text>
+              </g>
+
+              <g id="x-button" class="pad-interactive" data-index="3"
+                 data-key="X" role="button" tabindex="0">
+                <circle class="pad-key" cx="972" cy="391" r="49"/>
+                <text class="pad-label" x="972" y="392">X</text>
+              </g>
+
+              <g id="y-button" class="pad-interactive" data-index="2"
+                 data-key="Y" role="button" tabindex="0">
+                <circle class="pad-key" cx="871" cy="473" r="49"/>
+                <text class="pad-label" x="871" y="474">Y</text>
+              </g>
+
+              <g id="a-button" class="pad-interactive" data-index="1"
+                 data-key="A" role="button" tabindex="0">
+                <circle class="pad-key" cx="1070" cy="473" r="49"/>
+                <text class="pad-label" x="1070" y="474">A</text>
+              </g>
+
+              <g id="b-button" class="pad-interactive" data-index="0"
+                 data-key="B" role="button" tabindex="0">
+                <circle class="pad-key" cx="972" cy="555" r="49"/>
+                <text class="pad-label" x="972" y="556">B</text>
+              </g>
+
+              <g id="capture-button" class="pad-interactive" data-index="17"
+                 data-key="Capture" role="button" tabindex="0">
+                <rect class="pad-key" x="552" y="444" width="61" height="58" rx="11"/>
+                <text class="pad-label dyn" data-fixed="1" x="582" y="484">⧉</text>
+              </g>
+
+              <g id="home-button" class="pad-interactive" data-index="16"
+                 data-key="Home" role="button" tabindex="0">
+                <circle class="pad-key" cx="715" cy="473" r="33"/>
+                <path class="pad-symbol" d="
+                  M696 472 L715 455 L734 472 H729 V489 H718 V478 H712 V489
+                  H701 V472 Z"/>
+                <text class="pad-label dyn" data-fixed="1" x="715" y="520">⌂</text>
+              </g>
+
+              <g id="dpad">
+                <path class="pad-key" d="
+                  M452 545 Q444 545 444 554 V604 H393 Q378 604 378 619 V651
+                  Q378 667 393 667 H444 V715 Q444 730 459 730 H498
+                  Q513 730 513 715 V667 H562 Q577 667 577 651 V619
+                  Q577 604 562 604 H513 V554 Q513 545 504 545 Z"/>
+                <path class="pad-symbol" d="M478 566 L468 582 H488 Z"/>
+                <path class="pad-symbol" d="M478 710 L468 693 H488 Z"/>
+                <path class="pad-symbol" d="M400 635 L417 625 V645 Z"/>
+                <path class="pad-symbol" d="M555 635 L538 625 V645 Z"/>
+                <rect class="dir-hit" data-index="11" data-key="Up"
+                      x="444" y="545" width="69" height="59" rx="8"/>
+                <rect class="dir-hit" data-index="8" data-key="Down"
+                      x="444" y="667" width="69" height="63" rx="8"/>
+                <rect class="dir-hit" data-index="10" data-key="Left"
+                      x="378" y="604" width="66" height="63" rx="8"/>
+                <rect class="dir-hit" data-index="9" data-key="Right"
+                      x="513" y="604" width="64" height="63" rx="8"/>
+              </g>
+
+              <g id="c-button" class="pad-interactive" data-index="20"
+                 data-key="C" role="button" tabindex="0">
+                <rect class="pad-key" x="622" y="708" width="55" height="54" rx="10"/>
+                <text class="pad-label small" x="649" y="735">C</text>
+              </g>
+            </g>
+
+            <!-- ===== Layer 3：背键 ===== -->
+            <g id="back-buttons">
+              <g id="left-back-button" class="pad-interactive" data-index="19"
+                 data-key="BL" data-back="1" role="button" tabindex="0">
+                <circle class="pad-key back" cx="427" cy="1046" r="59"/>
+                <text class="pad-label small" x="427" y="1047">BL</text>
+                <text class="pad-label back-caption" x="427" y="1136">左背键</text>
+              </g>
+              <g id="right-back-button" class="pad-interactive" data-index="18"
+                 data-key="BR" data-back="1" role="button" tabindex="0">
+                <circle class="pad-key back" cx="861" cy="1046" r="59"/>
+                <text class="pad-label small" x="861" y="1047">BR</text>
+                <text class="pad-label back-caption" x="861" y="1136">右背键</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+        <div class="remap-side">
+          <h2 id="keyTitle">← 改键</h2>
+        <div id="keyBody" class="note">
+          <div style="padding:6px 2px;line-height:1.9">
+            <div style="font-size:28px;color:var(--accent);line-height:1.1">←</div>
+            <div style="color:var(--text);font-size:13px;margin-top:8px">
+              点击左侧面板上的按键
+            </div>
+            <div>选中后在这里为它分配功能</div>
+          </div>
+        </div>
+        <div class="pad-hint">
+          按动手柄上的键，对应位置会亮绿；点一下即可选中改键，粉色描边为当前选中。
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="keys-savebar">
+      <button id="btnSaveKeys" class="big">保存设置</button>
+      <button id="btnResetKeys" class="warn-btn">重置设置</button>
+      <span id="keysHint" class="note"></span>
+    </div>
+  </section>
+
+  <section id="tab-stick" class="hidden">
+    <div class="panel">
+      <h2>校准摇杆</h2>
+      <div class="important" id="calibHint">（重要）首次使用，建议先校准。得到准确的摇杆的中心点和边缘。</div>
+      <div class="row" style="margin-top:12px">
+        <button id="btnCalib">校准摇杆</button>
+        <button class="ghost hidden" id="btnCalibCancel">取消</button>
+        <button class="ghost hidden" id="btnCalibFold">收起</button>
+      </div>
+
+      <div id="calibBox" class="hidden" style="margin-top:16px">
+        <canvas id="calibViz" class="calib-viz" width="620" height="200"></canvas>
+        <pre id="calibConsole" class="calib-console"></pre>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>摇杆曲线</h2>
+      <div class="curve-legend">
+        <span class="lg lg-current">当前曲线</span>
+        <span class="lg lg-selected">目标曲线</span>
+      </div>
+      <div class="curve-grid">
+        <div class="curve-box">
+          <canvas id="curveLeft" class="curve" width="400" height="400"></canvas>
+          <div class="curve-points">
+            <div class="curve-title left">左摇杆</div>
+            <div id="pointsLeft"></div>
+          </div>
+        </div>
+        <div class="curve-box">
+          <canvas id="curveRight" class="curve" width="400" height="400"></canvas>
+          <div class="curve-points">
+            <div class="curve-title right">右摇杆</div>
+            <div id="pointsRight"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hint" style="margin-top:10px">X = 物理行程，Y = 输出值</div>
+      <div class="note" style="margin:4px 0 0;color:var(--warn)">
+        点曲线空白处加点，拖动圆点移动；下方输入框可直接改数值。
+      </div>
+
+      <div class="row" style="margin:16px 0 8px">
+        <label>快速设置</label>
+        <div id="presetChips" class="curve-chips"></div>
+        <span class="gap-4"></span>
+        <select id="applyTarget" style="width:150px">
+          <option value="both" selected>同时设置左右摇杆</option>
+          <option value="right">只设置右摇杆</option>
+          <option value="left">只设置左摇杆</option>
+        </select>
+        <button id="btnApplyPreset">应用到当前选中曲线</button>
+      </div>
+
+      <div class="row" style="margin:0 0 4px">
+        <label>曲线配置列表</label>
+        <div id="customChips" class="curve-chips"></div>
+        <button id="btnNewCurve" class="ghost">＋ 新增自定义曲线</button>
+      </div>
+      <div class="using-hint" id="usingHint">当前使用曲线：—</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>摇杆输出方、圆设置 <span class="hint">0 = 纯圆，1 = 纯方</span></h2>
+      <div class="viz-grid">
+        <div class="viz-box">
+          <canvas id="shapeVizLeft" class="viz" width="190" height="190"></canvas>
+          <div class="viz-controls">
+            <div class="curve-title left">左摇杆</div>
+            <input type="range" id="shapeL" min="0" max="1" step="0.05">
+            <div class="kv"><span>方圆</span><span class="val" id="shapeL_v">0.00</span></div>
+          </div>
+        </div>
+        <div class="viz-box">
+          <canvas id="shapeVizRight" class="viz" width="190" height="190"></canvas>
+          <div class="viz-controls">
+            <div class="curve-title right">右摇杆</div>
+            <input type="range" id="shapeR" min="0" max="1" step="0.05">
+            <div class="kv"><span>方圆</span><span class="val" id="shapeR_v">0.00</span></div>
+          </div>
+        </div>
+      </div>
+    
+        <div class="row" style="margin-top:6px">
+          <label>快速设置</label>
+          <button class="ghost small" data-shape="left-square">左方右圆</button>
+          <button class="ghost small" data-shape="both-circle">左右都圆</button>
+          <button class="ghost small" data-shape="both-square">左右都方</button>
+          <span class="note">「方」= 30% 方</span>
+        </div>
+      </div>
+
+
+    <div class="panel">
+      <h2>死区设置</h2>
+      <div class="viz-grid">
+        <div class="viz-box">
+          <canvas id="dzVizLeft" class="viz" width="190" height="190"></canvas>
+          <div class="viz-controls">
+            <div class="curve-title left">左摇杆</div>
+            <div class="row">
+              <label>中心死区</label>
+              <input type="range" id="dzL" min="-0.15" max="0.30" step="0.005">
+              <span class="val" id="dzL_v">0.000</span>
+            </div>
+            <div class="row">
+              <label>边缘死区</label>
+              <input type="range" id="edL" min="0" max="30" step="0.5" value="5">
+              <span class="val" id="edL_v">0.000</span>
+            </div>
+          </div>
+        </div>
+        <div class="viz-box">
+          <canvas id="dzVizRight" class="viz" width="190" height="190"></canvas>
+          <div class="viz-controls">
+            <div class="curve-title right">右摇杆</div>
+            <div class="row">
+              <label>中心死区</label>
+              <input type="range" id="dzR" min="-0.15" max="0.30" step="0.005">
+              <span class="val" id="dzR_v">0.000</span>
+            </div>
+            <div class="row">
+              <label>边缘死区</label>
+              <input type="range" id="edR" min="0" max="30" step="0.5" value="5">
+              <span class="val" id="edR_v">0.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        中心死区：正值范围内忽略（红色区域）；负值放大中心到绿色区域，对冲游戏内死区。<br>
+        边缘死区：距离边缘多少百分比就输出满值（0~30%，默认 5%）。
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label>快速设置</label>
+        <button class="ghost small" data-dead="zero">0 死区</button>
+        <button class="ghost small" data-dead="apex">Apex 左摇杆反死区</button>
+      </div>
+    </div>
+
+    <div class="save-bar">
+      <button id="btnSaveAll" class="big">保存全部设置</button>
+      <button id="btnResetStick" class="warn-btn">重置设置</button>
+      <span id="stickHint" class="note"></span>
+    </div>
+  </section>
+
+  <section id="tab-about" class="hidden">
+    <div class="panel">
+      <h2 class="about-title">关于</h2>
+
+      <div class="about-author">
+        作者：<a class="author-name" href="https://space.bilibili.com/644457478"
+                 target="_blank" rel="noopener noreferrer">@搅局打游戏</a>
+      </div>
+
+      <div class="about-author">支持的游戏：</div>
+      <div class="game-list">
+        <div class="game-card">
+          <img src="/static/game-yg84.webp" alt="远光84">
+          <div class="game-name">远光84</div>
+        </div>
+        <div class="game-card">
+          <img src="/static/game-apex.webp" alt="Apex">
+          <div class="game-name">Apex 英雄</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="save-badge" id="saveBadge"></div>
+
+<script>
+const INIT_PARAMS = {{ params|tojson }};
+const INIT_CURVES = {{ curves|tojson }};
+const INIT_MAP    = {{ button_map|tojson }};
+const INIT_CALIB  = {{ calibration|tojson }};
+const XTARGETS    = {{ xinput_targets|tojson }};
+
+/* 按物理位置：0=下方 1=右侧 2=左侧 3=上方（SDL 按钮顺序） */
+const PHYS_NAMES = {
+  0:'B',1:'A',2:'Y',3:'X',4:'R',5:'ZR',6:'Plus',7:'RStick',
+  8:'Down',9:'Right',10:'Left',11:'Up',12:'L',13:'ZL',14:'Min',
+  15:'LStick',16:'Home',17:'Capture',18:'BR',19:'BL',20:'C'
+};
+
+let PARAMS  = JSON.parse(JSON.stringify(INIT_PARAMS));
+let CURVES  = JSON.parse(JSON.stringify(INIT_CURVES || {}));
+const CURVE_MIN_POINTS = 5;      // 每侧曲线的固定点数
+const CURVE_MAX_POINTS = 20;     // 上限（手动加点时才可能超过 5）
+let MAPPING = JSON.parse(JSON.stringify(INIT_MAP || {}));
+let STATUS = null;
+let selectedBtn = null;
+let calibTimer = null;
+
+/* 摇杆动画：TARGET 由 SSE 更新，CURRENT 由 rAF 平滑逼近 */
+const STICK_TARGET = {left: [0, 0], right: [0, 0]};
+const STICK_CURRENT = {left: [0, 0], right: [0, 0]};
+let LIVE_BUTTONS = [];
+let STREAM_OK = false;
+
+if(!CURVES.left)  CURVES.left  = [[0,0],[1,1]];
+if(!CURVES.right) CURVES.right = [[0,0],[1,1]];
+
+const $ = id => document.getElementById(id);
+
+function toast(msg, ms){
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(()=> el.classList.remove('show'), ms || 1800);
+}
+async function api(url, opts){
+  const res = await fetch(url, opts);
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+function post(url, body){
+  return api(url, {method:'POST', headers:{'Content-Type':'application/json'},
+                   body: JSON.stringify(body || {})});
+}
+
+/* ---------------- 标签页 ---------------- */
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.onclick = ()=>{
+    document.querySelectorAll('.tab').forEach(t=> t.classList.remove('active'));
+    tab.classList.add('active');
+    ['connect','keys','stick','about'].forEach(name=>{
+      $('tab-' + name).classList.toggle('hidden', name !== tab.dataset.tab);
+    });
+    CURRENT_TAB = tab.dataset.tab;
+    if(tab.dataset.tab === 'stick') drawAllCurves();
+    scheduleForTab();
+  };
+});
+document.querySelectorAll('[data-goto]').forEach(btn=>{
+  btn.onclick = ()=> document.querySelector('.tab[data-tab="' +
+    btn.dataset.goto + '"]').click();
+});
+
+/* ---------------- 连接 ---------------- */
+function setScanning(on, message){
+  $('btnRescan').disabled = on;
+  $('scanMsg').textContent = message || (on ? '正在检测手柄…' : '未检测到手柄');
+}
+
+async function refreshDevice(){
+  try{
+    const d = await api('/api/device/status');
+    const connected = (d.state === 'connected' && d.connected !== false);
+    $('connectEmpty').classList.toggle('hidden', connected);
+    $('connectInfo').classList.toggle('hidden', !connected);
+    if(connected){
+      wasConnected = true;
+      $('devState').textContent = '已连接';
+      $('devRate').textContent = (d.rate ? d.rate.toFixed(0) : '-') + ' Hz';
+    }else if(!scanInFlight){
+      $('btnRescan').disabled = false;
+      $('scanMsg').textContent = wasConnected
+        ? '手柄已断开连接'
+        : '未连接手柄，点上方按钮开始检测';
+    }
+    return connected;
+  }catch(e){ return false; }
+}
+
+let scanInFlight = false;
+let wasConnected = false;
+let scanCountdown = null;
+
+function stopScanCountdown(){
+  if(scanCountdown){
+    clearInterval(scanCountdown);
+    scanCountdown = null;
+  }
+}
+
+function startScanFeedback(){
+  const started = Date.now();
+  stopScanFeedback();
+
+  const tick = async ()=>{
+    if(!scanInFlight) return;
+    const elapsed = Math.floor((Date.now() - started) / 1000);
+    const left = Math.max(0, 5 - elapsed);
+
+    let stage = '';
+    try{
+      const d = await api('/api/device/status');
+      stage = d.stage || '';
+    }catch(e){}
+
+    if(!scanInFlight) return;
+    if(stage){
+      $('scanMsg').textContent = '重连中：' + stage +
+        (left > 0 ? '（' + left + '）' : '');
+    }else if(left > 0){
+      $('scanMsg').textContent = '重连中... ' + left;
+    }else{
+      $('scanMsg').textContent = '重连中，请稍候…';
+    }
+  };
+
+  tick();
+  scanCountdown = setInterval(tick, 500);
+}
+
+function stopScanFeedback(){
+  stopScanCountdown();
+}
+
+async function waitForService(timeoutMs){
+  const deadline = Date.now() + (timeoutMs || 20000);
+  while(Date.now() < deadline){
+    await new Promise(r=> setTimeout(r, 700));
+    try{
+      const d = await api('/api/device/status');
+      if(d.state === 'connected' && d.connected !== false) return true;
+      $('scanMsg').textContent = '服务已恢复，等待手柄…';
+    }catch(e){
+      $('scanMsg').textContent = '服务重启中，等待响应…';
+    }
+  }
+  return false;
+}
+
+async function scanDevice(force){
+  if(scanInFlight) return false;
+
+  scanInFlight = true;
+  $('btnRescan').disabled = true;      // 点第一次就锁住
+
+  startScanFeedback();
+
+  try{
+    const res = await post('/api/device/scan', force ? {force: true} : {});
+    stopScanCountdown();
+
+    // 服务正在重启：保持按钮禁用，等新进程起来再继续
+    if(res.restarting){
+      $('scanMsg').textContent = res.message || '服务正在重启…';
+      const connected = await waitForService();
+      if(!connected) setScanning(false, '服务已重启，但未检测到手柄');
+      return connected;
+    }
+
+    const connected = await refreshDevice();
+    if(!connected) setScanning(false, res.message || '未检测到手柄');
+    return connected;
+  }catch(e){
+    stopScanCountdown();
+    setScanning(false, '检测失败: ' + e.message);
+    return false;
+  }finally{
+    stopScanFeedback();
+    scanInFlight = false;
+  }
+}
+
+$('btnRescan').onclick = ()=> scanDevice(true);
+
+async function refreshOutput(){
+  try{
+    const o = await api('/api/output');
+    $('outputToggle').checked = !!o.enabled;
+    $('outState').textContent = o.enabled ? '运行中' : '未运行';
+    $('outRate').textContent = (o.rate ? o.rate.toFixed(0) : '-') + ' Hz';
+  }catch(e){}
+}
+
+$('outputToggle').onchange = async (e)=>{
+  const enabled = e.target.checked;
+  try{
+    const r = await post('/api/output', {enabled});
+    if(!r.ok){ toast(r.message || '操作失败'); e.target.checked = !enabled; }
+    await refreshOutput();
+  }catch(err){
+    toast('失败: ' + err.message);
+    e.target.checked = !enabled;
+  }
+};
+
+async function refreshDeviceOrder(){
+  try{
+    const data = await api('/api/system/devices');
+    const host = $('deviceOrder');
+    if(!data.devices || !data.devices.length){
+      host.innerHTML = '<div class="note">未检测到手柄</div>';
+    }else{
+      host.innerHTML = data.devices.map(d=>{
+        const tag = d.virtual ? '虚拟' : '物理';
+        const first = d.position === 1 ? ' ← 第一位' : '';
+        return '<div class="order-item">位置 ' + d.position + '：' + d.name +
+               '　' + tag + '（轴' + d.axes + ' 键' + d.buttons + '）' + first +
+               '</div>';
+      }).join('');
+    }
+    $('steamHint').innerHTML = data.steam_running
+      ? '⚠️ 检测到 Steam 正在运行。如果游戏里还是认到物理手柄，请到 Steam：' +
+        '库 → 右键游戏 → 属性 → 控制器 → <b>禁用 Steam 输入</b>。'
+      : '';
+  }catch(e){}
+}
+
+$('btnJoyCpl').onclick = async ()=>{
+  try{
+    const r = await post('/api/system/joycpl');
+    toast(r.message || (r.ok ? '已打开' : '打开失败'));
+  }catch(e){ toast('失败: ' + e.message); }
+};
+
+/* ---------------- 手柄图形（沿用设计稿 SVG，此处只做交互绑定） ---------------- */
+const HOTSPOT_ELS = {};
+const STICK_KNOBS = {};
+
+function initPad(){
+  const svg = $('padSvg');
+  if(!svg) return;
+
+  // 单一按键
+  svg.querySelectorAll('.pad-interactive[data-index]').forEach(el=>{
+    const index = Number(el.dataset.index);
+    HOTSPOT_ELS[index] = el;
+    el.addEventListener('click', ()=> selectKey(index));
+    el.addEventListener('keydown', ev=>{
+      if(ev.key === 'Enter' || ev.key === ' '){
+        ev.preventDefault();
+        selectKey(index);
+      }
+    });
+  });
+
+  // 十字键四个方向
+  svg.querySelectorAll('.dir-hit[data-index]').forEach(el=>{
+    const index = Number(el.dataset.index);
+    HOTSPOT_ELS[index] = el;
+    el.addEventListener('click', ()=> selectKey(index));
+  });
+
+  // 摇杆内圈（动画）：最大位移 = 外圈半径 - 内圈半径，从 DOM 读取
+  svg.querySelectorAll('.stick-knob[data-knob]').forEach(el=>{
+    const knobCircle = el.querySelector('circle');
+    const ring = el.parentNode.querySelector('.pad-key');
+    const knobRadius = knobCircle ? parseFloat(knobCircle.getAttribute('r')) : 36;
+    const ringRadius = ring ? parseFloat(ring.getAttribute('r')) : 57;
+    STICK_KNOBS[el.dataset.knob] = {
+      el: el,
+      max: Math.max(0, ringRadius - knobRadius)
+    };
+  });
+}
+
+/* 摇杆内圈：外圈 r57，内圈 r36，最大位移 21 */
+const STICK_EASE = 0.55;   // 每帧向目标靠近的比例，越小越"糯"
+
+function drawSticks(){
+  ['left', 'right'].forEach(side=>{
+    const knob = STICK_KNOBS[side];
+    if(!knob) return;
+    const target = STICK_TARGET[side];
+    const current = STICK_CURRENT[side];
+    current[0] += (target[0] - current[0]) * STICK_EASE;
+    current[1] += (target[1] - current[1]) * STICK_EASE;
+    const dx = current[0] * knob.max;
+    const dy = -current[1] * knob.max;
+    knob.el.setAttribute('transform',
+      'translate(' + dx.toFixed(2) + ',' + dy.toFixed(2) + ')');
+
+    // 内圈按当前幅度渐变绿：幅度/最大幅度 = 不透明度
+    const circle = knob.el.querySelector('circle');
+    if(circle){
+      const mag = Math.min(1, Math.hypot(current[0], current[1]));
+      const alpha = Math.min(1, Math.pow(mag, 0.7));
+      circle.setAttribute('stroke',
+        'rgba(70,211,154,' + alpha.toFixed(3) + ')');
+      circle.setAttribute('fill',
+        'rgba(' + (27 + 43 * alpha).toFixed(0) + ',' +
+                   (36 + 175 * alpha).toFixed(0) + ',' +
+                   (50 + 104 * alpha).toFixed(0) + ',' +
+                   (0.85).toString() + ')');
+    }
+  });
+}
+
+function animationLoop(){
+  drawSticks();
+  // 只在"键位设置"页且页面可见时才继续跑动画
+  if(rafRunning && pageVisible() && CURRENT_TAB === 'keys'){
+    requestAnimationFrame(animationLoop);
+  }else{
+    rafRunning = false;
+  }
+}
+
+/* SSE：只在需要看摇杆动画时开，页面切走就关掉 */
+function openStream(){
+  if(!window.EventSource) return;
+  if(window.__stickStream) return;      // 已经有连接，不重复开
+  if(!pageVisible() || CURRENT_TAB !== 'keys') return;
+  const source = new EventSource('/api/stream');
+  window.__stickStream = source;
+  source.onopen = ()=>{ STREAM_OK = true; };
+  let lastButtons = '';
+  source.onmessage = ev=>{
+    try{
+      const data = JSON.parse(ev.data);
+      if(data.l) STICK_TARGET.left = data.l;
+      if(data.r) STICK_TARGET.right = data.r;
+      const buttons = data.b || [];
+      const key = buttons.join(',');
+      if(key !== lastButtons){
+        lastButtons = key;
+        LIVE_BUTTONS = buttons;
+        updateHighlights();
+      }
+    }catch(e){}
+  };
+  source.onerror = ()=>{ STREAM_OK = false; };
+}
+
+function updateHighlights(){
+  Object.keys(HOTSPOT_ELS).forEach(key=>{
+    const index = Number(key);
+    const el = HOTSPOT_ELS[key];
+    el.classList.toggle('pressed', LIVE_BUTTONS.indexOf(index) >= 0);
+    el.classList.toggle('selected', selectedBtn === index);
+  });
+}
+
+function selectKey(index){
+  selectedBtn = index;
+  updateHighlights();
+  renderKeyPanel();
+}
+
+/* ---------------- 按键文字方案 ----------------
+   底层键位是「位置」，文字只是每套方案的值：
+     index 0 = 右侧   Switch A / Xbox B / PS ○
+     index 1 = 下方   Switch B / Xbox A / PS ✕
+     index 2 = 上方   Switch X / Xbox Y / PS △
+     index 3 = 左侧   Switch Y / Xbox X / PS □
+------------------------------------------------ */
+const POS_NAMES = {
+  0:'下方键', 1:'右侧键', 2:'左侧键', 3:'上方键',
+  4:'右肩键', 5:'右扳机', 6:'加号键', 7:'右摇杆按下',
+  8:'方向下', 9:'方向右', 10:'方向左', 11:'方向上',
+  12:'左肩键', 13:'左扳机', 14:'减号键', 15:'左摇杆按下',
+  16:'Home 键', 17:'截图键', 18:'右背键', 19:'左背键', 20:'C 键'
+};
+
+/* 手柄图上显示的文字（只有带文字标签的按键） */
+const SCHEME_LABELS = {
+  switch: {0:'B', 1:'A', 2:'Y', 3:'X', 4:'R', 5:'ZR', 12:'L', 13:'ZL',
+           18:'BR', 19:'BL', 20:'C'},
+  xbox:   {0:'A', 1:'B', 2:'X', 3:'Y', 4:'RB', 5:'RT', 12:'LB', 13:'LT',
+           18:'BR', 19:'BL', 20:'C'},
+  ps:     {0:'✕', 1:'○', 2:'□', 3:'△', 4:'R1', 5:'R2', 12:'L1', 13:'L2',
+           18:'BR', 19:'BL', 20:'C'}
+};
+
+/* 改键面板里用的完整名称 */
+const SCHEME_NAMES = {
+  switch: {0:'B', 1:'A', 2:'Y', 3:'X', 4:'R', 5:'ZR', 6:'Plus', 7:'RStick',
+           8:'方向下', 9:'方向右', 10:'方向左', 11:'方向上', 12:'L', 13:'ZL',
+           14:'Minus', 15:'LStick', 16:'Home', 17:'Capture',
+           18:'BR', 19:'BL', 20:'C'},
+  xbox:   {0:'A', 1:'B', 2:'X', 3:'Y', 4:'RB', 5:'RT', 6:'Menu', 7:'R3',
+           8:'方向下', 9:'方向右', 10:'方向左', 11:'方向上', 12:'LB', 13:'LT',
+           14:'View', 15:'L3', 16:'Xbox 键', 17:'Share',
+           18:'BR', 19:'BL', 20:'C'},
+  ps:     {0:'✕ 叉', 1:'○ 圈', 2:'□ 方块', 3:'△ 三角', 4:'R1', 5:'R2',
+           6:'Options', 7:'R3', 8:'方向下', 9:'方向右', 10:'方向左', 11:'方向上',
+           12:'L1', 13:'L2', 14:'Share', 15:'L3', 16:'PS 键', 17:'Create',
+           18:'BR', 19:'BL', 20:'C'}
+};
+
+let SCHEME = 'switch';
+try{
+  SCHEME = localStorage.getItem('sticklab.labels') || 'switch';
+}catch(e){}
+if(!SCHEME_LABELS[SCHEME]) SCHEME = 'switch';
+
+function schemeName(index){
+  const table = SCHEME_NAMES[SCHEME] || SCHEME_NAMES.switch;
+  return table[index] || POS_NAMES[index] || ('Btn' + index);
+}
+
+/* 同一位置在三套方案里分别叫什么 */
+function positionInfo(index){
+  const parts = [];
+  ['switch', 'xbox', 'ps'].forEach(name=>{
+    const value = (SCHEME_NAMES[name] || {})[index];
+    if(value) parts.push(name.toUpperCase() + ' ' + value);
+  });
+  return (POS_NAMES[index] || '') + (parts.length ? '　' + parts.join(' / ') : '');
+}
+
+
+/* XInput 目标 → 手柄图上的短标签 */
+const XINPUT_LABELS = {
+  'A': 'A', 'B': 'B', 'X': 'X', 'Y': 'Y',
+  'LB': 'L', 'RB': 'R', 'LT': 'ZL', 'RT': 'ZR',
+  'START': '+', 'BACK': '−', 'LS': 'L3', 'RS': 'R3',
+  'DPAD_UP': '↑', 'DPAD_DOWN': '↓', 'DPAD_LEFT': '←', 'DPAD_RIGHT': '→'
+};
+
+function applyLabels(){
+  const table = SCHEME_LABELS[SCHEME] || SCHEME_LABELS.switch;
+  Object.keys(HOTSPOT_ELS).forEach(key=>{
+    const index = Number(key);
+    const el = HOTSPOT_ELS[key];
+    if(!el || !el.querySelector) return;
+    const text = el.querySelector('text');
+    if(!text) return;
+
+    // 手柄图显示「映射之后的键值」，而不是物理位置的名字
+    const entry = MAPPING[index] || {};
+    const keys = entry.keys || [];
+    const xinput = entry.xinput || 'None';
+
+    let label = null;
+    if(keys.length){
+      label = keys.join('+');                // 键盘映射：完整组合键 alt+f10
+    }else if(xinput && xinput !== 'None'){
+      label = XINPUT_LABELS[xinput] || xinput;
+    }else{
+      label = table[index];                  // 未映射才回落到方案名
+    }
+    if(label === undefined || label === null) return;
+
+    text.textContent = label;
+    if(!text.dataset.fixed){
+      const len = String(label).length;
+      text.classList.toggle('small', len > 1 && len <= 3);
+      text.classList.toggle('tiny', len > 3);
+    }
+  });
+  const picker = $('labelScheme');
+  if(picker) picker.value = SCHEME;
+}
+
+function renderKeyPanel(){
+  const title = $('keyTitle');
+  const body = $('keyBody');
+  if(selectedBtn === null){
+    title.textContent = '← 改键';
+    body.innerHTML =
+      '<div style="padding:4px 2px;line-height:1.9">' +
+        '<div style="color:var(--text);font-size:13px">点击左侧面板上的按键</div>' +
+        '<div>选中后在这里为它分配功能</div>' +
+      '</div>';
+    return;
+  }
+  const entry = MAPPING[selectedBtn] || {xinput:'None', keys:[]};
+  title.textContent = '选中按键：' + schemeName(selectedBtn);
+
+  const isKb = (entry.keys || []).length > 0 || entry.xinput === 'None';
+  const padValue = (!isKb && entry.xinput && entry.xinput !== 'None')
+    ? entry.xinput : '—';
+  const keyValue = isKb ? entry.keys.join('+') : '—';
+  const options = XTARGETS.map(t=>
+    '<option value="' + t + '"' + (t === entry.xinput ? ' selected' : '') +
+    '>' + t + '</option>').join('');
+  const isKeyboard = (entry.keys || []).length > 0;
+  body.innerHTML =
+    '<div class="kv-pair">' +
+      '<span>手柄键值</span><span class="kv-pad">' + padValue + '</span>' +
+      '<span>键盘键值</span><span class="kv-key">' + keyValue + '</span>' +
+    '</div>' +
+    '<div class="row"><label class="radio-label">' +
+      '<input type="radio" name="mapMode" value="xinput"' +
+      (isKeyboard ? '' : ' checked') + '> 虚拟手柄键</label>' +
+      '<select id="mapTarget" style="width:140px">' + options + '</select></div>' +
+    '<div class="row"><label class="radio-label">' +
+      '<input type="radio" name="mapMode" value="keyboard"' +
+      (isKeyboard ? ' checked' : '') + '> 键盘按键</label>' +
+      [0, 1, 2].map(i=>
+        '<input type="text" class="key-slot" data-slot="' + i +
+        '" readonly value="' + ((entry.keys || [])[i] || '') +
+        '" placeholder="—">').join('') + '</div>' +
+    '<div class="note" style="margin-top:8px">两者只能选一个；点输入框后按单个键，可填 3 个（同时按下）。</div>';
+
+  const mode = ()=> document.querySelector('input[name=mapMode]:checked').value;
+
+  const applyMode = ()=>{
+    const keyboard = mode() === 'keyboard';
+    $('mapTarget').disabled = keyboard;
+    $('mapTarget').style.opacity = keyboard ? '.4' : '1';
+    body.querySelectorAll('.key-slot').forEach(input=>{
+      input.style.opacity = keyboard ? '1' : '.4';
+      input.disabled = !keyboard;
+    });
+  };
+
+  const save = ()=>{
+    const keyboard = mode() === 'keyboard';
+    const keys = Array.from(body.querySelectorAll('.key-slot'))
+      .map(input=> input.value.trim()).filter(Boolean);
+
+    MAPPING[selectedBtn] = keyboard
+      ? {xinput: 'None', keys: keys}
+      : {xinput: $('mapTarget').value, keys: []};
+
+    const padEl = body.querySelector('.kv-pad');
+    const keyEl = body.querySelector('.kv-key');
+    if(padEl) padEl.textContent = keyboard ? '—' : $('mapTarget').value;
+    if(keyEl) keyEl.textContent = keyboard ? (keys.join('+') || '—') : '—';
+
+    applyLabels();
+    markDirty();
+  };
+
+  document.querySelectorAll('input[name=mapMode]').forEach(radio=>{
+    radio.onchange = ()=>{ applyMode(); save(); };
+  });
+  $('mapTarget').onchange = save;
+  /* 三个独立输入框：点一下按键即录入该格 */
+  const KEY_ALIAS = {
+    ' ': 'space', 'control': 'ctrl', 'escape': 'esc',
+    'arrowup': 'up', 'arrowdown': 'down', 'arrowleft': 'left', 'arrowright': 'right',
+    'pageup': 'pgup', 'pagedown': 'pgdn', 'delete': 'del', 'insert': 'insert'
+  };
+
+  const readKeys = ()=> Array.from(body.querySelectorAll('.key-slot'))
+    .map(input=> input.value.trim()).filter(Boolean);
+
+  const commitKeys = ()=>{
+    const list = readKeys();
+    MAPPING[selectedBtn] = {xinput: 'None', keys: list};
+
+    const keyEl = body.querySelector('.kv-key');
+    if(keyEl) keyEl.textContent = list.length ? list.join('+') : '—';
+
+    applyLabels();
+    markDirty();
+  };
+
+  body.querySelectorAll('.key-slot').forEach(input=>{
+    input.addEventListener('keydown', (ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      // 退格 / 删除：清空这一格
+      if(ev.key === 'Backspace' || ev.key === 'Delete'){
+        input.value = '';
+        commitKeys();
+        return;
+      }
+
+      let key = String(ev.key || '').toLowerCase();
+      if(key === 'unidentified') return;
+      // 只按修饰键时记录修饰键本身
+      if(['control', 'alt', 'shift', 'meta'].includes(key)){
+        key = KEY_ALIAS[key] || key;
+      }else{
+        key = KEY_ALIAS[key] || key;
+      }
+      input.value = key;
+
+      const radio = document.querySelector('input[name=mapMode][value=keyboard]');
+      if(radio && !radio.checked){
+        radio.checked = true;
+        applyMode();
+      }
+      commitKeys();
+    });
+
+    input.addEventListener('focus', ()=>{
+      const radio = document.querySelector('input[name=mapMode][value=keyboard]');
+      if(radio && !radio.checked){
+        radio.checked = true;
+        applyMode();
+      }
+      input.select();
+    });
+  });
+
+  document.querySelectorAll('input[name=mapMode]').forEach(radio=>{
+    radio.onchange = ()=>{ applyMode(); save(); };
+  });
+  $('mapTarget').onchange = save;
+  applyMode();
+}
+
+/* ---------------- 校准 ---------------- */
+let CALIB_STATUS = null;
+let CALIB_TRAIL = [];
+let calibRaf = false;
+let calibFrame = 0;
+
+const CALIB_TEXT = {
+  prepare: '请把手离开左右摇杆，保持静止',
+  center:  '正在捕捉中心点 —— 请不要触碰摇杆',
+  ready:   '现在【同时】把左右摇杆贴着边缘慢慢转 3~5 圈',
+  edge:    '正在捕捉边缘 —— 请继续贴着边缘转圈',
+  compute: '正在计算校准结果…',
+  done:    '校准完成',
+  error:   '校准失败'
+};
+
+function calibGeometry(cv){
+  const W = cv.width, H = cv.height;
+  return {W: W, H: H, cx: W / 2, cy: H / 2, R: Math.min(W, H) / 2 - 28};
+}
+
+/* ---------------- 校准画布 ---------------- */
+let CALIB_SAMPLES = [];                       // 中心阶段采样
+let CALIB_LAPS = 0;                           // 边缘阶段累计圈数
+let CALIB_ANGLE = 0;
+let CALIB_LAST_ANGLE = null;
+const CALIB_SECTORS = 32;
+let CALIB_COVER = new Array(CALIB_SECTORS).fill(0);   // 每个方向的最大幅度
+
+function calibReset(){
+  CALIB_SAMPLES = [];
+  CALIB_COVER = new Array(CALIB_SECTORS).fill(0);
+  CALIB_LAPS = 0;
+  CALIB_ANGLE = 0;
+  CALIB_LAST_ANGLE = null;
+}
+
+function calibCoverage(){
+  const lit = CALIB_COVER.filter(v=> v > 0.72).length;
+  return lit / CALIB_SECTORS;
+}
+
+
+$('btnCalibFold').onclick = ()=>{
+  const box = $('calibBox');
+  const fold = $('btnCalibFold');
+  const nowHidden = box.classList.toggle('hidden');
+  fold.textContent = nowHidden ? '展开' : '收起';
+};
+
+$('btnCalib').onclick = async ()=>{
+  $('btnCalib').disabled = true;
+  $('btnCalibCancel').classList.remove('hidden');
+  $('btnCalibFold').classList.remove('hidden');
+  $('btnCalibFold').textContent = '收起';
+  $('calibBox').classList.remove('hidden');
+  $('calibBox').classList.remove('hidden');
+  $('calibConsole').textContent = '正在启动校准…\n';
+  try{
+    const r = await post('/api/calibrate/start');
+    if(!r.ok){
+      $('calibConsole').textContent = '❌ ' + (r.message || '启动失败') + '\n';
+      $('btnCalib').disabled = false;
+      $('btnCalibCancel').classList.add('hidden');
+      return;
+    }
+    if(calibTimer) clearInterval(calibTimer);
+    calibTimer = setInterval(pollCalib, 120);
+  }catch(e){
+    $('calibConsole').textContent = '❌ 启动失败: ' + e.message + '\n';
+    $('btnCalib').disabled = false;
+  }
+};
+
+$('btnCalibCancel').onclick = ()=> post('/api/calibrate/cancel').catch(()=>{});
+
+/* 把行拼成 HTML：\\x01 开头的行显示为黄色提示 */
+function escapeHtml(text){
+  return String(text)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function buildConsoleHtml(lines, live){
+  const parts = [];
+  lines.forEach(line=>{
+    if(line && line.charCodeAt(0) === 1){
+      parts.push('<span class="hint-yellow">' + escapeHtml(line.slice(1)) + '</span>');
+    }else{
+      parts.push(escapeHtml(line || ''));
+    }
+  });
+  if(live) parts.push(escapeHtml(live));
+  return parts.join('\n') || '准备中…';
+}
+
+/* ---------------- 校准可视化（低文本） ---------------- */
+const VIZ_PHASES = ['prepare', 'center', 'ready', 'edge', 'compute', 'done'];
+
+function drawCalibViz(st){
+  const cv = $('calibViz');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const phase = st.phase || 'idle';
+  const running = !!st.running;
+
+  // ---- 阶段圆点 ----
+  const steps = [
+    {key: 'center', label: '中心', active: ['prepare', 'center'].includes(phase),
+     done: ['ready', 'edge', 'compute', 'done'].includes(phase)},
+    {key: 'edge', label: '边缘', active: ['ready', 'edge'].includes(phase),
+     done: ['compute', 'done'].includes(phase)},
+    {key: 'done', label: '完成', active: phase === 'compute', done: phase === 'done'},
+  ];
+  const px0 = 372, stepGap = 74, py = 62;
+  ctx.strokeStyle = '#26303d';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(px0, py);
+  ctx.lineTo(px0 + stepGap * 2, py);
+  ctx.stroke();
+
+  steps.forEach((step, i)=>{
+    const cx = px0 + stepGap * i;
+    ctx.beginPath();
+    ctx.arc(cx, py, 15, 0, Math.PI * 2);
+    if(step.done){
+      ctx.fillStyle = '#46d39a';
+      ctx.fill();
+    }else if(step.active){
+      ctx.fillStyle = 'rgba(76,154,255,.22)';
+      ctx.fill();
+      ctx.strokeStyle = '#4c9aff';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }else{
+      ctx.fillStyle = '#151b26';
+      ctx.fill();
+      ctx.strokeStyle = '#2a3340';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    if(step.done){
+      ctx.strokeStyle = '#0a0e13';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(cx - 6, py);
+      ctx.lineTo(cx - 1, py + 5);
+      ctx.lineTo(cx + 7, py - 5);
+      ctx.stroke();
+      ctx.lineCap = 'butt';
+    }
+    ctx.fillStyle = step.active ? '#4c9aff' : (step.done ? '#46d39a' : '#67737f');
+    ctx.font = '600 12px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(step.label, cx, py + 38);
+  });
+
+  // ---- 操作提示（阶段圆点下方，绿色） ----
+  let tip = '';
+  if(phase === 'prepare' || phase === 'center') tip = '请保持摇杆回中状态';
+  else if(phase === 'ready' || phase === 'edge') tip = '请沿着边缘转动摇杆3圈';
+  else if(phase === 'compute') tip = '正在计算…';
+  else if(phase === 'done') tip = '校准完成';
+
+  if(tip){
+    ctx.fillStyle = '#46d39a';
+    ctx.font = '600 12.5px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(tip, 446, 156);
+  }
+
+  // ---- 双摇杆仪表 ----
+  const gauges = [
+    {x: 96, y: 100, label: '左', side: 'left'},
+    {x: 232, y: 100, label: '右', side: 'right'},
+  ];
+  const R = 62;
+  const zoomPhase = ['prepare', 'center'].includes(phase);
+  const pair = st.live_pair || null;
+  const live = st.live_range || null;
+
+  gauges.forEach(g=>{
+    const cx = g.x, cy = g.y;
+
+    // 底盘
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = '#0e131a';
+    ctx.fill();
+    ctx.strokeStyle = zoomPhase ? '#3d4a5a' : '#2a3340';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 十字
+    ctx.strokeStyle = '#1d2530';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy);
+    ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R);
+    ctx.stroke();
+
+    // 实时点位
+    let dx = 0, dy = 0;
+    if(pair && pair[g.side]){
+      dx = pair[g.side][0];
+      dy = pair[g.side][1];
+    }
+    const SCALE = 0.9;
+    const nx = Math.max(-1, Math.min(1, dx / SCALE));
+    const ny = Math.max(-1, Math.min(1, -dy / SCALE));
+
+    if(zoomPhase){
+      // 中心阶段：放大显示中心区域
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 0.34, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(76,154,255,.35)';
+      ctx.setLineDash([5, 5]);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const kx = cx + (nx / 0.34) * R * 0.34 * 1.0;
+      const ky = cy + (ny / 0.34) * R * 0.34 * 1.0;
+      ctx.beginPath();
+      ctx.arc(Math.max(cx - R, Math.min(cx + R, kx)),
+              Math.max(cy - R, Math.min(cy + R, ky)), 6, 0, Math.PI * 2);
+      ctx.fillStyle = '#4c9aff';
+      ctx.fill();
+    }else{
+      // 边缘阶段：36 扇区逐个点亮（指纹录入式）
+      const cover = (st.coverage && st.coverage[g.side]) ? st.coverage[g.side] : null;
+      const SECT = 36;
+      for(let i = 0; i < SECT; i++){
+        const lit = cover ? !!cover[i] : false;
+        const a0 = -Math.PI / 2 + (Math.PI * 2) * i / SECT + 0.02;
+        const a1 = -Math.PI / 2 + (Math.PI * 2) * (i + 1) / SECT - 0.02;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R - 5, a0, a1);
+        ctx.strokeStyle = lit ? '#46d39a' : 'rgba(70,211,154,.10)';
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
+      ctx.lineCap = 'butt';
+
+      // 覆盖百分比（右下角小字）
+      if(cover){
+        const done = cover.reduce((a, b)=> a + b, 0);
+        ctx.fillStyle = done >= SECT ? '#46d39a' : '#67737f';
+        ctx.font = '600 11px "Microsoft YaHei", sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(Math.round(done / SECT * 100) + '%', cx + R, cy + R + 8);
+      }
+
+      ctx.beginPath();
+      ctx.arc(cx + nx * (R - 12), cy + ny * (R - 12), 7, 0, Math.PI * 2);
+      ctx.fillStyle = '#46d39a';
+      ctx.fill();
+    }
+
+    // 标题
+    ctx.fillStyle = '#8b98a8';
+    ctx.font = '600 12px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(g.label, cx, cy + R + 20);
+  });
+
+  // 未运行时的淡化提示
+  if(!running && phase !== 'done'){
+    ctx.fillStyle = 'rgba(103,115,127,.85)';
+    ctx.font = '600 13px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('待开始', 470, 132);
+  }
+}
+
+async function pollCalib(){
+  try{
+    const st = await api('/api/calibrate/status');
+    CALIB_STATUS = st;
+    const box = $('calibConsole');
+    if(!box) return;
+
+    drawCalibViz(st);
+
+    const lines = st.lines || [];
+    const live = st.live || '';
+    const body = lines.join('\n') + (live ? (lines.length ? '\n' : '') + live : '');
+
+    // 只在内容变化时重绘，避免闪烁
+    if(box.dataset.body !== body){
+      box.dataset.body = body;
+      box.innerHTML = buildConsoleHtml(lines, live);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    if(st.error){
+      box.textContent = body + '\n\n❌ ' + st.error;
+      box.scrollTop = box.scrollHeight;
+    }
+
+    if(!st.running && (st.phase === 'done' || st.phase === 'error')){
+      if(calibTimer){ clearInterval(calibTimer); calibTimer = null; }
+      $('btnCalib').disabled = false;
+      $('btnCalibCancel').classList.add('hidden');
+      if(st.result && st.result.calibration){
+        const savedAt = st.result.calibration.saved_at;
+        if(savedAt){
+          const hint = $('calibHint');
+          if(hint) hint.textContent = '上次校准时间：' + savedAt;
+        }
+      }
+    }
+  }catch(e){}
+}
+
+function loadCalibrationToInputs(){ /* 校准结果已由后端写入，刷新页面即可看到 */ }
+
+/* ---------------- 曲线 ---------------- */
+const curvePad = cv => Math.round(cv.width * 0.06);
+const curveSelected = {left: -1, right: -1};
+const curveDrag = {left: -1, right: -1};
+
+function curveCanvas(side){
+  return side === 'left' ? $('curveLeft') : $('curveRight');
+}
+function c2p(cv, x, y){
+  const pad = curvePad(cv);
+  const plot = cv.width - pad * 2;
+  return {px: pad + x * plot, py: cv.height - pad - y * plot};
+}
+function p2c(cv, px, py){
+  const pad = curvePad(cv);
+  const plot = cv.width - pad * 2;
+  return {x: Math.min(1, Math.max(0, (px - pad) / plot)),
+          y: Math.min(1, Math.max(0, (cv.height - pad - py) / plot))};
+}
+
+function drawCurve(side){
+  const cv = curveCanvas(side);
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  const pad = curvePad(cv);
+  const plot = W - pad * 2;
+  const color = side === 'left' ? '#46d39a' : '#4c9aff';
+
+  ctx.strokeStyle = '#202834';
+  ctx.lineWidth = 1;
+  for(let i = 0; i <= 8; i++){
+    const p = pad + plot * i / 8;
+    ctx.beginPath(); ctx.moveTo(p, pad); ctx.lineTo(p, H - pad); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pad, p); ctx.lineTo(W - pad, p); ctx.stroke();
+  }
+  ctx.strokeStyle = '#3c4a5a';
+  ctx.setLineDash([6, 6]);
+  ctx.beginPath();
+  ctx.moveTo(pad, H - pad);
+  ctx.lineTo(W - pad, pad);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  const points = CURVES[side] || [[0, 0], [1, 1]];
+
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  points.forEach((p, i)=>{
+    const q = c2p(cv, p[0], p[1]);
+    i ? ctx.lineTo(q.px, q.py) : ctx.moveTo(q.px, q.py);
+  });
+  ctx.stroke();
+
+  points.forEach((p, i)=>{
+    const q = c2p(cv, p[0], p[1]);
+    ctx.beginPath();
+    ctx.arc(q.px, q.py, curveSelected[side] === i ? 11 : 8, 0, Math.PI * 2);
+    ctx.fillStyle = curveSelected[side] === i ? '#f0b429' : color;
+    ctx.fill();
+  });
+
+  // 目标曲线画在最上层：即使和当前曲线重合也看得见
+  const target = currentTarget();
+  const showPreview = (target === 'both') || (target === side);
+  const preview = findCurve(ACTIVE_CURVE);
+  if(showPreview && preview && preview.points){
+    const ghost = resampleCurve(preview.points, 5);
+    ctx.strokeStyle = '#f0b429';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([9, 7]);
+    ctx.beginPath();
+    ghost.forEach((p, i)=>{
+      const q = c2p(cv, p[0], p[1]);
+      i ? ctx.lineTo(q.px, q.py) : ctx.moveTo(q.px, q.py);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+}
+
+function drawAllCurves(){
+  drawCurve('left');
+  drawCurve('right');
+}
+
+function renderPointRows(side){
+  const host = side === 'left' ? $('pointsLeft') : $('pointsRight');
+  if(!host) return;
+  const points = CURVES[side] || [];
+  host.innerHTML = '';
+  points.forEach((p, i)=>{
+    const row = document.createElement('div');
+    row.className = 'pt-row';
+
+    const label = document.createElement('span');
+    label.textContent = '点' + (i + 1) + '：';
+    label.style.minWidth = '26px';
+    label.style.color = curveSelected[side] === i ? 'var(--warn)' : 'var(--dim)';
+    row.appendChild(label);
+
+    const last = points.length - 1;
+    [0, 1].forEach(which=>{
+      const mark = document.createElement('span');
+      mark.textContent = which === 0 ? 'X' : 'Y';
+      mark.style.color = 'var(--dim)';
+      mark.style.fontSize = '11px';
+      mark.style.marginRight = '2px';
+      row.appendChild(mark);
+
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.min = '0';
+      input.max = '1';
+      input.step = '0.01';
+      input.value = p[which].toFixed(2);
+      const locked = (which === 0 && (i === 0 || i === last));
+      input.disabled = locked;
+      if(locked) input.style.opacity = '.45';
+      input.onchange = ()=>{
+        let v = parseFloat(input.value);
+        if(isNaN(v)) v = 0;
+        v = Math.min(1, Math.max(0, v));
+        if(which === 0 && !locked){
+          const low = points[i - 1][0] + 0.01;
+          const high = points[i + 1][0] - 0.01;
+          points[i][0] = Math.min(high, Math.max(low, v));
+          points.sort((a, b)=> a[0] - b[0]);
+        }else{
+          points[i][which] = v;
+        }
+        renderPointRows(side);
+        drawCurve(side);
+        markDirty();
+      };
+      input.onfocus = ()=> {
+        curveSelected[side] = i;
+        drawCurve(side);
+      };
+      row.appendChild(input);
+    });
+    host.appendChild(row);
+  });
+}
+
+function hookCurve(side){
+  const cv = curveCanvas(side);
+  if(!cv) return;
+  const local = ev=>{
+    const rect = cv.getBoundingClientRect();
+    return {px: (ev.clientX - rect.left) * (cv.width / rect.width),
+            py: (ev.clientY - rect.top) * (cv.height / rect.height)};
+  };
+  const hit = (px, py)=>{
+    let best = -1, bestDist = cv.width * 0.035;
+    (CURVES[side] || []).forEach((p, i)=>{
+      const q = c2p(cv, p[0], p[1]);
+      const d = Math.hypot(q.px - px, q.py - py);
+      if(d < bestDist){ bestDist = d; best = i; }
+    });
+    return best;
+  };
+  cv.addEventListener('pointerdown', ev=>{
+    const pos = local(ev);
+    let index = hit(pos.px, pos.py);
+    if(index < 0){
+      const points = CURVES[side] || [];
+      if(points.length >= CURVE_MAX_POINTS){
+        toast('最多 ' + CURVE_MAX_POINTS + ' 个点');
+        return;
+      }
+      const p = p2c(cv, pos.px, pos.py);
+      points.push([Number(p.x.toFixed(3)), Number(p.y.toFixed(3))]);
+      points.sort((a, b)=> a[0] - b[0]);
+      index = points.findIndex(item=> Math.abs(item[0] - p.x) < 1e-6);
+      CURVES[side] = points;
+      curveSelected[side] = index;
+      renderPointRows(side);
+      drawCurve(side);
+    }else{
+      curveSelected[side] = index;
+      renderPointRows(side);
+      drawCurve(side);
+    }
+    curveDrag[side] = index;
+    cv.setPointerCapture(ev.pointerId);
+  });
+  cv.addEventListener('pointermove', ev=>{
+    const index = curveDrag[side];
+    if(index < 0) return;
+    const points = CURVES[side];
+    const pos = local(ev);
+    const p = p2c(cv, pos.px, pos.py);
+    const first = index === 0;
+    const last = index === points.length - 1;
+    if(!first && !last){
+      points[index][0] = Math.min(points[index + 1][0] - 0.01,
+                                  Math.max(points[index - 1][0] + 0.01, p.x));
+    }else{
+      points[index][0] = first ? 0 : 1;
+    }
+    points[index][1] = p.y;
+    drawCurve(side);
+  });
+  cv.addEventListener('pointerup', ()=>{
+    if(curveDrag[side] >= 0){
+      renderPointRows(side);
+      markDirty();
+    }
+    curveDrag[side] = -1;
+  });
+}
+
+/* ---------------- 曲线库 ---------------- */
+const BUILTIN_CURVES = [
+  {id: 'linear', name: '线性', points: [[0, 0], [1, 1]]},
+  {id: 'sacred', name: 'Sacred', points: [
+    [0, 0], [0.07, 0.063], [0.26, 0.25],
+    [0.46, 0.53], [0.74, 0.77], [1, 1]
+  ]}
+];
+
+let CURVE_LIB = [];
+let ACTIVE_CURVE = 'linear';      // 当前选中的预制曲线（画黄色预览）
+let PRESET_ID = 'linear';         // 选中的预制
+let CUSTOM_ID = '';               // 选中的自定义
+let USING_CUSTOM = '';            // 当前生效的自定义曲线 id
+
+function loadCurveLib(){
+  let saved = null;
+  try{ saved = JSON.parse(localStorage.getItem('sticklab.curveLib') || 'null'); }
+  catch(e){ saved = null; }
+
+  let customs = (saved && Array.isArray(saved.customs)) ? saved.customs : [];
+  if(customs.length === 0){
+    customs = [{
+      id: 'c1',
+      name: '自定义曲线 1（线性）',
+      points: [[0, 0], [0.25, 0.25], [0.5, 0.5], [0.75, 0.75], [1, 1]]
+    }];
+  }
+
+  CURVE_LIB = BUILTIN_CURVES.concat(customs);
+  PRESET_ID = (saved && saved.preset) || 'linear';
+  CUSTOM_ID = (saved && saved.custom) || customs[0].id;
+  ACTIVE_CURVE = PRESET_ID;
+
+  if(!CURVE_LIB.some(c=> c.id === PRESET_ID)) PRESET_ID = 'linear';
+  if(!CURVE_LIB.some(c=> c.id === CUSTOM_ID)) CUSTOM_ID = customs[0].id;
+
+  // 恢复「当前使用曲线」；没有或已失效就取第一条自定义
+  USING_CUSTOM = (saved && saved.using) || '';
+  if(!CURVE_LIB.some(c=> c.id === USING_CUSTOM)){
+    USING_CUSTOM = CURVE_LIB.some(c=> c.id === CUSTOM_ID) ? CUSTOM_ID : customs[0].id;
+  }
+}
+
+function saveCurveLib(){
+  try{
+    localStorage.setItem('sticklab.curveLib', JSON.stringify({
+      customs: CURVE_LIB.filter(c=> !BUILTIN_CURVES.some(b=> b.id === c.id)),
+      preset: PRESET_ID,
+      custom: CUSTOM_ID,
+      using: USING_CUSTOM,
+      active: PRESET_ID
+    }));
+  }catch(e){}
+}
+
+function findCurve(id){
+  return CURVE_LIB.find(c=> c.id === id) || CURVE_LIB[0];
+}
+
+let chipMenuEl = null;
+
+function closeChipMenu(){
+  if(chipMenuEl){
+    chipMenuEl.remove();
+    chipMenuEl = null;
+  }
+}
+
+function startRename(curve, chip){
+  const nameEl = chip.querySelector('span[data-name]');
+  if(!nameEl) return;
+  const input = document.createElement('input');
+  input.value = curve.name;
+  chip.replaceChild(input, nameEl);
+  input.focus();
+  input.select();
+  const commit = ()=>{
+    const text = input.value.trim();
+    if(text) curve.name = text;
+    saveCurveLib();
+    renderCurveChips();
+  };
+  input.onblur = commit;
+  input.onclick = (ev)=> ev.stopPropagation();
+  input.onkeydown = (ev)=>{
+    if(ev.key === 'Enter') commit();
+    if(ev.key === 'Escape') renderCurveChips();
+  };
+}
+
+function duplicateCurve(curve){
+  const copy = {
+    id: 'c' + Date.now(),
+    name: curve.name + ' 副本',
+    points: JSON.parse(JSON.stringify(curve.points))
+  };
+  const index = CURVE_LIB.findIndex(c=> c.id === curve.id);
+  CURVE_LIB.splice(index + 1, 0, copy);
+  ACTIVE_CURVE = copy.id;
+  saveCurveLib();
+  renderCurveChips();
+  toast('已复制「' + curve.name + '」');
+}
+
+function deleteCurve(curve){
+  if(CURVE_LIB.length <= 1){
+    toast('至少保留一条曲线');
+    return;
+  }
+  CURVE_LIB = CURVE_LIB.filter(c=> c.id !== curve.id);
+  if(ACTIVE_CURVE === curve.id) ACTIVE_CURVE = CURVE_LIB[0].id;
+  saveCurveLib();
+  renderCurveChips();
+  toast('已删除「' + curve.name + '」');
+}
+
+function openChipMenu(chip, curve){
+  closeChipMenu();
+  const menu = document.createElement('div');
+  menu.className = 'chip-menu';
+  const rect = chip.getBoundingClientRect();
+  menu.style.left = (rect.left + window.scrollX) + 'px';
+  menu.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+
+  const builtin = BUILTIN_CURVES.some(b=> b.id === curve.id);
+
+  [['重命名', ()=> startRename(curve, chip), builtin],
+   ['复制',   ()=> duplicateCurve(curve), false],
+   ['删除',   ()=> deleteCurve(curve), false]].forEach(([label, action, disabled])=>{
+    const item = document.createElement('div');
+    item.className = 'chip-menu-item' + (disabled ? ' disabled' : '');
+    item.textContent = label;
+    if(disabled){
+      item.title = '预制曲线不可重命名';
+    }else{
+      item.onclick = (event)=>{
+        event.stopPropagation();
+        closeChipMenu();
+        action();
+      };
+    }
+    menu.appendChild(item);
+  });
+
+  document.body.appendChild(menu);
+  chipMenuEl = menu;
+}
+
+document.addEventListener('click', closeChipMenu);
+
+/* 启动时把两侧曲线补齐到 5 个点 */
+function normalizeCurves(){
+  ['left', 'right'].forEach(side=>{
+    const points = CURVES[side];
+    if(!points || points.length < CURVE_MIN_POINTS){
+      CURVES[side] = resampleCurve(points || [[0, 0], [1, 1]], CURVE_MIN_POINTS);
+    }
+  });
+}
+
+function makeChip(curve, active, onClick){
+  const chip = document.createElement('div');
+  chip.className = 'chip' + (active ? ' active' : '');
+  const name = document.createElement('span');
+  name.dataset.name = '1';
+  name.textContent = curve.name;
+  chip.appendChild(name);
+  chip.onclick = onClick;
+  return chip;
+}
+
+function renderPresetChips(){
+  const host = $('presetChips');
+  if(!host) return;
+  host.innerHTML = '';
+  BUILTIN_CURVES.forEach(curve=>{
+    const chip = makeChip(curve, false, ()=>{
+      PRESET_ID = curve.id;
+      ACTIVE_CURVE = curve.id;
+      saveCurveLib();
+      drawAllCurves();          // 只做黄色预览
+      toast('已加载「' + curve.name + '」，点【应用】生效');
+    });
+    chip.classList.add('plain');   // 单色按钮，不做选中高亮
+    host.appendChild(chip);
+  });
+}
+
+
+function customCurves(){
+  return CURVE_LIB.filter(c=> !BUILTIN_CURVES.some(b=> b.id === c.id));
+}
+
+function updateUsingHint(){
+  const hint = $('usingHint');
+  if(!hint) return;
+
+  // 为空就回队列里取第一条自定义，取不到才显示 —
+  let curve = CURVE_LIB.find(c=> c.id === USING_CUSTOM);
+  if(!curve){
+    const list = customCurves();
+    curve = list.length ? list[0] : null;
+    if(curve) USING_CUSTOM = curve.id;
+  }
+  hint.textContent = '当前使用曲线：' + (curve ? curve.name : '—');
+}
+
+/* 选中哪条自定义就用它（供初始化恢复） */
+function restoreUsingCustom(){
+  const curve = CURVE_LIB.find(c=> c.id === USING_CUSTOM);
+  return curve || null;
+}
+
+function useCustom(curve){
+  USING_CUSTOM = curve.id;
+  CUSTOM_ID = curve.id;
+  saveCurveLib();
+  renderCustomChips();
+  applyCurve(curve, true);
+  toast('已使用「' + curve.name + '」');
+}
+
+function openCustomMenu(chip, curve){
+  closeChipMenu();
+  const menu = document.createElement('div');
+  menu.className = 'chip-menu';
+  const rect = chip.getBoundingClientRect();
+  menu.style.left = (rect.left + window.scrollX) + 'px';
+  menu.style.top = (rect.bottom + window.scrollY + 6) + 'px';
+
+  [['使用该曲线', ()=> useCustom(curve)],
+   ['重命名',    ()=> startRename(curve, chip)],
+   ['复制',      ()=> duplicateCurve(curve)],
+   ['删除',      ()=> {
+      if(customCurves().length <= 1){
+        toast('至少保留一条自定义曲线');
+        return;
+      }
+      CURVE_LIB = CURVE_LIB.filter(c=> c.id !== curve.id);
+      if(CUSTOM_ID === curve.id) CUSTOM_ID = customCurves()[0].id;
+      if(USING_CUSTOM === curve.id) USING_CUSTOM = '';
+      saveCurveLib();
+      renderCustomChips();
+      toast('已删除「' + curve.name + '」');
+   }]].forEach(([label, action])=>{
+    const item = document.createElement('div');
+    item.className = 'chip-menu-item';
+    item.textContent = label;
+    item.onclick = (event)=>{
+      event.stopPropagation();
+      closeChipMenu();
+      action();
+    };
+    menu.appendChild(item);
+  });
+
+  document.body.appendChild(menu);
+  chipMenuEl = menu;
+}
+
+function renderCustomChips(){
+  const host = $('customChips');
+  if(!host) return;
+  host.innerHTML = '';
+
+  customCurves().forEach(curve=>{
+    const chip = makeChip(curve, curve.id === CUSTOM_ID, ()=>{
+      if(CUSTOM_ID === curve.id){
+        openCustomMenu(chip, curve);
+        return;
+      }
+      CUSTOM_ID = curve.id;
+      saveCurveLib();
+      renderCustomChips();
+    });
+    chip.onclick = (event)=>{
+      event.stopPropagation();
+      if(CUSTOM_ID === curve.id) openCustomMenu(chip, curve);
+      else{
+        CUSTOM_ID = curve.id;
+        ACTIVE_CURVE = curve.id;      // 选中就画黄色预览
+        saveCurveLib();
+        renderCustomChips();
+        drawAllCurves();
+        toast('已选中「' + curve.name + '」，点芯片 ▾ → 使用该曲线 生效');
+      }
+    };
+
+    // 选中的芯片后面加个箭头，表示可以点开下拉
+    if(curve.id === CUSTOM_ID){
+      const arrow = document.createElement('span');
+      arrow.className = 'more';
+      arrow.textContent = '▾';
+      chip.appendChild(arrow);
+    }
+
+    host.appendChild(chip);
+  });
+
+  updateUsingHint();
+}
+
+function renderCurveChips(){
+  renderPresetChips();
+  renderCustomChips();
+}
+
+function newCustomCurve(){
+  const count = CURVE_LIB.filter(c=> !BUILTIN_CURVES.some(b=> b.id === c.id)).length + 1;
+  const curve = {
+    id: 'c' + Date.now(),
+    name: '自定义曲线 ' + count,
+    points: resampleCurve([[0, 0], [1, 1]], 5)
+  };
+  CURVE_LIB.push(curve);
+  CUSTOM_ID = curve.id;
+  saveCurveLib();
+  renderCustomChips();
+  toast('已新建「' + curve.name + '」，编辑后点【保存】写入');
+}
+
+$('btnNewCurve').onclick = newCustomCurve;
+
+/* 把选中的曲线应用到「应用对象」指定的一侧；只设一侧时另一侧还原线性 */
+/* 把折线曲线重采样成固定 n 个点（x 均匀分布） */
+function resampleCurve(points, n){
+  const src = (points && points.length >= 2) ? points : [[0, 0], [1, 1]];
+  if(src.length === n) return JSON.parse(JSON.stringify(src));
+
+  const sample = (x)=>{
+    if(x <= src[0][0]) return src[0][1];
+    for(let i = 1; i < src.length; i++){
+      const a = src[i - 1], b = src[i];
+      if(x <= b[0]){
+        const span = (b[0] - a[0]) || 1;
+        const t = (x - a[0]) / span;
+        return a[1] + (b[1] - a[1]) * t;
+      }
+    }
+    return src[src.length - 1][1];
+  };
+
+  const out = [];
+  for(let i = 0; i < n; i++){
+    const x = i / (n - 1);
+    out.push([Number(x.toFixed(3)), Number(sample(x).toFixed(3))]);
+  }
+  out[0][0] = 0;
+  out[n - 1][0] = 1;
+  return out;
+}
+
+function currentTarget(){
+  const el = $('applyTarget');
+  return el ? el.value : 'right';
+}
+
+function applyCurve(curve, silent){
+  if(!curve) return;
+  const target = currentTarget();
+  const sides = target === 'both' ? ['left', 'right'] : [target];
+  const fixed = resampleCurve(curve.points, 5);
+
+  sides.forEach(side=>{
+    CURVES[side] = JSON.parse(JSON.stringify(fixed));
+    curveSelected[side] = -1;
+    renderPointRows(side);
+    drawCurve(side);
+  });
+
+  const isBuiltin = BUILTIN_CURVES.some(b=> b.id === curve.id);
+  USING_CUSTOM = isBuiltin ? '' : curve.id;
+  updateUsingHint();
+
+  if(!silent){
+    toast('已应用「' + curve.name + '」到' +
+          (target === 'both' ? '左右摇杆'
+                             : (target === 'left' ? '左摇杆' : '右摇杆')));
+  }
+  markDirty();
+}
+
+$('btnApplyPreset').onclick = ()=>{
+  applyCurve(findCurve(PRESET_ID));
+};
+
+loadCurveLib();
+renderCurveChips();
+normalizeCurves();
+
+/* ---------------- 统一保存（5 秒自动保存） ---------------- */
+let dirtyTimer = null;
+let dirtyLeft = 0;
+
+function updateAutoSaveHint(){
+  const badge = $('saveBadge');
+  if(badge){
+    if(dirtyLeft > 0){
+      badge.textContent = '⟳ ' + dirtyLeft + ' 秒后自动保存…';
+      badge.classList.add('show');
+    }else{
+      badge.classList.remove('show');
+    }
+  }
+  // 底部按钮旁边的文字保持为空（信息改由右下角角标承担）
+  ['stickHint', 'keysHint'].forEach(id=>{
+    const hint = $(id);
+    if(hint) hint.textContent = '';
+  });
+}
+
+function markDirty(){
+  if(dirtyTimer){ clearInterval(dirtyTimer); }
+  dirtyLeft = 5;
+  updateAutoSaveHint();
+  dirtyTimer = setInterval(()=>{
+    dirtyLeft -= 1;
+    updateAutoSaveHint();
+    if(dirtyLeft <= 0){
+      clearInterval(dirtyTimer);
+      dirtyTimer = null;
+      saveAll(true);
+    }
+  }, 1000);
+}
+
+/* 保存前：把当前编辑的曲线回写到「当前使用曲线」槽位 */
+function flushToCustom(){
+  if(!USING_CUSTOM) return;
+  const curve = CURVE_LIB.find(c=> c.id === USING_CUSTOM);
+  if(!curve) return;
+  const side = (currentTarget() === 'left') ? 'left' : 'right';
+  if(!CURVES[side]) return;
+  curve.points = JSON.parse(JSON.stringify(CURVES[side]));
+  saveCurveLib();
+  renderCustomChips();
+}
+
+async function saveAll(auto){
+  flushToCustom();
+  if(dirtyTimer){ clearInterval(dirtyTimer); dirtyTimer = null; }
+  dirtyLeft = 0;
+  updateAutoSaveHint();
+  try{
+    const curveRes = await post('/api/curves', CURVES);
+    if(curveRes.curves) CURVES = curveRes.curves;
+    const payload = {
+      shape_algorithm: 'circle',
+      square_mapping_strength: {
+        left_stick: PARAMS.square_mapping_strength.left_stick,
+        right_stick: PARAMS.square_mapping_strength.right_stick
+      },
+      deadzone_config: {
+        left: {
+          deadzone: PARAMS.deadzone_config.left.deadzone,
+          outer_threshold: PARAMS.deadzone_config.left.outer_threshold,
+          response_curve: 1.0
+        },
+        right: {
+          deadzone: PARAMS.deadzone_config.right.deadzone,
+          outer_threshold: PARAMS.deadzone_config.right.outer_threshold,
+          response_curve: 1.0
+        }
+      }
+    };
+    const paramRes = await post('/api/params', payload);
+    if(paramRes.params) PARAMS = paramRes.params;
+
+    const mapRes = await post('/api/buttonmap', MAPPING);
+    if(mapRes.button_map) MAPPING = mapRes.button_map;
+    syncStickInputs();
+    renderPointRows('left');
+    renderPointRows('right');
+    drawAllCurves();
+    toast(auto ? '已自动保存' : '已保存全部设置');
+  }catch(e){ toast('保存失败: ' + e.message); }
+}
+
+$('btnSaveAll').onclick = ()=> saveAll(false);
+$('btnSaveKeys').onclick = ()=> saveAll(false);
+
+/* 键位恢复出厂：与后端 DEFAULT_BUTTON_MAP 一致 */
+const DEFAULT_BUTTON_MAP = {
+  0: {xinput: 'A', keys: []},       1: {xinput: 'B', keys: []},
+  2: {xinput: 'X', keys: []},       3: {xinput: 'Y', keys: []},
+  4: {xinput: 'RB', keys: []},      5: {xinput: 'RT', keys: []},
+  6: {xinput: 'START', keys: []},   7: {xinput: 'RS', keys: []},
+  8: {xinput: 'DPAD_DOWN', keys: []},  9: {xinput: 'DPAD_RIGHT', keys: []},
+  10: {xinput: 'DPAD_LEFT', keys: []}, 11: {xinput: 'DPAD_UP', keys: []},
+  12: {xinput: 'LB', keys: []},     13: {xinput: 'LT', keys: []},
+  14: {xinput: 'BACK', keys: []},   15: {xinput: 'LS', keys: []},
+  16: {xinput: 'START', keys: ['alt', 'f10']},
+  17: {xinput: 'BACK', keys: ['t']},
+  18: {xinput: 'X', keys: []},      19: {xinput: 'A', keys: []},
+  20: {xinput: 'None', keys: []}
+};
+
+$('btnResetKeys').onclick = ()=>{
+  MAPPING = JSON.parse(JSON.stringify(DEFAULT_BUTTON_MAP));
+  applyLabels();
+  markDirty();
+  toast('按键已恢复初始设置');
+};
+
+/* 重置为 Python 脚本默认：线性曲线 + 左方 0.7 / 右圆 + 0 死区 */
+const RESET_SQUARE_LEFT = 0.3;   // 「方」= 30%
+
+$('btnResetStick').onclick = ()=>{
+  const linear = resampleCurve([[0, 0], [1, 1]], 5);
+
+  // 1) 曲线 → 线性
+  ['left', 'right'].forEach(side=>{
+    CURVES[side] = JSON.parse(JSON.stringify(linear));
+    curveSelected[side] = -1;
+    renderPointRows(side);
+  });
+  drawAllCurves();
+
+  // 2) 曲线配置列表 → 只保留一条「自定义曲线 1（线性）」
+  CURVE_LIB = BUILTIN_CURVES.concat([{
+    id: 'c1',
+    name: '自定义曲线 1（线性）',
+    points: JSON.parse(JSON.stringify(linear))
+  }]);
+  CUSTOM_ID = 'c1';
+  USING_CUSTOM = 'c1';
+  PRESET_ID = 'linear';
+  ACTIVE_CURVE = 'linear';
+  saveCurveLib();
+  renderCurveChips();
+
+  // 3) 方圆：左方（0.7）/ 右圆（0）
+  PARAMS.square_mapping_strength.left_stick = RESET_SQUARE_LEFT;
+  PARAMS.square_mapping_strength.right_stick = 0;
+
+  // 4) 死区：全部归零
+  ['left', 'right'].forEach(side=>{
+    PARAMS.deadzone_config[side].deadzone = 0;
+    PARAMS.deadzone_config[side].outer_threshold = 1;
+  });
+
+  syncStickInputs();
+  drawAllViz();
+  markDirty();
+
+  const calibHint = $('calibHint');
+  if(calibHint) calibHint.textContent = '数据已经重置，请重新校准摇杆。';
+
+  toast('已重置：线性曲线 · 左方 30% · 右圆 · 0 死区');
+};
+
+/* ---------------- 快速设置按钮 ---------------- */
+document.querySelectorAll('[data-shape]').forEach(btn=>{
+  btn.onclick = ()=>{
+    const SQUARE = 0.3;      // 「方」按 30% 方
+    const kind = btn.dataset.shape;
+    if(kind === 'both-circle'){
+      PARAMS.square_mapping_strength.left_stick = 0;
+      PARAMS.square_mapping_strength.right_stick = 0;
+    }else if(kind === 'both-square'){
+      PARAMS.square_mapping_strength.left_stick = SQUARE;
+      PARAMS.square_mapping_strength.right_stick = SQUARE;
+    }else if(kind === 'left-square'){
+      PARAMS.square_mapping_strength.left_stick = SQUARE;
+      PARAMS.square_mapping_strength.right_stick = 0;
+    }
+    syncStickInputs();
+    markDirty();
+  };
+});
+
+document.querySelectorAll('[data-dead]').forEach(btn=>{
+  btn.onclick = ()=>{
+    const dz = PARAMS.deadzone_config;
+
+    if(btn.dataset.dead === 'apex'){
+      // 右摇杆：完全无死区
+      dz.right.deadzone = 0;
+      dz.right.outer_threshold = 1;
+      // 左摇杆：中心 -5%（放大对冲游戏死区），边缘 10%（提前满值）
+      dz.left.deadzone = -0.05;
+      dz.left.outer_threshold = 0.90;
+      toast('已应用 Apex 反死区：左 中心-5% / 边缘10%，右 0 死区');
+    }else{
+      ['left', 'right'].forEach(side=>{
+        dz[side].deadzone = 0;
+        dz[side].outer_threshold = 1;
+      });
+      toast('已设为 0 死区');
+    }
+
+    syncStickInputs();
+    drawAllViz();
+    markDirty();
+  };
+});
+
+/* ---------------- 方圆 / 死区 图形预览 ---------------- */
+const VIZ_RATIO = 0.62;      // 满量程半径 / 画布半径
+
+function vizBase(cv){
+  const W = cv.width, H = cv.height;
+  return {W, H, cx: W / 2, cy: H / 2, R: Math.min(W, H) / 2 * VIZ_RATIO};
+}
+
+/* 方圆：虚线是纯圆与纯方，实线是当前混合形状 */
+function drawShapeViz(cv, strength){
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const {W, H, cx, cy, R} = vizBase(cv);
+  ctx.clearRect(0, 0, W, H);
+
+  const N = 200;
+  const pts = [];
+  for(let i = 0; i < N; i++){
+    const a = Math.PI * 2 * i / N;
+    const ux = Math.cos(a), uy = Math.sin(a);
+    const m = Math.max(Math.abs(ux), Math.abs(uy)) || 1;
+    pts.push([cx + (ux * (1 - strength) + (ux / m) * strength) * R,
+              cy + (uy * (1 - strength) + (uy / m) * strength) * R]);
+  }
+  ctx.beginPath();
+  pts.forEach((p, i)=> i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(76,154,255,.16)';
+  ctx.fill();
+  ctx.strokeStyle = '#4c9aff';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(120,140,165,.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - R * 1.22, cy); ctx.lineTo(cx + R * 1.22, cy);
+  ctx.moveTo(cx, cy - R * 1.22); ctx.lineTo(cx, cy + R * 1.22);
+  ctx.stroke();
+
+  // 参考边界最后画，避免被填充盖住
+  ctx.strokeStyle = 'rgba(190, 205, 225, .78)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([9, 7]);
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeRect(cx - R, cy - R, R * 2, R * 2);
+  ctx.setLineDash([]);
+}
+
+/* 死区：红=中心死区，黄=满输出位置，绿=有效区间 */
+function drawDeadzoneViz(cv, inner, outer){
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const {W, H, cx, cy, R} = vizBase(cv);
+  ctx.clearRect(0, 0, W, H);
+
+  const rIn = Math.max(0, inner) * R;
+  const rOut = Math.min(1.35, Math.max(0.05, outer)) * R;
+  const boost = inner < 0 ? Math.min(R * 1.1, -inner * R * 3.2) : 0;
+
+  // 有效区间
+  ctx.beginPath();
+  ctx.arc(cx, cy, Math.min(rOut, R * 1.35), 0, Math.PI * 2);
+  if(rIn > 0) ctx.arc(cx, cy, rIn, 0, Math.PI * 2, true);
+  ctx.fillStyle = 'rgba(70,211,154,.12)';
+  ctx.fill();
+
+  // 中心死区
+  if(rIn > 1){
+    ctx.beginPath(); ctx.arc(cx, cy, rIn, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(242,85,90,.28)';
+    ctx.fill();
+    ctx.strokeStyle = '#f2555a';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  // 中心负死区 = 放大信号，用绿色表示
+  if(boost > 0){
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, boost);
+    grad.addColorStop(0, 'rgba(70,211,154,.55)');
+    grad.addColorStop(1, 'rgba(70,211,154,0)');
+    ctx.beginPath(); ctx.arc(cx, cy, boost, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, boost, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(70,211,154,.85)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 4]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // 边缘留空区域（rOut ~ R 之间的琥珀色环带）
+  if(rOut < R * 0.999){
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.arc(cx, cy, rOut, 0, Math.PI * 2, true);
+    ctx.fillStyle = 'rgba(240,180,41,.20)';
+    ctx.fill();
+  }
+
+  // 满输出位置
+  ctx.beginPath(); ctx.arc(cx, cy, rOut, 0, Math.PI * 2);
+  ctx.strokeStyle = '#f0b429';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  // 十字
+  ctx.strokeStyle = 'rgba(120,140,165,.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - R * 1.22, cy); ctx.lineTo(cx + R * 1.22, cy);
+  ctx.moveTo(cx, cy - R * 1.22); ctx.lineTo(cx, cy + R * 1.22);
+  ctx.stroke();
+
+  ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#8b98a8'; ctx.fill();
+
+  // 满量程参考圈最后画
+  ctx.strokeStyle = 'rgba(190, 205, 225, .78)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([9, 7]);
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // 黄色满输出圈最后再描一次，确保在最上层
+  if(rOut < R * 0.999){
+    ctx.beginPath(); ctx.arc(cx, cy, rOut, 0, Math.PI * 2);
+    ctx.strokeStyle = '#f0b429';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+}
+
+function drawAllViz(){
+  const shape = PARAMS.square_mapping_strength || {left_stick: 0, right_stick: 0};
+  drawShapeViz($('shapeVizLeft'),  shape.left_stick);
+  drawShapeViz($('shapeVizRight'), shape.right_stick);
+
+  const dz = PARAMS.deadzone_config || {left: {}, right: {}};
+  const outerOf = side => {
+    const value = dz[side] && dz[side].outer_threshold;
+    return value === undefined ? 1 : value;
+  };
+  drawDeadzoneViz($('dzVizLeft'),
+                  (dz.left && dz.left.deadzone) || 0, outerOf('left'));
+  drawDeadzoneViz($('dzVizRight'),
+                  (dz.right && dz.right.deadzone) || 0, outerOf('right'));
+}
+
+/* ---------------- 方圆 + 死区 ---------------- */
+function syncStickInputs(){
+  const set = (id, idv, value, digits)=>{
+    const el = $(id);
+    if(el) el.value = value;
+    const label = $(idv);
+    if(label) label.textContent = Number(value).toFixed(digits);
+  };
+  const shape = PARAMS.square_mapping_strength || {left_stick: 0, right_stick: 0};
+  set('shapeL', 'shapeL_v', shape.left_stick, 2);
+  set('shapeR', 'shapeR_v', shape.right_stick, 2);
+  if($('shapeL_v')) $('shapeL_v').textContent = (shape.left_stick * 100).toFixed(0) + '%';
+  if($('shapeR_v')) $('shapeR_v').textContent = (shape.right_stick * 100).toFixed(0) + '%';
+
+  const dz = PARAMS.deadzone_config || {left: {}, right: {}};
+
+  const pct = (value)=> (value * 100).toFixed(1) + '%';
+  const centerPct = (value)=> {
+    const v = (value || 0) * 100;
+    return (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+  };
+  const edgePct = (outer)=>{
+    const edge = 1 - (outer === undefined ? 0.95 : outer);   // 默认 5%
+    return Math.max(0, edge) * 100;
+  };
+
+  set('dzL', 'dzL_v', dz.left.deadzone || 0, 3);
+  set('dzR', 'dzR_v', dz.right.deadzone || 0, 3);
+  $('dzL_v').textContent = centerPct(dz.left.deadzone);
+  $('dzR_v').textContent = centerPct(dz.right.deadzone);
+  $('edL_v').textContent = edgePct(dz.left.outer_threshold).toFixed(1) + '%';
+  $('edR_v').textContent = edgePct(dz.right.outer_threshold).toFixed(1) + '%';
+
+  const edL = $('edL');
+  const edR = $('edR');
+  if(edL) edL.value = edgePct(dz.left.outer_threshold);
+  if(edR) edR.value = edgePct(dz.right.outer_threshold);
+  drawAllViz();
+}
+
+$('shapeL').oninput = e=>{
+  const v = parseFloat(e.target.value);
+  PARAMS.square_mapping_strength.left_stick = v;
+  $('shapeL_v').textContent = (v * 100).toFixed(0) + '%';
+
+  drawAllViz();
+
+  markDirty();
+};
+$('shapeR').oninput = e=>{
+  const v = parseFloat(e.target.value);
+  PARAMS.square_mapping_strength.right_stick = v;
+  $('shapeR_v').textContent = (v * 100).toFixed(0) + '%';
+
+  drawAllViz();
+
+  markDirty();
+};
+$('dzL').oninput = e=>{
+  const value = parseFloat(e.target.value);
+  PARAMS.deadzone_config.left.deadzone = value;
+  $('dzL_v').textContent = (value * 100 > 0 ? '+' : '') + (value * 100).toFixed(1) + '%';
+
+  drawAllViz();
+
+  markDirty();
+};
+$('dzR').oninput = e=>{
+  const value = parseFloat(e.target.value);
+  PARAMS.deadzone_config.right.deadzone = value;
+  $('dzR_v').textContent = (value * 100 > 0 ? '+' : '') + (value * 100).toFixed(1) + '%';
+
+  drawAllViz();
+
+  markDirty();
+};
+$('edL').oninput = e=>{
+  const edge = Math.max(0, parseFloat(e.target.value)) / 100;
+  PARAMS.deadzone_config.left.outer_threshold = 1 - edge;
+  $('edL_v').textContent = (edge * 100).toFixed(1) + '%';
+
+  drawAllViz();
+
+  markDirty();
+};
+$('edR').oninput = e=>{
+  const edge = Math.max(0, parseFloat(e.target.value)) / 100;
+  PARAMS.deadzone_config.right.outer_threshold = 1 - edge;
+  $('edR_v').textContent = (edge * 100).toFixed(1) + '%';
+
+  drawAllViz();
+
+  markDirty();
+};
+
+/* 保存已合并到页面底部的「保存全部设置」 */
+
+/* ---------------- 轮询调度 ----------------
+   只在页面可见时跑；按当前标签页决定跑哪些请求：
+     - 键位设置：需要摇杆动画 → 开 SSE + rAF
+     - 连接手柄：需要设备顺序 → 15 秒一次
+     - 摇杆设置：只需要低频状态
+   页面隐藏（切走标签页 / 最小化）时全部暂停。
+------------------------------------------------ */
+$('labelScheme').onchange = (e)=>{
+  SCHEME = e.target.value;
+  try{
+    localStorage.setItem('sticklab.labels', SCHEME);
+  }catch(err){}
+  applyLabels();
+};
+
+let CURRENT_TAB = 'connect';
+let statusTimer = null;
+let deviceTimer = null;
+let outputTimer = null;
+let orderTimer = null;
+let rafRunning = false;
+
+function pageVisible(){
+  return !document.hidden;
+}
+
+function stopTimers(){
+  clearTimeout(statusTimer);  statusTimer = null;
+  clearTimeout(orderTimer);   orderTimer = null;
+  clearInterval(deviceTimer); deviceTimer = null;
+  clearInterval(outputTimer); outputTimer = null;
+}
+
+function closeStream(){
+  if(window.__stickStream){
+    try{ window.__stickStream.close(); }catch(e){}
+    window.__stickStream = null;
+  }
+  STREAM_OK = false;
+}
+
+async function pollStatus(){
+  statusTimer = null;
+  if(!pageVisible()) return;
+  try{
+    STATUS = await api('/api/status');
+    if(!STREAM_OK){
+      if(STATUS.left)  STICK_TARGET.left  = STATUS.left;
+      if(STATUS.right) STICK_TARGET.right = STATUS.right;
+      LIVE_BUTTONS = (STATUS.buttons || [])
+        .map((pressed, index)=> pressed ? index : -1)
+        .filter(index=> index >= 0);
+      updateHighlights();
+    }
+  }catch(e){}
+  // 有 SSE 时只需低频兜底
+  statusTimer = setTimeout(pollStatus, STREAM_OK ? 2000 : 500);
+}
+
+function startAnimatedPad(){
+  if(rafRunning) return;
+  rafRunning = true;
+  requestAnimationFrame(animationLoop);
+}
+
+function scheduleForTab(){
+  stopTimers();
+
+  // 告诉后端是否有人在看按键/摇杆：只有键位页才开启监测
+  const watching = pageVisible() && (CURRENT_TAB === 'keys');
+  post('/api/monitor', {keys: watching}).catch(()=>{});
+
+  if(!pageVisible()){ closeStream(); return; }
+
+  if(CURRENT_TAB === 'keys'){
+    startAnimatedPad();
+    openStream();
+  }else{
+    closeStream();
+  }
+
+  if(CURRENT_TAB === 'connect'){
+    deviceTimer  = setInterval(refreshDevice, 3000);
+    outputTimer  = setInterval(refreshOutput, 3000);
+    orderTimer   = setInterval(refreshDeviceOrder, 15000);
+  }else if(CURRENT_TAB === 'stick'){
+    deviceTimer  = setInterval(refreshDevice, 5000);
+  }
+
+  if(!statusTimer) pollStatus();
+}
+
+document.addEventListener('visibilitychange', ()=>{
+  if(pageVisible()){
+    refreshDevice();
+    scheduleForTab();
+  }else{
+    stopTimers();
+    closeStream();
+  }
+});
+
+/* 显示上次校准时间（已校准过就不再提示首次校准） */
+function applyCalibHint(){
+  const hint = $('calibHint');
+  if(!hint) return;
+  const savedAt = (INIT_CALIB && INIT_CALIB.saved_at) || '';
+  hint.textContent = savedAt
+    ? '上次校准时间：' + savedAt
+    : '（重要）首次使用，建议先校准。得到准确的摇杆的中心点和边缘。';
+}
+
+(async ()=>{
+  applyCalibHint();
+  updateUsingHint();
+  initPad();
+  applyLabels();
+  hookCurve('left');
+  hookCurve('right');
+  renderPointRows('left');
+  renderPointRows('right');
+  drawAllCurves();
+  syncStickInputs();
+  renderKeyPanel();
+
+  // 先查状态：已经连着就不要再扫，避免把正在跑的读取线程打断
+  // 只查状态，不自动扫描：断线后必须由用户点【重新检测】
+  $('btnRescan').disabled = true;
+  $('scanMsg').textContent = '正在读取状态…';
+  const connected = await refreshDevice();
+  $('btnRescan').disabled = false;
+  if(!connected){
+    $('scanMsg').textContent = '未连接手柄，点上方按钮开始检测';
+  }
+
+  await refreshOutput();
+  await refreshDeviceOrder();
+
+  scheduleForTab();
+})();
+</script>
+</body>
+</html>

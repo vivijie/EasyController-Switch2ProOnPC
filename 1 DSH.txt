@@ -1,0 +1,126 @@
+我要在这台 Windows 电脑上装 EasyController —— 一个把 Switch 2 Pro 手柄
+变成 PC 标准 XInput 手柄的小工具（本地网页界面）。
+
+项目就在我给你的这个目录里：
+
+    EasyController\
+        0 使用说明.txt
+        1 DSH.txt                ← 本文件，贴给 DSH
+        2 双击启动.bat           ← 以后我双击它启动
+        app\                     ← 程序本体（都在这里）
+            run_sticklab.py
+            requirements.txt
+            sticklab\
+            data\
+        dev\                     ← 开发资料，别动
+
+请把下面 6 步全部做完，能一路做完最好，最后一次性汇报。
+每步做完简单说一句结果即可。
+
+────────────────────────────────────────
+第 1 步 安装 / 确认 Python 3.11
+────────────────────────────────────────
+需要 Python 3.11 或以上，优先 3.11。
+
+先检查：
+    py -3.11 -c "import sys; print(sys.version)"
+    python --version
+
+如果都没装，请直接帮我装：
+    · 优先 winget：
+        winget install -e --id Python.Python.3.11
+    · winget 不可用时，用官方安装包静默安装：
+        https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe
+        参数： /quiet InstallAllUsers=0 PrependPath=1 Include_pip=1
+    · 装完确认 py -3.11 可用（必要时刷新 PATH 或重开终端）
+
+如果电脑上有 3.13 等其他版本但缺依赖，也以 3.11 为准。
+
+────────────────────────────────────────
+第 2 步 安装项目依赖
+────────────────────────────────────────
+在 EasyController 目录下执行：
+
+    py -3.11 -m pip install --upgrade pip
+    py -3.11 -m pip install -r app\requirements.txt
+
+需要装：Flask、pygame、vgamepad、pyusb、libusb-package、hidapi。
+
+────────────────────────────────────────
+第 3 步 安装 ViGEmBus 驱动（关键）
+────────────────────────────────────────
+vgamepad 靠它创建虚拟 Xbox 手柄，没有它虚拟手柄完全用不了。
+
+检查：设备管理器里是否有
+    "Nefarius Virtual Gamepad Emulation Bus"
+或命令行：
+    sc query ViGEmBus
+
+没有就装（任一方式）：
+    · winget install -e --id Nefarius.ViGEmBus
+    · 或从 https://github.com/nefarius/ViGEmBus/releases 下载安装
+装完可能需要重启，请确认驱动已就位。
+
+────────────────────────────────────────
+第 4 步 自检
+────────────────────────────────────────
+在 EasyController 目录执行：
+
+    py -3.11 app\run_sticklab.py --check-only
+
+期望看到：
+    ✅ flask 已安装
+    ✅ 文件完整
+    ✅ 模块导入正常
+    ✅ 引擎正常
+    ✅ 自检通过
+
+有报错就修到通过为止，把报错原文贴给我。
+
+────────────────────────────────────────
+第 5 步 插手柄 + 首次连接
+────────────────────────────────────────
+1) 我用 USB 数据线把 Switch 2 Pro 手柄插到电脑上。
+2) 确认设备管理器里出现 "Switch 2 Pro Controller"。
+3) 执行：
+
+    py -3.11 app\run_sticklab.py --no-browser
+
+   看到下面这行就算成功：
+       [手柄] ✅ 已连接：...（pygame 读取）
+
+   如果提示"未检测到手柄"，帮我按顺序排查：
+       a. 换一根能传数据的 USB 线（很多线只供电）
+       b. 换 USB 口
+       c. 关掉 Steam / 模拟器等可能独占手柄的程序
+       d. 设备管理器里是否真的出现了该设备
+
+────────────────────────────────────────
+第 6 步 正常启动并确认
+────────────────────────────────────────
+最后用真正的启动方式跑一次：
+
+    双击 "2 双击启动.bat"
+    （脚本内部就是 py -3.11 app\run_sticklab.py）
+
+确认：
+    · 窗口里打印的地址能打开（默认 http://127.0.0.1:8899，
+      端口被占用时程序会自动换，以窗口里打印的为准）
+    · 页面能看到三个标签：连接手柄 / 键位设置 / 摇杆设置
+
+────────────────────────────────────────
+最后告诉我
+────────────────────────────────────────
+1. Python 装在哪、用的是哪个命令（py -3.11 还是 python）
+2. 依赖和 ViGEmBus 是否都就绪
+3. 以后是不是双击 "2 双击启动.bat" 就能用
+4. 如果游戏里没反应，第一步该检查什么
+
+────────────────────────────────────────
+补充
+────────────────────────────────────────
+· 一般不需要管理员权限；只有激活手柄报 "Access denied" 时，
+  用管理员身份运行一次 bat 再试。
+· 所有配置在 EasyController\app\data\sticklab_config.json，
+  删掉即恢复出厂设置。
+· dev\ 目录是开发资料，运行时不需要。

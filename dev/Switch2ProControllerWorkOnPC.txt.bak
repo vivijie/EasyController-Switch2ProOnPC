@@ -1,0 +1,1269 @@
+import pygame
+import time
+import threading
+import math
+import os
+import json
+import sys
+from collections import deque
+from vgamepad import VX360Gamepad, XUSB_BUTTON
+
+# 控制台中文/emoji 输出兜底：部分 Windows 终端默认编码不是 UTF-8
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
+# ==================== 配置区域 ====================
+# 一致性模式配置 (global_min: 全局最小范围统一缩放, independent: 传统独立缩放)
+CONSISTENCY_MODE = {
+    'left': 'global_min',   # 左摇杆使用一致性模式
+    'right': 'global_min'   # 右摇杆使用一致性模式
+}
+
+# 默认摇杆物理限制校准（防呆设计，使用0.8作为安全值）
+DEFAULT_PHYSICAL_LIMITS = {
+    'left': {'min_x': -0.8, 'max_x': 0.8, 'min_y': -0.8, 'max_y': 0.8},
+    'right': {'min_x': -0.8, 'max_x': 0.8, 'min_y': -0.8, 'max_y': 0.8}
+}
+
+# 默认摇杆中心偏移校准
+DEFAULT_CENTER_OFFSETS = {
+    'left': {'x': 0.0, 'y': 0.0},
+    'right': {'x': 0.0, 'y': 0.0}
+}
+
+# 校准有效性阈值：单个轴行程小于该值时视为没转到位，本次结果不写入本地文件
+MIN_VALID_CALIBRATION_RANGE = 0.3
+
+# 行程体检阈值：某个方向比其他方向小太多时给出提醒（不拦截，只警告）
+# 例如右方向 0.724、其他方向 0.8 以上，就会提示"向右行程偏小"
+TRAVEL_WARN_RATIO = 0.85
+TRAVEL_WARN_ABSOLUTE = 0.78
+
+# 独立死区配置 - 左右摇杆分别设置
+DEADZONE_CONFIG = {
+    'left': {
+        'deadzone': 0.03,
+        'outer_threshold': 0.9,
+        'response_curve': 1.0
+    },
+    'right': {
+        'deadzone': 0.00, 
+        'outer_threshold': 1.0,
+        'response_curve': 1.0
+    }
+}
+
+# 摇杆输出增幅配置 (1.0=无增幅, 1.1=10%增幅, 0.9=10%衰减)
+OUTPUT_AMPLIFIER = {
+    'left_stick': 1.1,   # 左摇杆输出增幅
+    'right_stick': 1.0    # 右摇杆输出增幅
+}
+
+# 方形死区开关配置 (0=关闭, 1=开启)
+SQUARE_DEADZONE_SWITCH = {
+    'left_stick': 1,   # 左摇杆方形死区开关
+    'right_stick': 0   # 右摇杆方形死区开关
+}
+
+# 方形映射强度配置 (0.0=纯圆, 1.0=纯方, 中间值=混合)
+SQUARE_MAPPING_STRENGTH = {
+    'left_stick': 0.3,   # 左摇杆方形映射强度
+    'right_stick': 0.3   # 右摇杆方形映射强度
+}
+
+# 更新率配置
+UPDATE_RATE = 1000  # Hz
+
+# 按钮映射
+PHYSICAL_TO_NAME = {
+    0: "A", 1: "B", 2: "X", 3: "Y",
+    4: "R", 5: "ZR", 6: "Plus", 7: "RStick",
+    8: "Down", 9: "Right", 10: "Left", 11: "Up",
+    12: "L", 13: "ZL", 14: "Min", 15: "LStick",
+    16: "Home", 17: "Capture",
+    18: "BR", 19: "BL",
+    20: "C"
+}
+
+NAME_TO_XBOX = {
+    "BR": XUSB_BUTTON.XUSB_GAMEPAD_X,
+    "BL": XUSB_BUTTON.XUSB_GAMEPAD_Y,
+    "A": XUSB_BUTTON.XUSB_GAMEPAD_A,
+    "B": XUSB_BUTTON.XUSB_GAMEPAD_B,
+    "X": XUSB_BUTTON.XUSB_GAMEPAD_X,
+    "Y": XUSB_BUTTON.XUSB_GAMEPAD_Y,
+    "L": XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER,
+    "R": XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER,
+    "Min": XUSB_BUTTON.XUSB_GAMEPAD_BACK,
+    "Plus": XUSB_BUTTON.XUSB_GAMEPAD_START,
+    "Home": XUSB_BUTTON.XUSB_GAMEPAD_START,
+    "Capture": XUSB_BUTTON.XUSB_GAMEPAD_BACK,
+    "LStick": XUSB_BUTTON.XUSB_GAMEPAD_LEFT_THUMB,
+    "RStick": XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_THUMB,
+    "Up": XUSB_BUTTON.XUSB_GAMEPAD_DPAD_UP,
+    "Down": XUSB_BUTTON.XUSB_GAMEPAD_DPAD_DOWN,
+    "Left": XUSB_BUTTON.XUSB_GAMEPAD_DPAD_LEFT,
+    "Right": XUSB_BUTTON.XUSB_GAMEPAD_DPAD_RIGHT,
+    "ZL": "left_trigger",
+    "ZR": "right_trigger"
+}
+
+# 特殊按键配置 - 修改为统一使用keys列表
+SPECIAL_BUTTONS = {
+    16: {'keys': ['alt','f1'], 'description': 'ScreenCapture'},
+
+    17: {'keys': ['t'], 'description': 'Capture按钮映射为键盘T键'},
+    20: {'keys': ['alt', 'f10'], 'description': 'Home按钮映射为Alt+F10组合键'}
+}
+
+# ==================== 初始化 ====================
+pygame.init()
+pygame.joystick.init()
+virtual_gamepad = VX360Gamepad()
+
+joystick_count = pygame.joystick.get_count()
+if joystick_count == 0:
+    print("未检测到手柄!")
+    exit()
+
+# 按名字优先挑 Switch 手柄，避免抓到 vgamepad 创建的虚拟 XBOX 手柄
+# （虚拟手柄只有 11 个按键，会让 get_button(13) 之类越界报错）
+PREFERRED_JOYSTICK_NAMES = ('If_Hid', 'Switch')
+joystick = None
+joystick_index = 0
+for _index in range(joystick_count):
+    _candidate = pygame.joystick.Joystick(_index)
+    _candidate.init()
+    _name = _candidate.get_name()
+    if any(_keyword in _name for _keyword in PREFERRED_JOYSTICK_NAMES):
+        joystick = _candidate
+        joystick_index = _index
+        break
+    if _index == 0:
+        joystick = _candidate          # 先记下备选，继续找有没有 Switch
+
+if joystick is None:
+    print("未检测到手柄!")
+    exit()
+
+if joystick_index != 0:
+    print(f"提示: 检测到 {joystick_count} 个手柄设备，已跳过虚拟手柄，"
+          f"选用索引 {joystick_index}")
+elif joystick_count > 1:
+    print(f"提示: 检测到 {joystick_count} 个手柄设备，正在使用索引 0: {joystick.get_name()}")
+
+# 手柄实际按键数量：越界索引会被跳过（不同连接方式按键数不同）
+BUTTON_LIMIT = joystick.get_numbuttons()
+
+print(f"检测到手柄: {joystick.get_name()}")
+print("按钮数量:", joystick.get_numbuttons())
+print("按 Ctrl+C 退出")
+
+# 创建物理到XBOX的映射
+PHYSICAL_TO_XBOX = {}
+for physical_idx, button_name in PHYSICAL_TO_NAME.items():
+    if button_name in NAME_TO_XBOX:
+        PHYSICAL_TO_XBOX[physical_idx] = NAME_TO_XBOX[button_name]
+
+# 按钮状态数组
+button_states = [False] * 25
+trigger_states = {'left': 0.0, 'right': 0.0}
+
+# ==================== 修正的摇杆范围自动识别函数 ====================
+def calibrate_joystick_range_and_center():
+    """修正的摇杆校准：先校准中心点，再计算校准后的实际范围
+    返回值: (校准后范围, 中心偏移, 本次校准是否有效)
+    """
+    print("\n" + "="*80)
+    print("🎮 修正版摇杆范围与中心偏移自动识别".center(80))
+    print("="*80)
+    print("第一步: 请将左右摇杆保持在中心位置，不要触碰")
+    print("第二步: 10秒后开始范围校准，请同时转动左右摇杆3圈，覆盖所有方向")
+    print("="*80)
+    
+    # 初始化范围数据（存储原始物理范围）
+    raw_physical_limits = {
+        'left': {'min_x': 0.0, 'max_x': 0.0, 'min_y': 0.0, 'max_y': 0.0},
+        'right': {'min_x': 0.0, 'max_x': 0.0, 'min_y': 0.0, 'max_y': 0.0}
+    }
+    
+    # 初始化校准后的范围数据（应用中心偏移后的实际范围）
+    calibrated_physical_limits = {
+        'left': {'min_x': 0.0, 'max_x': 0.0, 'min_y': 0.0, 'max_y': 0.0},
+        'right': {'min_x': 0.0, 'max_x': 0.0, 'min_y': 0.0, 'max_y': 0.0}
+    }
+    
+    # 初始化中心偏移数据
+    center_offsets = {
+        'left': {'x': 0.0, 'y': 0.0},
+        'right': {'x': 0.0, 'y': 0.0}
+    }
+    
+    # 检查摇杆数量
+    if joystick.get_numaxes() < 4:
+        print("错误: 摇杆轴数量不足，使用默认范围")
+        return ({stick: DEFAULT_PHYSICAL_LIMITS[stick].copy() for stick in ('left', 'right')},
+                {stick: DEFAULT_CENTER_OFFSETS[stick].copy() for stick in ('left', 'right')},
+                False)
+    
+    # ==================== 第一步: 检测中心偏移 ====================
+    print("\n📊 正在检测摇杆中心偏移...")
+    print("请确保左右摇杆都保持在中心位置，不要触碰")
+    time.sleep(3)  # 等待3秒让用户准备
+    
+    center_samples = {'left': {'x': [], 'y': []}, 'right': {'x': [], 'y': []}}
+    sample_count = 100
+    sample_interval = 0.01
+    
+    for i in range(sample_count):
+        pygame.event.pump()
+        
+        try:
+            # 读取摇杆原始数据
+            left_x = joystick.get_axis(0)
+            left_y = joystick.get_axis(1)
+            right_x = joystick.get_axis(2)
+            right_y = joystick.get_axis(3)
+            
+            # 收集样本
+            center_samples['left']['x'].append(left_x)
+            center_samples['left']['y'].append(left_y)
+            center_samples['right']['x'].append(right_x)
+            center_samples['right']['y'].append(right_y)
+            
+            # 显示进度
+            progress = (i + 1) / sample_count * 100
+            print(f"\r采集中心样本: {progress:.0f}%", end="", flush=True)
+            
+            time.sleep(sample_interval)
+            
+        except Exception as e:
+            print(f"\n采集中心样本错误: {e}")
+    
+    # 计算中心偏移（平均值）
+    for stick in ['left', 'right']:
+        center_offsets[stick]['x'] = sum(center_samples[stick]['x']) / sample_count
+        center_offsets[stick]['y'] = sum(center_samples[stick]['y']) / sample_count
+    
+    print(f"\n\n✅ 中心偏移检测完成!")
+    print(f"左摇杆中心偏移: X={center_offsets['left']['x']:+.4f}, Y={center_offsets['left']['y']:+.4f}")
+    print(f"右摇杆中心偏移: X={center_offsets['right']['x']:+.4f}, Y={center_offsets['right']['y']:+.4f}")
+    
+    # ==================== 第二步: 检测物理范围（应用中心偏移前） ====================
+    print("\n🔄 正在校准摇杆物理范围...")
+    print("请同时转动左右摇杆3圈，覆盖所有方向")
+    time.sleep(2)  # 等待2秒
+    
+    # 使用原始值初始化范围（不应用中心偏移）
+    try:
+        pygame.event.pump()
+        # 读取原始值（不应用中心偏移）
+        left_x = joystick.get_axis(0)
+        left_y = joystick.get_axis(1)
+        right_x = joystick.get_axis(2)
+        right_y = joystick.get_axis(3)
+        
+        raw_physical_limits['left']['min_x'] = raw_physical_limits['left']['max_x'] = left_x
+        raw_physical_limits['left']['min_y'] = raw_physical_limits['left']['max_y'] = left_y
+        raw_physical_limits['right']['min_x'] = raw_physical_limits['right']['max_x'] = right_x
+        raw_physical_limits['right']['min_y'] = raw_physical_limits['right']['max_y'] = right_y
+        
+        # 同时初始化校准后的范围（应用中心偏移）
+        calibrated_left_x = left_x - center_offsets['left']['x']
+        calibrated_left_y = left_y - center_offsets['left']['y']
+        calibrated_right_x = right_x - center_offsets['right']['x']
+        calibrated_right_y = right_y - center_offsets['right']['y']
+        
+        calibrated_physical_limits['left']['min_x'] = calibrated_physical_limits['left']['max_x'] = calibrated_left_x
+        calibrated_physical_limits['left']['min_y'] = calibrated_physical_limits['left']['max_y'] = calibrated_left_y
+        calibrated_physical_limits['right']['min_x'] = calibrated_physical_limits['right']['max_x'] = calibrated_right_x
+        calibrated_physical_limits['right']['min_y'] = calibrated_physical_limits['right']['max_y'] = calibrated_right_y
+        
+    except:
+        print("初始化读取失败，使用默认范围")
+        return ({stick: DEFAULT_PHYSICAL_LIMITS[stick].copy() for stick in ('left', 'right')},
+                center_offsets, False)
+    
+    start_time = time.time()
+    calibration_time = 6  # 校准时间6秒
+    
+    while time.time() - start_time < calibration_time:
+        pygame.event.pump()
+        
+        try:
+            # 读取原始数据（不应用中心偏移）
+            left_x = joystick.get_axis(0)
+            left_y = joystick.get_axis(1)
+            right_x = joystick.get_axis(2)
+            right_y = joystick.get_axis(3)
+            
+            # 更新原始物理范围
+            raw_physical_limits['left']['min_x'] = min(raw_physical_limits['left']['min_x'], left_x)
+            raw_physical_limits['left']['max_x'] = max(raw_physical_limits['left']['max_x'], left_x)
+            raw_physical_limits['left']['min_y'] = min(raw_physical_limits['left']['min_y'], left_y)
+            raw_physical_limits['left']['max_y'] = max(raw_physical_limits['left']['max_y'], left_y)
+            
+            raw_physical_limits['right']['min_x'] = min(raw_physical_limits['right']['min_x'], right_x)
+            raw_physical_limits['right']['max_x'] = max(raw_physical_limits['right']['max_x'], right_x)
+            raw_physical_limits['right']['min_y'] = min(raw_physical_limits['right']['min_y'], right_y)
+            raw_physical_limits['right']['max_y'] = max(raw_physical_limits['right']['max_y'], right_y)
+            
+            # 同时更新校准后的范围（应用中心偏移）
+            calibrated_left_x = left_x - center_offsets['left']['x']
+            calibrated_left_y = left_y - center_offsets['left']['y']
+            calibrated_right_x = right_x - center_offsets['right']['x']
+            calibrated_right_y = right_y - center_offsets['right']['y']
+            
+            calibrated_physical_limits['left']['min_x'] = min(calibrated_physical_limits['left']['min_x'], calibrated_left_x)
+            calibrated_physical_limits['left']['max_x'] = max(calibrated_physical_limits['left']['max_x'], calibrated_left_x)
+            calibrated_physical_limits['left']['min_y'] = min(calibrated_physical_limits['left']['min_y'], calibrated_left_y)
+            calibrated_physical_limits['left']['max_y'] = max(calibrated_physical_limits['left']['max_y'], calibrated_left_y)
+            
+            calibrated_physical_limits['right']['min_x'] = min(calibrated_physical_limits['right']['min_x'], calibrated_right_x)
+            calibrated_physical_limits['right']['max_x'] = max(calibrated_physical_limits['right']['max_x'], calibrated_right_x)
+            calibrated_physical_limits['right']['min_y'] = min(calibrated_physical_limits['right']['min_y'], calibrated_right_y)
+            calibrated_physical_limits['right']['max_y'] = max(calibrated_physical_limits['right']['max_y'], calibrated_right_y)
+            
+            # 显示当前进度（显示校准后的范围）
+            remaining_time = calibration_time - (time.time() - start_time)
+            print(f"\r校准中... {remaining_time:.1f}秒 左:[X{calibrated_physical_limits['left']['min_x']:+.3f}↔{calibrated_physical_limits['left']['max_x']:+.3f} Y{calibrated_physical_limits['left']['min_y']:+.3f}↔{calibrated_physical_limits['left']['max_y']:+.3f}] 右:[X{calibrated_physical_limits['right']['min_x']:+.3f}↔{calibrated_physical_limits['right']['max_x']:+.3f} Y{calibrated_physical_limits['right']['min_y']:+.3f}↔{calibrated_physical_limits['right']['max_y']:+.3f}]", 
+                  end="", flush=True)
+            
+            time.sleep(0.01)
+            
+        except Exception as e:
+            print(f"\n校准错误: {e}")
+            break
+    
+    # 验证校准结果的有效性
+    # calibration_valid 用于决定这次结果是否值得保存到本地（无效数据不覆盖本地文件）
+    calibration_valid = True
+    for stick in ['left', 'right']:
+        raw_limits = raw_physical_limits[stick]
+        calibrated_limits = calibrated_physical_limits[stick]
+        
+        # 检查是否读取到了有效数据
+        if (abs(calibrated_limits['min_x']) < 0.01 and abs(calibrated_limits['max_x']) < 0.01 and
+            abs(calibrated_limits['min_y']) < 0.01 and abs(calibrated_limits['max_y']) < 0.01):
+            print(f"\n⚠️  {stick}摇杆未检测到有效移动，使用默认范围")
+            calibrated_physical_limits[stick] = DEFAULT_PHYSICAL_LIMITS[stick].copy()
+            calibration_valid = False
+        else:
+            # 确保最小值确实小于最大值
+            if calibrated_limits['min_x'] > calibrated_limits['max_x']:
+                calibrated_limits['min_x'], calibrated_limits['max_x'] = calibrated_limits['max_x'], calibrated_limits['min_x']
+            if calibrated_limits['min_y'] > calibrated_limits['max_y']:
+                calibrated_limits['min_y'], calibrated_limits['max_y'] = calibrated_limits['max_y'], calibrated_limits['min_y']
+            
+            # 行程过小说明这个摇杆几乎没有被转到位：本次结果不保存，并回退到默认范围避免异常增益
+            range_x = calibrated_limits['max_x'] - calibrated_limits['min_x']
+            range_y = calibrated_limits['max_y'] - calibrated_limits['min_y']
+            if range_x < MIN_VALID_CALIBRATION_RANGE or range_y < MIN_VALID_CALIBRATION_RANGE:
+                print(f"\n⚠️  {stick}摇杆行程过小(X={range_x:.3f}, Y={range_y:.3f})，本次校准结果不保存")
+                calibrated_physical_limits[stick] = DEFAULT_PHYSICAL_LIMITS[stick].copy()
+                calibration_valid = False
+    
+    print("\n\n✅ 摇杆校准完成!")
+    
+    # 显示最终校准结果（对比原始和校准后的范围）
+    print("\n" + "="*80)
+    print("🎯 校准结果对比".center(80))
+    print("="*80)
+    for stick in ['left', 'right']:
+        stick_name = "左摇杆" if stick == 'left' else "右摇杆"
+        raw_limits = raw_physical_limits[stick]
+        calibrated_limits = calibrated_physical_limits[stick]
+        offset = center_offsets[stick]
+        
+        print(f"{stick_name}:")
+        print(f"  原始范围:   X[{raw_limits['min_x']:+.3f} ↔ {raw_limits['max_x']:+.3f}] Y[{raw_limits['min_y']:+.3f} ↔ {raw_limits['max_y']:+.3f}]")
+        print(f"  校准后范围: X[{calibrated_limits['min_x']:+.3f} ↔ {calibrated_limits['max_x']:+.3f}] Y[{calibrated_limits['min_y']:+.3f} ↔ {calibrated_limits['max_y']:+.3f}]")
+        print(f"  中心偏移:   X={offset['x']:+.4f}, Y={offset['y']:+.4f}")
+    print("="*80)
+    
+    # ==================== 行程体检 ====================
+    # 某个方向明显偏小的话，补偿系数会被拉高：该方向推不到满偏，
+    # 同时其它方向的外部死区变大。这里提醒用户重新校准。
+    # 本次校准无效时不要报"行程均衡"——那只是默认值的假象，会误导用户。
+    if calibration_valid:
+        print_travel_warning(analyze_stick_travel(calibrated_physical_limits), source_hint=False)
+    else:
+        print("\n⚠️  本次校准无效（摇杆没有转到），行程体检跳过，"
+              "已在上面提示需要重新校准")
+    
+    return calibrated_physical_limits, center_offsets, calibration_valid
+
+# ==================== 修正的一致性优先摇杆优化器 ====================
+class CorrectedConsistentJoystickOptimizer:
+    def __init__(self, calibrated_physical_limits, center_offsets, consistency_mode):
+        """
+        修正的优化器：使用校准后的物理范围进行计算
+        calibrated_physical_limits: 已经应用中心偏移校正后的物理范围
+        center_offsets: 中心偏移值
+        consistency_mode: 一致性模式配置
+        """
+        self.calibrated_physical_limits = calibrated_physical_limits
+        self.center_offsets = center_offsets
+        self.consistency_mode = consistency_mode
+        self._calculate_corrected_scaling_factors()
+        
+    def _calculate_corrected_scaling_factors(self):
+        """计算修正的缩放因子：基于校准后的范围"""
+        for stick_type in ['left', 'right']:
+            calibrated_limits = self.calibrated_physical_limits[stick_type]
+            mode = self.consistency_mode[stick_type]
+            
+            if mode == 'global_min':
+                # 使用校准后的范围计算四个方向的最小值
+                # 校准后的范围已经是相对于中心点的实际移动距离
+                min_positive_x = abs(calibrated_limits['max_x'])  # 右方向实际范围
+                min_negative_x = abs(calibrated_limits['min_x'])  # 左方向实际范围
+                min_positive_y = abs(calibrated_limits['max_y'])  # 上方向实际范围
+                min_negative_y = abs(calibrated_limits['min_y'])  # 下方向实际范围
+                
+                # 取四个方向的最小值作为统一缩放基准
+                global_min_range = min(min_positive_x, min_negative_x, 
+                                     min_positive_y, min_negative_y)
+                
+                # 避免除零错误
+                if global_min_range < 0.01:
+                    global_min_range = 0.8  # 默认安全值
+                
+                # 存储缩放因子
+                calibrated_limits['global_scale'] = 1.0 / global_min_range
+                calibrated_limits['consistency_mode'] = 'global_min'
+                
+                # 计算外部死区百分比（基于校准后的范围）
+                self._calculate_corrected_external_deadzone(stick_type, global_min_range)
+                
+                print(f"🎯 {stick_type}摇杆修正一致性模式:")
+                print(f"  校准后范围: X[{calibrated_limits['min_x']:+.3f}↔{calibrated_limits['max_x']:+.3f}] Y[{calibrated_limits['min_y']:+.3f}↔{calibrated_limits['max_y']:+.3f}]")
+                print(f"  统一缩放因子: {1.0/global_min_range:.3f}x (基准: {global_min_range:.3f})")
+                
+            else:
+                # 传统模式：每个方向独立缩放（基于校准后的范围）
+                calibrated_limits['x_positive_scale'] = 1.0 / calibrated_limits['max_x'] if abs(calibrated_limits['max_x']) > 0.01 else 1.0
+                calibrated_limits['x_negative_scale'] = 1.0 / abs(calibrated_limits['min_x']) if abs(calibrated_limits['min_x']) > 0.01 else 1.0
+                calibrated_limits['y_positive_scale'] = 1.0 / calibrated_limits['max_y'] if abs(calibrated_limits['max_y']) > 0.01 else 1.0
+                calibrated_limits['y_negative_scale'] = 1.0 / abs(calibrated_limits['min_y']) if abs(calibrated_limits['min_y']) > 0.01 else 1.0
+                calibrated_limits['consistency_mode'] = 'independent'
+                
+                print(f"⚙️  {stick_type}摇杆传统模式: 基于校准后范围的独立方向缩放")
+    
+    def _calculate_corrected_external_deadzone(self, stick_type, global_min_range):
+        """计算修正的外部死区：基于校准后的范围"""
+        calibrated_limits = self.calibrated_physical_limits[stick_type]
+        
+        deadzones = {
+            'up': max(0, (calibrated_limits['max_y'] - global_min_range) / calibrated_limits['max_y'] * 100) if calibrated_limits['max_y'] > global_min_range else 0,
+            'down': max(0, (abs(calibrated_limits['min_y']) - global_min_range) / abs(calibrated_limits['min_y']) * 100) if abs(calibrated_limits['min_y']) > global_min_range else 0,
+            'left': max(0, (abs(calibrated_limits['min_x']) - global_min_range) / abs(calibrated_limits['min_x']) * 100) if abs(calibrated_limits['min_x']) > global_min_range else 0,
+            'right': max(0, (calibrated_limits['max_x'] - global_min_range) / calibrated_limits['max_x'] * 100) if calibrated_limits['max_x'] > global_min_range else 0
+        }
+        
+        calibrated_limits['external_deadzone'] = deadzones
+        
+        # 打印外部死区信息
+        deadzone_info = []
+        for direction, percentage in deadzones.items():
+            if percentage > 0:
+                deadzone_info.append(f"{direction}{percentage:.1f}%")
+        
+        if deadzone_info:
+            print(f"  外部死区: {', '.join(deadzone_info)}")
+        else:
+            print("  外部死区: 无")
+        
+        # 显示对称性信息（除零保护：某个轴完全没有行程时不计算百分比）
+        x_span = max(abs(calibrated_limits['min_x']), abs(calibrated_limits['max_x']))
+        y_span = max(abs(calibrated_limits['min_y']), abs(calibrated_limits['max_y']))
+        x_symmetry = abs(abs(calibrated_limits['min_x']) - abs(calibrated_limits['max_x'])) / x_span * 100 if x_span > 1e-6 else 0.0
+        y_symmetry = abs(abs(calibrated_limits['min_y']) - abs(calibrated_limits['max_y'])) / y_span * 100 if y_span > 1e-6 else 0.0
+        print(f"  对称性: X轴{x_symmetry:.1f}% Y轴{y_symmetry:.1f}%")
+
+    def apply_center_offset_correction(self, raw_value, stick_type, axis_type):
+        """应用中心偏移校正"""
+        offset = self.center_offsets[stick_type][axis_type]
+        return raw_value - offset
+        
+    def normalize_joystick_value(self, raw_value, axis_type, stick_type):
+        """修正的归一化：基于校准后的范围进行计算"""
+        # 首先应用中心偏移校正
+        corrected_value = self.apply_center_offset_correction(
+            raw_value, stick_type, 'x' if axis_type == 'x' else 'y')
+        
+        calibrated_limits = self.calibrated_physical_limits[stick_type]
+        mode = calibrated_limits.get('consistency_mode', 'global_min')
+        
+        if mode == 'global_min':
+            # 一致性模式：使用基于校准后范围的统一缩放因子
+            scale_factor = calibrated_limits['global_scale']
+            normalized = corrected_value * scale_factor
+        else:
+            # 传统模式：基于校准后范围的独立缩放
+            if axis_type == 'x':
+                if corrected_value < 0:
+                    scale_factor = calibrated_limits['x_negative_scale']
+                else:
+                    scale_factor = calibrated_limits['x_positive_scale']
+            else:  # y轴
+                if corrected_value < 0:
+                    scale_factor = calibrated_limits['y_negative_scale']
+                else:
+                    scale_factor = calibrated_limits['y_positive_scale']
+            
+            normalized = corrected_value * scale_factor
+        
+        # 限制在[-1, 1]范围内，超出部分作为外部死区
+        return max(-1.0, min(1.0, normalized))
+    
+    def get_consistency_info(self, stick_type):
+        """获取一致性信息"""
+        calibrated_limits = self.calibrated_physical_limits[stick_type]
+        mode = calibrated_limits.get('consistency_mode', 'global_min')
+        
+        info = {
+            'mode': mode,
+            'calibrated_range': {
+                'x': [calibrated_limits['min_x'], calibrated_limits['max_x']],
+                'y': [calibrated_limits['min_y'], calibrated_limits['max_y']]
+            }
+        }
+        
+        if mode == 'global_min':
+            info['global_scale'] = calibrated_limits.get('global_scale', 1.0)
+            info['external_deadzone'] = calibrated_limits.get('external_deadzone', {})
+        
+        return info
+
+# ==================== 死区处理类 ====================
+class AdvancedDeadzone:
+    def __init__(self, deadzone_config):
+        self.deadzone_config = deadzone_config
+    
+    def apply_square_deadzone(self, x, y, stick_type):
+        """方形死区处理 - 独立控制"""
+        config = self.deadzone_config[stick_type]
+        deadzone = config['deadzone']
+        outer_threshold = config['outer_threshold']
+        response_curve = config['response_curve']
+        
+        # 计算最大绝对值（方形区域的关键）
+        max_abs = max(abs(x), abs(y))
+        
+        # 如果最大绝对值小于死区，返回0（在死区内）
+        if max_abs < deadzone:
+            return 0.0, 0.0
+
+        # 第一步：应用方形形状（先保持完整方形）
+        if max_abs > 0:
+            # 计算缩放比例 - 保持方形形状
+            if abs(x) > 0.0001 or abs(y) > 0.0001:
+                if abs(x) > abs(y):
+                    scale = 1.0 / abs(x)
+                    new_x = math.copysign(1.0, x)
+                    new_y = y * scale
+                else:
+                    scale = 1.0 / abs(y)
+                    new_x = x * scale
+                    new_y = math.copysign(1.0, y)
+                
+                new_x = max(-1.0, min(1.0, new_x))
+                new_y = max(-1.0, min(1.0, new_y))
+                
+                # 第二步：应用响应曲线和范围限制
+                if response_curve != 1.0:
+                    normalized = (max_abs - deadzone) / (1.0 - deadzone)
+                    scaled_magnitude = normalized ** response_curve
+                    final_scale = scaled_magnitude
+                else:
+                    final_scale = (max_abs - deadzone) / (1.0 - deadzone)
+                
+                final_scale = min(final_scale, outer_threshold)
+                
+                new_x *= final_scale
+                new_y *= final_scale
+                
+                return new_x, new_y
+        
+        return x, y
+
+    def apply_circular_deadzone(self, x, y, stick_type):
+        """圆形死区处理 - 独立控制"""
+        config = self.deadzone_config[stick_type]
+        deadzone = config['deadzone']
+        outer_threshold = config['outer_threshold']
+        response_curve = config['response_curve']
+        
+        magnitude = (x**2 + y**2) ** 0.5
+
+        # 注意: 必须用 <=，否则 magnitude == deadzone == 0 时会走到函数末尾没有返回值
+        if magnitude <= deadzone:
+            return 0.0, 0.0
+
+        # 应用响应曲线
+        if response_curve != 1.0:
+            normalized = (magnitude - deadzone) / (1.0 - deadzone)
+            scaled_magnitude = normalized ** response_curve
+            magnitude = scaled_magnitude * (1.0 - deadzone) + deadzone
+
+        # 限制最大输出
+        magnitude = min(magnitude, outer_threshold)
+
+        # 保持方向，应用缩放后的幅度
+        if magnitude > 0:
+            current_magnitude = (x**2 + y**2) ** 0.5
+            if current_magnitude > 0.0001:
+                scale = magnitude / current_magnitude
+                return x * scale, y * scale
+            else:
+                return x, y
+
+# ==================== 方形映射处理函数 ====================
+def apply_square_mapping(x, y, strength):
+    """
+    将圆形摇杆输出转换为方形输出，支持强度调节
+    强度为0.0时：纯圆形输出
+    强度为1.0时：纯方形输出
+    中间值：圆形和方形的混合
+    """
+    if x == 0 and y == 0:
+        return 0.0, 0.0
+    
+    # 如果强度为0，直接返回原始值（纯圆形）
+    if strength == 0.0:
+        return x, y
+    
+    # 计算当前点的角度和幅度
+    angle = math.atan2(y, x)
+    magnitude = math.sqrt(x*x + y*y)
+    
+    # 计算方形映射后的最大可能幅度
+    abs_cos = abs(math.cos(angle))
+    abs_sin = abs(math.sin(angle))
+    
+    if abs_cos > abs_sin:
+        scale = 1.0 / abs_cos
+    else:
+        scale = 1.0 / abs_sin
+    
+    # 计算纯方形映射后的坐标
+    square_x = x * scale
+    square_y = y * scale
+    
+    # 确保方形映射后的值在[-1, 1]范围内
+    square_x = max(-1.0, min(1.0, square_x))
+    square_y = max(-1.0, min(1.0, square_y))
+    
+    # 如果强度为1，直接返回纯方形映射结果
+    if strength == 1.0:
+        return square_x, square_y
+    
+    # 强度在0和1之间时，进行线性插值
+    circular_weight = 1.0 - strength
+    square_weight = strength
+    
+    # 线性插值
+    result_x = x * circular_weight + square_x * square_weight
+    result_y = y * circular_weight + square_y * square_weight
+    
+    # 确保结果在[-1, 1]范围内
+    result_x = max(-1.0, min(1.0, result_x))
+    result_y = max(-1.0, min(1.0, result_y))
+    
+    return result_x, result_y
+
+# ==================== 输出增幅处理函数 ====================
+def apply_output_amplifier(x, y, stick_type):
+    """应用摇杆输出增幅"""
+    amplifier = OUTPUT_AMPLIFIER[stick_type]
+    
+    if amplifier != 1.0:
+        new_x = x * amplifier
+        new_y = y * amplifier
+        
+        new_x = max(-1.0, min(1.0, new_x))
+        new_y = max(-1.0, min(1.0, new_y))
+        
+        return new_x, new_y
+    
+    return x, y
+
+# ==================== 配置信息打印函数 ====================
+def print_configuration_info(joystick_optimizer):
+    """打印详细的配置信息"""
+    print("\n" + "="*80)
+    print("🎮 修正版一致性优先摇杆配置信息".center(80))
+    print("="*80)
+    
+    for stick in ['left', 'right']:
+        stick_name = "左摇杆" if stick == 'left' else "右摇杆"
+        info = joystick_optimizer.get_consistency_info(stick)
+        
+        print(f"\n{stick_name} - 模式: {'一致性优先(global_min)' if info['mode'] == 'global_min' else '传统独立(independent)'}")
+        
+        # 显示校准后的范围
+        calibrated_range = info['calibrated_range']
+        print(f"  校准后范围: X[{calibrated_range['x'][0]:+.3f} ↔ {calibrated_range['x'][1]:+.3f}] Y[{calibrated_range['y'][0]:+.3f} ↔ {calibrated_range['y'][1]:+.3f}]")
+        
+        if info['mode'] == 'global_min':
+            # 显示一致性模式详细信息
+            scale = info.get('global_scale', 1.0)
+            deadzones = info.get('external_deadzone', {})
+            
+            print(f"  统一缩放: {scale:.3f}x")
+            print(f"  外部死区: 上{deadzones.get('up', 0):.1f}% 下{deadzones.get('down', 0):.1f}% "
+                  f"左{deadzones.get('left', 0):.1f}% 右{deadzones.get('right', 0):.1f}%")
+            
+            # 显示对称性优势（除零保护）
+            x_range = calibrated_range['x']
+            y_range = calibrated_range['y']
+            x_span = max(abs(x_range[0]), abs(x_range[1]))
+            y_span = max(abs(y_range[0]), abs(y_range[1]))
+            x_symmetry = abs(abs(x_range[0]) - abs(x_range[1])) / x_span * 100 if x_span > 1e-6 else 0.0
+            y_symmetry = abs(abs(y_range[0]) - abs(y_range[1])) / y_span * 100 if y_span > 1e-6 else 0.0
+            
+            print(f"  对称性: X轴{x_symmetry:.1f}% Y轴{y_symmetry:.1f}%")
+            print("  ✅ 优势: 物理行程一致性 ✓ 完美对称性 ✓ 肌肉记忆友好 ✓")
+        else:
+            print("  ⚠️ 注意: 传统模式可能导致方向灵敏度不一致")
+    
+    print("="*80)
+
+# ==================== 校准数据本地化机制 ====================
+# 功能：
+#   1. 启动时优先读取本地校准文件，避免每次启动都重新校准
+#   2. 本地没有（或数据损坏）时，自动进入完整校准流程
+#   3. 本地有数据时，给出 3 秒倒计时，倒计时期间按下任意手柄按键才重新校准
+#   4. 每次校准完成后把结果写回本地文件，下次启动直接复用
+CALIBRATION_FILE_NAME = 'Switch2ProControllerWorkOnPC_calibration.json'
+RECALIBRATE_COUNTDOWN_SECONDS = 3.0
+
+
+def get_calibration_file_path():
+    """获取校准文件的绝对路径：优先放在程序所在目录，无法定位时退回工作目录"""
+    try:
+        script_path = globals().get('__file__')
+        base_dir = os.path.dirname(os.path.abspath(script_path)) if script_path else os.getcwd()
+    except Exception:
+        base_dir = os.getcwd()
+    return os.path.join(base_dir, CALIBRATION_FILE_NAME)
+
+
+def load_saved_calibration():
+    """读取本地校准数据，没有或损坏时返回 None"""
+    path = get_calibration_file_path()
+    if not os.path.exists(path):
+        return None
+
+    try:
+        with open(path, 'r', encoding='utf-8') as file_object:
+            data = json.load(file_object)
+    except Exception as error:
+        print(f"⚠️  本地校准文件读取失败（将重新校准）: {error}")
+        return None
+
+    try:
+        limits = {'left': {}, 'right': {}}
+        for stick in ('left', 'right'):
+            for boundary in ('min_x', 'max_x', 'min_y', 'max_y'):
+                limits[stick][boundary] = float(data['limits'][stick][boundary])
+            # 数据有效性校验：范围必须可用，否则视为无效数据
+            if (abs(limits[stick]['min_x']) < 0.01 and abs(limits[stick]['max_x']) < 0.01) or \
+               (abs(limits[stick]['min_y']) < 0.01 and abs(limits[stick]['max_y']) < 0.01):
+                print("⚠️  本地校准数据范围异常（将重新校准）")
+                return None
+
+        offsets = {
+            'left': {'x': float(data['offsets']['left']['x']), 'y': float(data['offsets']['left']['y'])},
+            'right': {'x': float(data['offsets']['right']['x']), 'y': float(data['offsets']['right']['y'])}
+        }
+    except (KeyError, TypeError, ValueError) as error:
+        print(f"⚠️  本地校准数据格式不正确（将重新校准）: {error}")
+        return None
+
+    # 校准数据来自其它手柄时给出提醒（不强制重新校准：同一手柄在蓝牙/有线/不同系统下名字可能不同）
+    saved_name = data.get('joystick_name')
+    try:
+        current_name = joystick.get_name()
+    except Exception:
+        current_name = None
+    if saved_name and current_name and saved_name != current_name:
+        print(f"⚠️  提醒: 本地校准数据来自「{saved_name}」，当前手柄是「{current_name}」")
+        print("    如手感异常，可在倒计时内按任意键重新校准")
+
+    return limits, offsets, data.get('saved_at', '未知时间')
+
+
+def save_calibration(limits, offsets):
+    """把本次校准结果写入本地文件"""
+    path = get_calibration_file_path()
+    payload = {
+        'version': 1,
+        'saved_at': time.strftime('%Y-%m-%d %H:%M:%S'),
+        'joystick_name': joystick.get_name() if joystick is not None else '',
+        'limits': {
+            stick: {boundary: float(limits[stick][boundary])
+                    for boundary in ('min_x', 'max_x', 'min_y', 'max_y')}
+            for stick in ('left', 'right')
+        },
+        'offsets': {
+            stick: {'x': float(offsets[stick]['x']), 'y': float(offsets[stick]['y'])}
+            for stick in ('left', 'right')
+        }
+    }
+
+    try:
+        with open(path, 'w', encoding='utf-8') as file_object:
+            json.dump(payload, file_object, ensure_ascii=False, indent=2)
+        print(f"💾 校准数据已保存到本地: {path}")
+        return True
+    except Exception as error:
+        print(f"⚠️  校准数据保存失败: {error}")
+        return False
+
+
+def analyze_stick_travel(limits):
+    """检查四个方向行程是否均衡，返回需要提醒的摇杆列表
+
+    limits 结构: {'left': {...}, 'right': {...}}
+    返回: [(摇杆名, 最弱方向, 最弱值, 最强值, 各方向字典), ...]
+    """
+    weak_directions = []
+    for stick in ('left', 'right'):
+        stick_name = "左摇杆" if stick == 'left' else "右摇杆"
+        limit = limits[stick]
+        travels = {
+            '向右': abs(limit['max_x']),
+            '向左': abs(limit['min_x']),
+            '向上': abs(limit['max_y']),
+            '向下': abs(limit['min_y']),
+        }
+        weakest_direction = min(travels, key=travels.get)
+        weakest_value = travels[weakest_direction]
+        strongest_value = max(travels.values())
+        if (strongest_value > 0.01 and
+                (weakest_value < strongest_value * TRAVEL_WARN_RATIO or
+                 weakest_value < TRAVEL_WARN_ABSOLUTE)):
+            weak_directions.append((stick_name, weakest_direction, weakest_value,
+                                    strongest_value, travels))
+    return weak_directions
+
+
+def print_travel_warning(weak_directions, source_hint=True):
+    """打印行程体检结论"""
+    if not weak_directions:
+        print("\n✅ 行程体检: 四个方向行程均衡，无需重新校准")
+        return
+    print("\n" + "="*80)
+    print("⚠️  行程体检：有方向明显偏小，建议重新校准".center(80))
+    print("="*80)
+    for stick_name, direction, weakest_value, strongest_value, travels in weak_directions:
+        print(f"{stick_name}: {direction} 只量到 {weakest_value:.3f}，"
+              f"最强方向是 {strongest_value:.3f}")
+        print("    各方向: " + "  ".join(f"{k}={v:.3f}" for k, v in travels.items()))
+    print("-"*80)
+    print("这会带来两个后果:")
+    print("  1. 偏差方向推不到满偏（例如只到 0.96 而不是 1.0）")
+    print("  2. 统一缩放系数被拉大，其他方向的外部死区随之变大")
+    if source_hint:
+        print("这份是上次保存的数据，重新校准即可改善：")
+        print("  启动后在 3 秒倒计时内按手柄任意键，或删掉上面的 json 文件")
+    else:
+        print("建议: 重新校准时把摇杆【贴着边缘慢慢转 3~5 圈】，覆盖每个方向到极限")
+    print("="*80)
+
+
+def print_saved_calibration(saved_limits, saved_offsets, saved_at):
+    """打印本地校准数据摘要"""
+    print("\n" + "="*80)
+    print("📂 已读取本地校准数据（无需重新校准）".center(80))
+    print("="*80)
+    print(f"校准文件: {get_calibration_file_path()}")
+    print(f"保存时间: {saved_at}")
+    for stick in ('left', 'right'):
+        stick_name = "左摇杆" if stick == 'left' else "右摇杆"
+        limit = saved_limits[stick]
+        offset = saved_offsets[stick]
+        print(f"{stick_name}: X[{limit['min_x']:+.3f}↔{limit['max_x']:+.3f}] "
+              f"Y[{limit['min_y']:+.3f}↔{limit['max_y']:+.3f}] "
+              f"中心偏移(X={offset['x']:+.4f}, Y={offset['y']:+.4f})")
+    print("="*80)
+
+
+def get_pressed_button_name():
+    """返回当前被按下的手柄按键名称，没有按下时返回 None"""
+    try:
+        num_buttons = min(joystick.get_numbuttons(), 25)
+    except Exception:
+        return None
+
+    # 先汇总按键数量，再定位是哪一个，避免手柄驱动偶发抛错导致漏检
+    try:
+        pressed_count = sum(1 for index in range(num_buttons)
+                            if index < BUTTON_LIMIT and joystick.get_button(index))
+    except Exception:
+        pressed_count = 0
+
+    if pressed_count <= 0:
+        return None
+
+    for index in range(num_buttons):
+        try:
+            if joystick.get_button(index):
+                return PHYSICAL_TO_NAME.get(index, f"按钮{index}")
+        except Exception:
+            continue
+    return "手柄按键"
+
+
+def wait_and_check_recalibrate_request():
+    """3秒倒计时：倒计时期间按下任意手柄按键则返回 True（重新校准）"""
+    total = RECALIBRATE_COUNTDOWN_SECONDS
+    print("\n本地校准数据: 已找到 ✅")
+    print(f"⏳ {total:.0f}秒倒计时内按下手柄任意按键 = 重新校准")
+    print("   不按键则直接使用本地校准数据启动（无需触碰手柄）")
+
+    start_time = time.perf_counter()
+    pressed_button = None
+    last_shown = None
+
+    while True:
+        elapsed = time.perf_counter() - start_time
+        remaining = total - elapsed
+        if remaining <= 0:
+            break
+
+        # 每帧都检测按键（保证不漏按），显示则按 0.1 秒刷新
+        try:
+            pygame.event.pump()
+        except Exception:
+            pass
+
+        pressed_button = get_pressed_button_name()
+        if pressed_button is not None:
+            break
+
+        display_value = math.ceil(remaining * 10) / 10.0
+        if display_value != last_shown:
+            print(f"\r倒计时: {display_value:.1f} 秒 ...", end="", flush=True)
+            last_shown = display_value
+
+        time.sleep(0.005)
+
+    if pressed_button is not None:
+        print(f"\r✅ 检测到按键 [{pressed_button}]，进入重新校准流程" + " " * 20)
+        return True
+
+    print(f"\r⏱️  倒计时结束，未检测到按键，使用本地校准数据启动" + " " * 20)
+    return False
+
+
+def resolve_calibration():
+    """校准调度：有本地数据走倒计时判断，无本地数据直接校准，有效校准后自动保存"""
+    saved = load_saved_calibration()
+
+    if saved is None:
+        print("\n未找到本地校准数据，进入首次校准流程...")
+        limits, offsets, calibration_valid = calibrate_joystick_range_and_center()
+        if calibration_valid:
+            save_calibration(limits, offsets)
+        else:
+            print("⚠️  本次校准数据无效，不写入本地文件（下次启动仍会进入校准）")
+        return limits, offsets
+
+    saved_limits, saved_offsets, saved_at = saved
+    print_saved_calibration(saved_limits, saved_offsets, saved_at)
+    # 对"上次保存的数据"也做一次体检：某个方向偏小时提醒重新校准，
+    # 避免用户误以为"是不是没调用上次的校准数据"
+    print_travel_warning(analyze_stick_travel(saved_limits), source_hint=True)
+
+    if wait_and_check_recalibrate_request():
+        limits, offsets, calibration_valid = calibrate_joystick_range_and_center()
+        if calibration_valid:
+            save_calibration(limits, offsets)
+            return limits, offsets
+        # 重新校准失败时保留原来的本地数据，避免把可用数据冲掉
+        print("⚠️  本次校准数据无效，继续使用原有本地校准数据")
+        return saved_limits, saved_offsets
+
+    return saved_limits, saved_offsets
+
+
+# ==================== 主程序 ====================
+# 优先使用本地校准数据，仅在无数据或倒计时期间按键时才重新校准
+JOYSTICK_PHYSICAL_LIMITS, CENTER_OFFSETS = resolve_calibration()
+
+# 初始化修正的一致性优先优化器
+joystick_optimizer = CorrectedConsistentJoystickOptimizer(
+    JOYSTICK_PHYSICAL_LIMITS, 
+    CENTER_OFFSETS, 
+    CONSISTENCY_MODE
+)
+
+# 初始化其他处理器
+deadzone_processor = AdvancedDeadzone(DEADZONE_CONFIG)
+
+# 摇杆数据缓存
+stick_data_cache = {
+    'left': {'x': 0.0, 'y': 0.0},
+    'right': {'x': 0.0, 'y': 0.0}
+}
+
+# 高精度定时器
+last_update_time = time.perf_counter()
+update_interval = 1.0 / UPDATE_RATE
+
+# ==================== 处理函数 ====================
+def process_joysticks_optimized(joystick):
+    """优化的摇杆处理，包含修正的一致性优先映射"""
+    global stick_data_cache
+
+    if joystick.get_numaxes() < 4:
+        return
+
+    try:
+        # 读取原始摇杆数据
+        left_x = joystick.get_axis(0)
+        left_y = joystick.get_axis(1)
+        right_x = joystick.get_axis(2)
+        right_y = joystick.get_axis(3)
+
+        # 应用修正的一致性优先归一化
+        left_x = joystick_optimizer.normalize_joystick_value(left_x, 'x', 'left')
+        left_y = joystick_optimizer.normalize_joystick_value(left_y, 'y', 'left')
+        right_x = joystick_optimizer.normalize_joystick_value(right_x, 'x', 'right')
+        right_y = joystick_optimizer.normalize_joystick_value(right_y, 'y', 'right')
+
+        # 应用方形映射
+        left_strength = SQUARE_MAPPING_STRENGTH['left_stick']
+        right_strength = SQUARE_MAPPING_STRENGTH['right_stick']
+        
+        if left_strength > 0.0:
+            left_x, left_y = apply_square_mapping(left_x, left_y, left_strength)
+        if right_strength > 0.0:
+            right_x, right_y = apply_square_mapping(right_x, right_y, right_strength)
+
+        # 应用死区算法
+        if SQUARE_DEADZONE_SWITCH['left_stick']:
+            left_x, left_y = deadzone_processor.apply_square_deadzone(left_x, left_y, 'left')
+        else:
+            left_x, left_y = deadzone_processor.apply_circular_deadzone(left_x, left_y, 'left')
+            
+        if SQUARE_DEADZONE_SWITCH['right_stick']:
+            right_x, right_y = deadzone_processor.apply_square_deadzone(right_x, right_y, 'right')
+        else:
+            right_x, right_y = deadzone_processor.apply_circular_deadzone(right_x, right_y, 'right')
+
+        # 应用输出增幅
+        left_x, left_y = apply_output_amplifier(left_x, left_y, 'left_stick')
+        right_x, right_y = apply_output_amplifier(right_x, right_y, 'right_stick')
+
+        # 更新缓存
+        stick_data_cache['left']['x'] = left_x
+        stick_data_cache['left']['y'] = left_y
+        stick_data_cache['right']['x'] = right_x
+        stick_data_cache['right']['y'] = right_y
+
+    except Exception as e:
+        print(f"摇杆读取错误: {e}")
+
+def process_trigger_buttons():
+    """处理扳机按钮（按钮5和13）"""
+    global trigger_states
+
+    try:
+        # ZR 是按钮 5，ZL 是按钮 13；不同手柄按键数不同，越界时按"未按下"处理
+        zr_pressed = bool(joystick.get_button(5)) if BUTTON_LIMIT > 5 else False
+        trigger_states['right'] = 1.0 if zr_pressed else 0.0
+
+        zl_pressed = bool(joystick.get_button(13)) if BUTTON_LIMIT > 13 else False
+        trigger_states['left'] = 1.0 if zl_pressed else 0.0
+
+    except Exception as e:
+        print(f"扳机按钮读取错误: {e}")
+
+def update_virtual_gamepad():
+    """高速更新虚拟手柄"""
+    global last_update_time
+
+    while True:
+        current_time = time.perf_counter()
+        elapsed = current_time - last_update_time
+
+        if elapsed >= update_interval:
+            try:
+                # 设置摇杆
+                left = stick_data_cache['left']
+                right = stick_data_cache['right']
+
+                virtual_gamepad.left_joystick_float(left['x'], left['y'])
+                virtual_gamepad.right_joystick_float(right['x'], right['y'])
+
+                # 设置扳机
+                virtual_gamepad.left_trigger_float(trigger_states['left'])
+                virtual_gamepad.right_trigger_float(trigger_states['right'])
+
+                virtual_gamepad.update()
+                last_update_time = current_time
+
+            except Exception as e:
+                print(f"虚拟手柄更新错误: {e}")
+
+        time.sleep(0.001)
+
+# 启动高速更新线程
+update_thread = threading.Thread(target=update_virtual_gamepad, daemon=True)
+update_thread.start()
+
+# 检查pyautogui可用性
+try:
+    import pyautogui
+    USE_PYAUTOGUI = True
+    print("使用pyautogui进行键盘模拟")
+except ImportError:
+    USE_PYAUTOGUI = False
+    print("pyautogui未安装，使用pygame事件模拟")
+    print("安装pyautogui: pip install pyautogui")
+
+# 打印配置信息
+print_configuration_info(joystick_optimizer)
+
+try:
+    print(f"\n🎮 修正版一致性优先摇杆映射已启动（{UPDATE_RATE}Hz 更新率）")
+    print("✅ 物理行程一致性优化已启用")
+    
+    # 显示详细配置
+    for stick in ['left', 'right']:
+        mode = CONSISTENCY_MODE[stick]
+        stick_name = "左摇杆" if stick == 'left' else "右摇杆"
+        mode_desc = "一致性优先" if mode == 'global_min' else "传统独立"
+        print(f"{stick_name}: {mode_desc}模式")
+    
+    # 显示死区配置
+    left_config = DEADZONE_CONFIG['left']
+    right_config = DEADZONE_CONFIG['right']
+    print(f"\n左摇杆死区: {left_config['deadzone']:.3f}, 外环: {left_config['outer_threshold']:.2f}")
+    print(f"右摇杆死区: {right_config['deadzone']:.3f}, 外环: {right_config['outer_threshold']:.2f}")
+    
+    # 显示方形死区状态
+    left_status = "开启" if SQUARE_DEADZONE_SWITCH['left_stick'] else "关闭"
+    right_status = "开启" if SQUARE_DEADZONE_SWITCH['right_stick'] else "关闭"
+    print(f"左摇杆方形死区: {left_status}")
+    print(f"右摇杆方形死区: {right_status}")
+    
+    # 显示方形映射强度
+    left_strength = SQUARE_MAPPING_STRENGTH['left_stick']
+    right_strength = SQUARE_MAPPING_STRENGTH['right_stick']
+    print(f"左摇杆方形映射: {left_strength:.1f}")
+    print(f"右摇杆方形映射: {right_strength:.1f}")
+    
+    # 显示输出增幅状态
+    print(f"左摇杆输出增幅: {OUTPUT_AMPLIFIER['left_stick']:.1f}x")
+    print(f"右摇杆输出增幅: {OUTPUT_AMPLIFIER['right_stick']:.1f}x")
+    
+    print("\n💡 优势: 消除眩晕感 ✓ 保护肌肉记忆 ✓ 转向加速度一致 ✓")
+    print("扳机按钮: ZL=按钮13, ZR=按钮5")
+    
+    # 打印特殊按钮配置
+    for btn_id, config in SPECIAL_BUTTONS.items():
+        print(f"按钮{btn_id}: {config['description']}")
+
+    while True:
+        pygame.event.pump()
+
+        # 处理所有按钮
+        num_buttons = min(joystick.get_numbuttons(), 25)
+        for i in range(num_buttons):
+            try:
+                current_state = bool(joystick.get_button(i)) if i < BUTTON_LIMIT else False
+            except:
+                current_state = False
+
+            if current_state != button_states[i]:
+                button_name = PHYSICAL_TO_NAME.get(i, f"Btn{i}")
+
+                # 特殊按钮处理
+                if i in SPECIAL_BUTTONS:
+                    config = SPECIAL_BUTTONS[i]
+                    keys = config['keys']  # 获取键列表
+                    
+                    if current_state:
+                        if USE_PYAUTOGUI:
+                            # 按下所有键
+                            for key in keys:
+                                pyautogui.keyDown(key)
+                        else:
+                            # pygame处理
+                            for key in keys:
+                                try:
+                                    key_code = getattr(pygame, f"K_{key.upper()}")
+                                    key_event = pygame.event.Event(pygame.KEYDOWN, key=key_code)
+                                    pygame.event.post(key_event)
+                                except AttributeError:
+                                    print(f"无法识别的键: {key}")
+                        
+                        key_names = '+'.join(keys).upper()
+                        print(f"按下: {button_name} -> 键盘{key_names}键按下")
+                    else:
+                        if USE_PYAUTOGUI:
+                            # 释放所有键（反向顺序）
+                            for key in reversed(keys):
+                                pyautogui.keyUp(key)
+                        else:
+                            # pygame处理
+                            for key in reversed(keys):
+                                try:
+                                    key_code = getattr(pygame, f"K_{key.upper()}")
+                                    key_event = pygame.event.Event(pygame.KEYUP, key=key_code)
+                                    pygame.event.post(key_event)
+                                except AttributeError:
+                                    print(f"无法识别的键: {key}")
+                        
+                        key_names = '+'.join(keys).upper()
+                        print(f"释放: {button_name} -> 键盘{key_names}键释放")
+                    
+                    button_states[i] = current_state
+                    continue
+
+                # 普通按钮处理
+                if i in PHYSICAL_TO_XBOX:
+                    target = PHYSICAL_TO_XBOX[i]
+
+                    if isinstance(target, XUSB_BUTTON):
+                        if current_state:
+                            virtual_gamepad.press_button(target)
+                            print(f"按下: {button_name}")
+                        else:
+                            virtual_gamepad.release_button(target)
+                            print(f"释放: {button_name}")
+
+                    elif isinstance(target, str) and target in ['left_trigger', 'right_trigger']:
+                        if current_state:
+                            print(f"按下扳机: {button_name}")
+                        else:
+                            print(f"释放扳机: {button_name}")
+
+                button_states[i] = current_state
+
+        # 处理pygame事件队列
+        if not USE_PYAUTOGUI:
+            for event in pygame.event.get():
+                if event.type in (pygame.KEYDOWN, pygame.KEYUP):
+                    pass
+
+        # 处理扳机按钮状态
+        process_trigger_buttons()
+
+        # 处理摇杆
+        process_joysticks_optimized(joystick)
+
+        time.sleep(0.001)
+
+except KeyboardInterrupt:
+    virtual_gamepad.reset()
+    virtual_gamepad.update()
+    pygame.quit()
+    print("\n🎮 程序已退出，感谢使用修正版一致性优先摇杆映射！")

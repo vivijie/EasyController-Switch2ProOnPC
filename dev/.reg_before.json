@@ -1,0 +1,249 @@
+{
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_045E&PID_028E": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_045E&PID_02FD": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_045E&PID_02FF": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_B019": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C068": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Axes": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Axes\\0": {
+    "": "FFAttributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Axes\\2": {
+    "": "(Default)|REG_SZ"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Axes\\5": {
+    "": "(Default)|REG_SZ"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Axes\\6": {
+    "": "(Default)|REG_SZ"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\0": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\1": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\10": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\11": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\12": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\13": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\14": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\15": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\16": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\17": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\18": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\19": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\2": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\20": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\21": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\22": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\23": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\24": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\3": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\4": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\5": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\6": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\7": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\8": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\Buttons\\9": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback": {
+    "": "CLSID|REG_SZ"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C20-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C21-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C22-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C23-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C24-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C25-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C26-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C27-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C28-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C29-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C2A-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C24F\\OEMForceFeedback\\Effects\\{13541C2B-8E33-11D0-9AD0-00A0C9A06E35}": {
+    "": "Attributes|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C260": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C345": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C52B": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_046D&PID_C53F": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_04FE&PID_0202": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_054C&PID_0268": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_054C&PID_09CC": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_054C&PID_0CE6": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_057E&PID_2006": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_057E&PID_2007": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_057E&PID_2009": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_057E&PID_2069": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_05A7&PID_4040": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_068E&PID_009D": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_0F0D&PID_0092": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_0F0D&PID_00C1": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_0F30&PID_1136": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_11C0&PID_5505": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_1532&PID_009C": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_1532&PID_0401": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_1532&PID_0536": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_18D1&PID_9400": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_1949&PID_0402": {
+    "": "OEMName|REG_SZ"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_20BC&PID_5127": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_20BC&PID_5158": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_20BC&PID_5159": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_28DE&PID_11FF": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_2DC8&PID_3109": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_2DC8&PID_310B": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_3537&PID_100E": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_3537&PID_1053": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_3537&PID_1093": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_3537&PID_1094": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_35BB&PID_A209": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_4131&PID_3519": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_4131&PID_8008": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_413D&PID_2104": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_413D&PID_2106": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_413D&PID_2114": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_413D&PID_2131": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_CAFE&PID_0001": {},
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\OEM\\VID_E502&PID_BBAB": {
+    "": "OEMData|REG_BINARY"
+  },
+  "HKEY_CURRENT_USER\\System\\CurrentControlSet\\Control\\MediaProperties\\PrivateProperties\\Joystick\\Winmm": {
+    "": "wheel|REG_DWORD"
+  }
+}

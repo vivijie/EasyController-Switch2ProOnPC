@@ -1,0 +1,202 @@
+{
+  "version": 4,
+  "saved_at": "2026-11-07 20:48:39",
+  "calibration": {
+    "limits": {
+      "left": {
+        "min_x": -0.7699,
+        "max_x": 0.88424,
+        "min_y": -0.79033,
+        "max_y": 0.74168
+      },
+      "right": {
+        "min_x": -0.76436,
+        "max_x": 0.71879,
+        "min_y": -0.84932,
+        "max_y": 0.76033
+      }
+    },
+    "offsets": {
+      "left": {
+        "x": -0.01379,
+        "y": 0.06816
+      },
+      "right": {
+        "x": 0.03438,
+        "y": 0.02705
+      }
+    },
+    "saved_at": "2026-11-07 20:48:39",
+    "joystick_name": ""
+  },
+  "curve_points": {
+    "left": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.25
+      ],
+      [
+        0.5,
+        0.5
+      ],
+      [
+        0.75,
+        0.75
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "right": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.25
+      ],
+      [
+        0.5,
+        0.5
+      ],
+      [
+        0.75,
+        0.75
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ]
+  },
+  "params": {
+    "consistency_mode": {
+      "left": "global_min",
+      "right": "global_min"
+    },
+    "deadzone_config": {
+      "left": {
+        "deadzone": -0.05,
+        "outer_threshold": 0.9,
+        "response_curve": 1.0
+      },
+      "right": {
+        "deadzone": 0.0,
+        "outer_threshold": 1.0,
+        "response_curve": 1.0
+      }
+    },
+    "output_amplifier": {
+      "left_stick": 1.0,
+      "right_stick": 1.0
+    },
+    "square_deadzone_switch": {
+      "left_stick": 0,
+      "right_stick": 0
+    },
+    "square_mapping_strength": {
+      "left_stick": 0.3,
+      "right_stick": 0.0
+    },
+    "amplifier_mode": "radial",
+    "shape_algorithm": "circle",
+    "update_rate": 1000
+  },
+  "button_map": {
+    "0": {
+      "xinput": "A",
+      "keys": []
+    },
+    "1": {
+      "xinput": "B",
+      "keys": []
+    },
+    "2": {
+      "xinput": "X",
+      "keys": []
+    },
+    "3": {
+      "xinput": "Y",
+      "keys": []
+    },
+    "4": {
+      "xinput": "RB",
+      "keys": []
+    },
+    "5": {
+      "xinput": "RT",
+      "keys": []
+    },
+    "6": {
+      "xinput": "START",
+      "keys": []
+    },
+    "7": {
+      "xinput": "RS",
+      "keys": []
+    },
+    "8": {
+      "xinput": "DPAD_DOWN",
+      "keys": []
+    },
+    "9": {
+      "xinput": "DPAD_RIGHT",
+      "keys": []
+    },
+    "10": {
+      "xinput": "DPAD_LEFT",
+      "keys": []
+    },
+    "11": {
+      "xinput": "DPAD_UP",
+      "keys": []
+    },
+    "12": {
+      "xinput": "LB",
+      "keys": []
+    },
+    "13": {
+      "xinput": "LT",
+      "keys": []
+    },
+    "14": {
+      "xinput": "BACK",
+      "keys": []
+    },
+    "15": {
+      "xinput": "LS",
+      "keys": []
+    },
+    "16": {
+      "xinput": "START",
+      "keys": [
+        "alt",
+        "f10"
+      ]
+    },
+    "17": {
+      "xinput": "BACK",
+      "keys": [
+        "t"
+      ]
+    },
+    "18": {
+      "xinput": "X",
+      "keys": []
+    },
+    "19": {
+      "xinput": "A",
+      "keys": []
+    },
+    "20": {
+      "xinput": "None",
+      "keys": []
+    }
+  }
+}
