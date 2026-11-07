@@ -1135,6 +1135,33 @@ function positionInfo(index){
 }
 
 
+/* 出厂按键映射：与后端 DEFAULT_BUTTON_MAP 一致，用来判断"这颗键有没有被改过" */
+const DEFAULT_BUTTON_MAP = {
+  0: {xinput: 'A', keys: []},       1: {xinput: 'B', keys: []},
+  2: {xinput: 'X', keys: []},       3: {xinput: 'Y', keys: []},
+  4: {xinput: 'RB', keys: []},      5: {xinput: 'RT', keys: []},
+  6: {xinput: 'START', keys: []},   7: {xinput: 'RS', keys: []},
+  8: {xinput: 'DPAD_DOWN', keys: []},  9: {xinput: 'DPAD_RIGHT', keys: []},
+  10: {xinput: 'DPAD_LEFT', keys: []}, 11: {xinput: 'DPAD_UP', keys: []},
+  12: {xinput: 'LB', keys: []},     13: {xinput: 'LT', keys: []},
+  14: {xinput: 'BACK', keys: []},   15: {xinput: 'LS', keys: []},
+  16: {xinput: 'START', keys: ['alt', 'f10']},
+  17: {xinput: 'BACK', keys: ['t']},
+  18: {xinput: 'X', keys: []},      19: {xinput: 'A', keys: []},
+  20: {xinput: 'None', keys: []}
+};
+
+/* 这颗键是否保持出厂映射 */
+function isDefaultMapping(index, entry){
+  const def = DEFAULT_BUTTON_MAP[index];
+  if(!def) return true;
+  const keys = (entry.keys || []).filter(Boolean);
+  const defKeys = def.keys || [];
+  return entry.xinput === def.xinput &&
+         keys.length === defKeys.length &&
+         keys.every((k, i)=> k === defKeys[i]);
+}
+
 /* XInput 目标 → 手柄图上的短标签 */
 const XINPUT_LABELS = {
   'A': 'A', 'B': 'B', 'X': 'X', 'Y': 'Y',
@@ -1158,12 +1185,15 @@ function applyLabels(){
     const xinput = entry.xinput || 'None';
 
     let label = null;
-    if(keys.length){
+    if(isDefaultMapping(index, entry)){
+      // 没改过：按「手柄按键显示文字」的方案显示（Switch / Xbox / PS5）
+      label = table[index];
+    }else if(keys.length){
       label = keys.join('+');                // 键盘映射：完整组合键 alt+f10
     }else if(xinput && xinput !== 'None'){
-      label = XINPUT_LABELS[xinput] || xinput;
+      label = XINPUT_LABELS[xinput] || xinput;   // 改过的手柄键：显示实际输出
     }else{
-      label = table[index];                  // 未映射才回落到方案名
+      label = '—';                           // 改成了 None
     }
     if(label === undefined || label === null) return;
 
@@ -2339,22 +2369,6 @@ async function saveAll(auto){
 
 $('btnSaveAll').onclick = ()=> saveAll(false);
 $('btnSaveKeys').onclick = ()=> saveAll(false);
-
-/* 键位恢复出厂：与后端 DEFAULT_BUTTON_MAP 一致 */
-const DEFAULT_BUTTON_MAP = {
-  0: {xinput: 'A', keys: []},       1: {xinput: 'B', keys: []},
-  2: {xinput: 'X', keys: []},       3: {xinput: 'Y', keys: []},
-  4: {xinput: 'RB', keys: []},      5: {xinput: 'RT', keys: []},
-  6: {xinput: 'START', keys: []},   7: {xinput: 'RS', keys: []},
-  8: {xinput: 'DPAD_DOWN', keys: []},  9: {xinput: 'DPAD_RIGHT', keys: []},
-  10: {xinput: 'DPAD_LEFT', keys: []}, 11: {xinput: 'DPAD_UP', keys: []},
-  12: {xinput: 'LB', keys: []},     13: {xinput: 'LT', keys: []},
-  14: {xinput: 'BACK', keys: []},   15: {xinput: 'LS', keys: []},
-  16: {xinput: 'START', keys: ['alt', 'f10']},
-  17: {xinput: 'BACK', keys: ['t']},
-  18: {xinput: 'X', keys: []},      19: {xinput: 'A', keys: []},
-  20: {xinput: 'None', keys: []}
-};
 
 $('btnResetKeys').onclick = ()=>{
   MAPPING = JSON.parse(JSON.stringify(DEFAULT_BUTTON_MAP));
