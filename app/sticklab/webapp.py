@@ -360,6 +360,17 @@ class LabState(object):
                              'min_y': None, 'max_y': None} for side in sides}
             SECTORS = 36
             sectors = {side: [0] * SECTORS for side in sides}
+            sector_radius = {side: [0.0] * SECTORS for side in sides}
+
+            def slot_of(vx, vy):
+                import math as _math
+                angle = (_math.atan2(vy, vx) + _math.pi) / (2 * _math.pi)
+                return int(angle * SECTORS) % SECTORS
+
+            def _min_radius(side):
+                # 只统计真正推到外圈的扇区，避免没转到的方向拉低半径
+                reached = [r for r in sector_radius[side] if r >= 0.55]
+                return min(reached) if reached else 0.0
             state['coverage'] = {'left': list(sectors['left']),
                                  'right': list(sectors['right'])}
             points = 0
@@ -376,19 +387,22 @@ class LabState(object):
                         box['max_x'] = raw_x if box['max_x'] is None else max(box['max_x'], raw_x)
                         box['min_y'] = raw_y if box['min_y'] is None else min(box['min_y'], raw_y)
                         box['max_y'] = raw_y if box['max_y'] is None else max(box['max_y'], raw_y)
-                    # 记录扇区覆盖（幅度足够大才算）
+                    # 记录扇区覆盖 + 每个扇区能到达的最大半径
                     for index, side in enumerate(sides):
                         sx, sy = pair[index]
-                        scx = centers[side]['x']
-                        scy = centers[side]['y']
-                        vx, vy = sx - scx, sy - scy
-                        if (vx * vx + vy * vy) ** 0.5 > 0.62:
-                            import math as _math
-                            angle = (_math.atan2(vy, vx) + _math.pi) / (2 * _math.pi)
-                            slot = int(angle * SECTORS) % SECTORS
+                        vx, vy = sx - centers[side]['x'], sy - centers[side]['y']
+                        radius_now = (vx * vx + vy * vy) ** 0.5
+                        slot = slot_of(vx, vy)
+
+                        if radius_now > 0.62:
                             sectors[side][slot] = 1
+                        if radius_now > sector_radius[side][slot]:
+                            sector_radius[side][slot] = radius_now
+
                     state['coverage'] = {'left': list(sectors['left']),
                                          'right': list(sectors['right'])}
+                    state['radius_preview'] = {
+                        side: round(_min_radius(side), 4) for side in sides}
 
                     points += 1
                     state['points'] = points
@@ -456,6 +470,10 @@ class LabState(object):
                     candidate['min_y'], candidate['max_y'] = \
                         candidate['max_y'], candidate['min_y']
                 candidate = {k: round(v, 5) for k, v in candidate.items()}
+                # 最小可达半径：所有方向里最短的那个，用它做统一归一化
+                radius = _min_radius(side)
+                if radius > 0.05:
+                    candidate['radius'] = round(radius, 5)
                 candidates[side] = candidate
 
                 label = '左摇杆' if side == 'left' else '右摇杆'
@@ -513,6 +531,8 @@ class LabState(object):
                         cand['min_y'], cand['max_y']))
                 emit('  中心偏移:   X=%+.4f, Y=%+.4f'
                      % (centers[side]['x'], centers[side]['y']))
+                if 'radius' in cand:
+                    emit('  统一半径:   %.3f（各方向均按此归一化）' % cand['radius'])
             emit('=' * 80)
             emit()
 

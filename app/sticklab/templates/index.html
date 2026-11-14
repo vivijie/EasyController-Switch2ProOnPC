@@ -77,6 +77,8 @@
   .key-slot{width:46px;text-align:center;cursor:pointer;padding:5px 4px;
             font-size:12px}
   .key-slot:focus{border-color:var(--accent2)}
+  .shape-radios{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+  .shape-radios .radio-label{font-size:12px;color:var(--text)}
   .kv-pair{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;
            margin:0 0 14px;padding:10px 12px;background:#0e131a;
            border:1px solid var(--line);border-radius:8px;font-size:12px}
@@ -596,32 +598,39 @@
     </div>
 
     <div class="panel">
-      <h2>摇杆输出方、圆设置 <span class="hint">0 = 纯圆，1 = 纯方</span></h2>
+      <h2>摇杆输出模式 <span class="hint">圆形：按半径映射　矩形：X/Y 独立</span></h2>
       <div class="viz-grid">
         <div class="viz-box">
           <canvas id="shapeVizLeft" class="viz" width="190" height="190"></canvas>
           <div class="viz-controls">
             <div class="curve-title left">左摇杆</div>
-            <input type="range" id="shapeL" min="0" max="1" step="0.05">
-            <div class="kv"><span>方圆</span><span class="val" id="shapeL_v">0.00</span></div>
+            <div class="shape-radios">
+              <label class="radio-label"><input type="radio" name="shapeL"
+                     value="circle" checked> 圆形输出</label>
+              <label class="radio-label"><input type="radio" name="shapeL"
+                     value="square"> 矩形输出</label>
+            </div>
           </div>
         </div>
         <div class="viz-box">
           <canvas id="shapeVizRight" class="viz" width="190" height="190"></canvas>
           <div class="viz-controls">
             <div class="curve-title right">右摇杆</div>
-            <input type="range" id="shapeR" min="0" max="1" step="0.05">
-            <div class="kv"><span>方圆</span><span class="val" id="shapeR_v">0.00</span></div>
+            <div class="shape-radios">
+              <label class="radio-label"><input type="radio" name="shapeR"
+                     value="circle" checked> 圆形输出</label>
+              <label class="radio-label"><input type="radio" name="shapeR"
+                     value="square"> 矩形输出</label>
+            </div>
           </div>
         </div>
       </div>
     
         <div class="row" style="margin-top:6px">
           <label>快速设置</label>
-          <button class="ghost small" data-shape="left-square">左方右圆</button>
-          <button class="ghost small" data-shape="both-circle">左右都圆</button>
-          <button class="ghost small" data-shape="both-square">左右都方</button>
-          <span class="note">「方」= 30% 方</span>
+          <button class="ghost small" data-shape="both-circle">左右都圆形</button>
+          <button class="ghost small" data-shape="both-square">左右都矩形</button>
+          <button class="ghost small" data-shape="left-square">左矩形右圆形</button>
         </div>
       </div>
 
@@ -2439,7 +2448,7 @@ $('btnResetStick').onclick = ()=>{
 /* ---------------- 快速设置按钮 ---------------- */
 document.querySelectorAll('[data-shape]').forEach(btn=>{
   btn.onclick = ()=>{
-    const SQUARE = 0.3;      // 「方」按 30% 方
+    const SQUARE = 1.0;      // 矩形输出 = 1.0
     const kind = btn.dataset.shape;
     if(kind === 'both-circle'){
       PARAMS.square_mapping_strength.left_stick = 0;
@@ -2642,10 +2651,14 @@ function syncStickInputs(){
     if(label) label.textContent = Number(value).toFixed(digits);
   };
   const shape = PARAMS.square_mapping_strength || {left_stick: 0, right_stick: 0};
-  set('shapeL', 'shapeL_v', shape.left_stick, 2);
-  set('shapeR', 'shapeR_v', shape.right_stick, 2);
-  if($('shapeL_v')) $('shapeL_v').textContent = (shape.left_stick * 100).toFixed(0) + '%';
-  if($('shapeR_v')) $('shapeR_v').textContent = (shape.right_stick * 100).toFixed(0) + '%';
+  const setShapeRadio = (name, value)=>{
+    const mode = (value >= 0.5) ? 'square' : 'circle';
+    document.querySelectorAll('input[name=' + name + ']').forEach(radio=>{
+      radio.checked = (radio.value === mode);
+    });
+  };
+  setShapeRadio('shapeL', shape.left_stick);
+  setShapeRadio('shapeR', shape.right_stick);
 
   const dz = PARAMS.deadzone_config || {left: {}, right: {}};
 
@@ -2673,24 +2686,22 @@ function syncStickInputs(){
   drawAllViz();
 }
 
-$('shapeL').oninput = e=>{
-  const v = parseFloat(e.target.value);
-  PARAMS.square_mapping_strength.left_stick = v;
-  $('shapeL_v').textContent = (v * 100).toFixed(0) + '%';
-
-  drawAllViz();
-
-  markDirty();
-};
-$('shapeR').oninput = e=>{
-  const v = parseFloat(e.target.value);
-  PARAMS.square_mapping_strength.right_stick = v;
-  $('shapeR_v').textContent = (v * 100).toFixed(0) + '%';
-
-  drawAllViz();
-
-  markDirty();
-};
+document.querySelectorAll('input[name=shapeL]').forEach(radio=>{
+  radio.onchange = ()=>{
+    PARAMS.square_mapping_strength.left_stick =
+      radio.value === 'square' ? 1 : 0;
+    drawAllViz();
+    markDirty();
+  };
+});
+document.querySelectorAll('input[name=shapeR]').forEach(radio=>{
+  radio.onchange = ()=>{
+    PARAMS.square_mapping_strength.right_stick =
+      radio.value === 'square' ? 1 : 0;
+    drawAllViz();
+    markDirty();
+  };
+});
 $('dzL').oninput = e=>{
   const value = parseFloat(e.target.value);
   PARAMS.deadzone_config.left.deadzone = value;

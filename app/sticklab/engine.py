@@ -238,6 +238,11 @@ def normalize_calibration(raw):
                 value = offsets[stick].get(axis)
                 if isinstance(value, (int, float)):
                     result['offsets'][stick][axis] = float(value)
+        # 统一半径（最小可达半径）：有它就用它做归一化
+        if isinstance(limits, dict) and isinstance(limits.get(stick), dict):
+            radius = limits[stick].get('radius')
+            if isinstance(radius, (int, float)) and 0.05 < float(radius) <= 2.0:
+                result['limits'][stick]['radius'] = float(radius)
     for key in ('saved_at', 'joystick_name'):
         if isinstance(raw.get(key), str):
             result[key] = raw[key]
@@ -267,8 +272,15 @@ class CorrectedConsistentJoystickOptimizer:
                 min_positive_y = abs(calibrated_limits['max_y'])
                 min_negative_y = abs(calibrated_limits['min_y'])
 
-                global_min_range = min(min_positive_x, min_negative_x,
-                                       min_positive_y, min_negative_y)
+                # 优先用校准时算出的「最小可达半径」：
+                # 保证每个方向的物理极限都映射到 1.0，输出图形均匀
+                calibrated_radius = calibrated_limits.get('radius')
+                if isinstance(calibrated_radius, (int, float)) and \
+                        calibrated_radius > 0.05:
+                    global_min_range = float(calibrated_radius)
+                else:
+                    global_min_range = min(min_positive_x, min_negative_x,
+                                           min_positive_y, min_negative_y)
                 if global_min_range < 0.01:
                     global_min_range = 0.8      # 默认安全值
 
@@ -331,6 +343,20 @@ class CorrectedConsistentJoystickOptimizer:
 
         calibrated_limits = self.calibrated_physical_limits[stick_type]
         mode = calibrated_limits.get('consistency_mode', 'global_min')
+
+        # 矩形输出：每个轴按自己的行程归一化，两个轴都能推到满值
+        shape_strength = SQUARE_MAPPING_STRENGTH.get(
+            stick_type + '_stick', 0.0)
+        if (SHAPE_ALGORITHM != 'none' and shape_strength >= 0.5):
+            if axis_type == 'x':
+                span = (calibrated_limits['max_x'] if corrected_value >= 0
+                        else abs(calibrated_limits['min_x']))
+            else:
+                span = (calibrated_limits['max_y'] if corrected_value >= 0
+                        else abs(calibrated_limits['min_y']))
+            if span > 0.05:
+                return max(-1.0, min(1.0, corrected_value / span))
+            return max(-1.0, min(1.0, corrected_value))
 
         if mode == 'global_min':
             scale_factor = calibrated_limits['global_scale']
@@ -452,6 +478,38 @@ class AdvancedDeadzone:
 
 
 # ==================== 方形映射（原程序原样）====================
+
+def clamp_to_unit_circle(x, y):
+    """把输出按半径裁到单位圆内（方向不变）
+
+    物理摇杆行程大致是圆，但各方向能推到的半径略有差别。
+    按半径截断后，超出统一半径的部分被去掉，边界始终是正圆。
+    """
+    magnitude = (x * x + y * y) ** 0.5
+    if magnitude <= 1.0:
+        return x, y
+    scale = 1.0 / magnitude
+    return x * scale, y * scale
+
+
+def axis_deadzone_amplify(value, deadzone, outer_threshold):
+    """逐轴死区（与径向同样语义：放大后提前打满）"""
+    sign = 1.0 if value >= 0 else -1.0
+    magnitude = abs(value)
+
+    if deadzone < 0.0:
+        inner = 1.0 + deadzone
+    else:
+        if magnitude <= deadzone:
+            return 0.0
+        inner = 1.0 - deadzone
+
+    saturate_at = max(0.05, min(1.0, outer_threshold))
+    span = max(1e-6, inner * saturate_at)
+
+    return sign * min(magnitude / span, 1.0)
+
+
 def apply_square_mapping(x, y, strength):
     """圆形摇杆输出 → 方形输出，支持强度混合"""
     if x == 0 and y == 0:
@@ -603,60 +661,85 @@ class Engine(object):
         right_y = optimizer.normalize_joystick_value(right_raw[1], 'y', 'right')
         after_normalize = {'left': (left_x, left_y), 'right': (right_x, right_y)}
 
-        # ===== 第 2 步：死区（第一个算法）=====
-        # 死区改变的是边界：把 [deadzone, 1.0] 重新映射成 [0, 1.0]。
-        if SHAPE_ALGORITHM == 'none':
-            # 完全去掉方圆：逐轴独立做死区映射
-            cfg_left = DEADZONE_CONFIG['left']
-            cfg_right = DEADZONE_CONFIG['right']
-            left_x = apply_axis_deadzone_value(
-                left_x, cfg_left['deadzone'], cfg_left['outer_threshold'],
-                cfg_left['response_curve'])
-            left_y = apply_axis_deadzone_value(
-                left_y, cfg_left['deadzone'], cfg_left['outer_threshold'],
-                cfg_left['response_curve'])
-            right_x = apply_axis_deadzone_value(
-                right_x, cfg_right['deadzone'], cfg_right['outer_threshold'],
-                cfg_right['response_curve'])
-            right_y = apply_axis_deadzone_value(
-                right_y, cfg_right['deadzone'], cfg_right['outer_threshold'],
-                cfg_right['response_curve'])
-        else:
-            # 死区统一按径向处理：只改边界，不改形状
-            # （形状由第 4 步的方圆滑块 0~1 控制）
-            left_x, left_y = deadzone.apply_circular_deadzone(left_x, left_y, 'left')
-            right_x, right_y = deadzone.apply_circular_deadzone(right_x, right_y, 'right')
-        after_deadzone = {'left': (left_x, left_y), 'right': (right_x, right_y)}
+        # ===== 第 2~4 步：两条通路 + 方圆混合 =====
+        #
+        #   径向通路（圆）＝ 径向死区 → 径向曲线
+        #       边界是圆，但不过中心的直线会被半径缩放带弯（内凹）
+        #
+        #   逐轴通路（方）＝ x/y 各自死区 → 各自曲线
+        #       x、y 完全独立，横划就是严格直线，边界是方形
+        #
+        #   方圆滑块 = 两者混合比例：0 = 纯圆，1 = 纯方
+        #
+        def shape_strength(side):
+            if SHAPE_ALGORITHM == 'none':
+                return 0.0
+            raw = SQUARE_MAPPING_STRENGTH[side + '_stick']
+            value = max(0.0, min(1.0, raw))
+            if SHAPE_MAPPING_STRENGTH_OVERRIDE is not None:
+                value = max(0.0, min(1.0, SHAPE_MAPPING_STRENGTH_OVERRIDE))
+            return value
 
-        # ===== 第 3 步：曲线映射（死区之后、方圆之前）=====
-        # X = 摇杆物理行程（死区处理后），Y = 输出值。
+        def run_paths(x, y, side, curve_points):
+            cfg = DEADZONE_CONFIG[side]
+
+            # --- 径向通路 ---
+            rad_x, rad_y = deadzone.apply_circular_deadzone(x, y, side)
+            if not is_identity_curve(curve_points):
+                rad_x, rad_y = apply_radial_curve(rad_x, rad_y, curve_points)
+
+            # --- 逐轴通路 ---
+            axi_x = axis_deadzone_amplify(
+                x, cfg['deadzone'], cfg['outer_threshold'])
+            axi_y = axis_deadzone_amplify(
+                y, cfg['deadzone'], cfg['outer_threshold'])
+            if cfg.get('response_curve', 1.0) != 1.0:
+                axi_x = math.copysign(
+                    abs(axi_x) ** cfg['response_curve'], axi_x)
+                axi_y = math.copysign(
+                    abs(axi_y) ** cfg['response_curve'], axi_y)
+            if not is_identity_curve(curve_points):
+                axi_x = apply_axis_curve(axi_x, curve_points)
+                axi_y = apply_axis_curve(axi_y, curve_points)
+
+            return (rad_x, rad_y), (axi_x, axi_y)
+
         left_curve = CURVE_POINTS['left']
         right_curve = CURVE_POINTS['right']
-        if not is_identity_curve(left_curve):
-            left_x, left_y = apply_radial_curve(left_x, left_y, left_curve)
-        if not is_identity_curve(right_curve):
-            right_x, right_y = apply_radial_curve(right_x, right_y, right_curve)
-        after_curve = {'left': (left_x, left_y), 'right': (right_x, right_y)}
 
-        # ===== 第 4 步：方圆区域映射 =====
-        # shape='none'   → 跳过（纯逐轴，对角会到 1,1 即方形）
-        # shape='circle' → 不混合，保持圆形
-        # shape='square' → 强制方形映射 strength=1.0
-        if SHAPE_ALGORITHM == 'none':
-            left_shape = 0.0
-            right_shape = 0.0
+        (left_rx, left_ry), (left_ax, left_ay) = run_paths(
+            left_x, left_y, 'left', left_curve)
+        (right_rx, right_ry), (right_ax, right_ay) = run_paths(
+            right_x, right_y, 'right', right_curve)
+
+        after_deadzone = {
+            'left': (left_rx, left_ry),
+            'right': (right_rx, right_ry),
+        }
+        after_curve = {
+            'left': (left_rx, left_ry),
+            'right': (right_rx, right_ry),
+        }
+
+        left_shape = shape_strength('left')
+        right_shape = shape_strength('right')
+
+        if left_shape >= 1.0:
+            left_x, left_y = left_ax, left_ay
+        elif left_shape <= 0.0:
+            left_x, left_y = left_rx, left_ry
         else:
-            # 0 = 纯圆，1 = 纯方，中间线性混合（界面上的"方圆"滑块就是它）
-            left_shape = max(0.0, min(1.0,
-                                       SQUARE_MAPPING_STRENGTH['left_stick']))
-            right_shape = max(0.0, min(1.0,
-                                        SQUARE_MAPPING_STRENGTH['right_stick']))
-        if SHAPE_MAPPING_STRENGTH_OVERRIDE is not None:
-            left_shape = right_shape = SHAPE_MAPPING_STRENGTH_OVERRIDE
-        if left_shape > 0.0:
-            left_x, left_y = apply_square_mapping(left_x, left_y, left_shape)
-        if right_shape > 0.0:
-            right_x, right_y = apply_square_mapping(right_x, right_y, right_shape)
+            left_x = left_rx * (1.0 - left_shape) + left_ax * left_shape
+            left_y = left_ry * (1.0 - left_shape) + left_ay * left_shape
+
+        if right_shape >= 1.0:
+            right_x, right_y = right_ax, right_ay
+        elif right_shape <= 0.0:
+            right_x, right_y = right_rx, right_ry
+        else:
+            right_x = right_rx * (1.0 - right_shape) + right_ax * right_shape
+            right_y = right_ry * (1.0 - right_shape) + right_ay * right_shape
+
         after_square = {'left': (left_x, left_y), 'right': (right_x, right_y)}
 
         # ===== 第 5 步：增幅（对映射后的区域整体增幅）=====
@@ -664,7 +747,15 @@ class Engine(object):
         right_x, right_y = apply_output_amplifier(right_x, right_y, 'right_stick')
         after_amplifier = {'left': (left_x, left_y), 'right': (right_x, right_y)}
 
-        # ===== 第 6 步：限幅到 XInput 域 =====
+        # ===== 第 6 步：限幅 =====
+        # 圆形输出：按半径裁到单位圆，边界是正圆。
+        # 矩形输出：不做半径截断，保留方形边界（对角可到 1,1）。
+        if left_shape < 0.5:
+            left_x, left_y = clamp_to_unit_circle(left_x, left_y)
+        if right_shape < 0.5:
+            right_x, right_y = clamp_to_unit_circle(right_x, right_y)
+
+        # 再逐轴兜底，防止浮点误差越过 1.0
         left_x = max(-1.0, min(1.0, left_x))
         left_y = max(-1.0, min(1.0, left_y))
         right_x = max(-1.0, min(1.0, right_x))
